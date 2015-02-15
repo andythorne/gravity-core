@@ -1,0 +1,7 @@
+theme_layout_block:
+  resource: \GravityCMS\CoreBundle\Controller\Api\LayoutBlockController
+  type: rest
+
+theme_layout:
+  resource: \GravityCMS\CoreBundle\Controller\Api\LayoutController
+  type: rest

@@ -1,0 +1,84 @@
+{% extends 'GravityCMSCoreBundle:Theme:base.html.twig' %}
+{% set page_modules = ['cms/core/view/layout']|merge(page_modules|default([])) %}
+
+{% block page_title %}
+    Edit Layout
+{% endblock %}
+
+{% block page_desc %}
+    &nbsp;
+{% endblock %}
+
+{% block plugin %}
+
+
+    <div class="row">
+        <div class="row col-md-9">
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+
+            <h4>Layout Block Positions</h4>
+            {% for i,position in positions %}
+                <div class="table-responsive">
+                    <table class="table table-striped layout-table">
+                        <thead>
+                        <tr>
+                            <th colspan="3">{{ position.label }}</th>
+                        </tr>
+                        </thead>
+                        <tbody data-position="{{ position.name }}">
+                        <tr class="placeholder">
+                            <td colspan="3"><em>No Blocks</em></td>
+                        </tr>
+                        {#
+                        <tr class="block-row">
+                            <td width="20px">
+                                <button type="button" class="btn-link drag-handle"><i class="fa-arrows"></i></button>
+                            </td>
+                            <td>Name</td>
+                            <td>
+                                <a class="btn btn-default pull-right" href="#">
+                                    Configure
+                                </a>
+                            </td>
+                        </tr>
+                        #}
+
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-save"></i> Save
+            </button>
+            {{ form_end(form) }}
+
+        </div>
+        <div class="col-md-3">
+            <div class="panel colourable">
+                <div class="panel-heading">
+                    <span class="panel-title">Blocks</span>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group no-margin-hr">
+                        <select class="form-control new-block-selector">
+                            <option value="">Select New Block</option>
+                            {% for block in blocks %}
+                                <option value="{{ url('gravity_cms_admin_layout_block_new', {id: layout.configurationName, block: block.name}) }}">{{ block.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>- or -</br>
+                        <select class="form-control existing-block-selector">
+                            <option value="">Select Existing Block</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn btn-primary new-block-button pull-right" href="#">
+                        <i class="fa fa-plus"></i> Add Block
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+
+services:
+  #
+  # Form Types
+  gravity_cms.form.type.hidden_entity:
+      class: GravityCMS\Component\Form\Type\HiddenEntityIdType
+      tags:
+          - { name: form.type, alias: hidden_entity }
+
+#  gravity_cms.form.type.auto_complete:
+#      class: GravityCMS\Component\Form\Type\AutoCompleteType
+#      arguments:
+#        - @gravity_cms.auto_complete_manager
+#        - @router.default
+#      tags:
+#          - { name: form.type, alias: auto_complete }
+
+  gravity_cms.form.type.basic_route:
+      class: GravityCMS\Component\Form\Type\BasicRouteType
+      tags:
+          - { name: form.type, alias: basic_route }
