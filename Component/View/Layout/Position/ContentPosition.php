@@ -33,4 +33,15 @@ class ContentPosition implements PositionInterface
     {
         return '';
     }
+
+    /**
+     * (Optional) Default delta of the the position
+     *
+     * @return int
+     */
+    public function getDelta()
+    {
+        return 50;
+    }
+
 }

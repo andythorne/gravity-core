@@ -30,4 +30,11 @@ interface PositionInterface
      * @return string
      */
     public function getDescription();
+
+    /**
+     * (Optional) Default delta of the the position
+     *
+     * @return int
+     */
+    public function getDelta();
 }

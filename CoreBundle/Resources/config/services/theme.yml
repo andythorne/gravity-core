@@ -103,9 +103,6 @@ services:
 
   gravity_cms.theme.form.layout:
     class: GravityCMS\Component\View\Form\LayoutForm
-    arguments:
-      - @gravity_cms.theme.layout_manager
-      - @gravity_cms.theme.block_manager
     tags:
       - { name: form.type, alias: gravity_cms_layout }
 
@@ -117,6 +114,12 @@ services:
     tags:
       - { name: form.type, alias: gravity_cms_layout_block }
 
+  gravity_cms.theme.form.ayout_layout_position_block:
+      class: GravityCMS\Component\View\Form\LayoutLayoutPositionBlockForm
+      arguments:
+        - @doctrine.orm.default_entity_manager
+      tags:
+        - { name: form.type, alias: gravity_cms_layout_layout_position_block }
 
   #
   # Blocks
@@ -125,7 +128,7 @@ services:
     arguments:
       - @gravity_cms.config_manager
 
-  gravity_cms.theme.block.copyright:
-    class: GravityCMS\Component\View\Block\Block\Copyright\CopyrightBlock
+  gravity_cms.theme.block.text:
+    class: GravityCMS\CoreBundle\View\Block\Text\TextBlock
     tags:
       - { name: layout.block }

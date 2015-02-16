@@ -29,18 +29,6 @@ class BlockManager
         $this->configurationManager = $configurationManager;
     }
 
-
-    public function install()
-    {
-        // flush all the existing configurations
-        $this->configurationManager->flush('theme.layout.block.%');
-        foreach($this->blocks as $block)
-        {
-            $name = 'theme.block.' . $block->getName();
-            $this->configurationManager->create($name, $block);
-        }
-    }
-
     public function create($name, BlockInterface $block)
     {
         $config = $block->getDefaultConfiguration();
@@ -82,7 +70,7 @@ class BlockManager
      */
     public function addBlock(BlockInterface $block)
     {
-        $this->blocks[$block->getName()] = $block;
+        $this->blocks[$block->getType()] = $block;
     }
 
 

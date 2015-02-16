@@ -2,6 +2,9 @@
 
 namespace GravityCMS\CoreBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
+use GravityCMS\CoreBundle\Entity\Block;
+use GravityCMS\CoreBundle\Entity\Layout;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -9,19 +12,26 @@ class LayoutController extends Controller
 {
     public function listAction()
     {
-        $layoutManager = $this->get('gravity_cms.theme.layout_manager');
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $layouts = $entityManager->getRepository('GravityCMSCoreBundle:Layout')->findAll();
 
         return $this->render('GravityCMSCoreBundle:Theme/Layout:list.html.twig', array(
-            'layouts' => $layoutManager->getLayouts(),
+            'layouts' => $layouts,
         ));
     }
 
     public function newAction()
     {
-        $layoutManager       = $this->get('gravity_cms.theme.layout_manager');
-        $layoutConfiguration = $layoutManager->createLayout();
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm($layoutConfiguration->getForm(), $layoutConfiguration, array(
+        $positions = $entityManager->getRepository('GravityCMSCoreBundle:LayoutPosition')->findAll();
+        $blocks    = $entityManager->getRepository('GravityCMSCoreBundle:Block')->findAll();
+        $layout    = new Layout();
+
+        $form = $this->createForm('gravity_cms_layout', $layout, array(
             'method' => 'POST',
             'action' => $this->generateUrl('gravity_api_core_post_layout'),
             'attr'   => array(
@@ -29,32 +39,25 @@ class LayoutController extends Controller
             )
         ));
 
-//        $blockForm     = $this->createForm('gravity_cms_layout_block', null, array(
-//            'method' => 'POST',
-//            'action' => $this->generateUrl('gravity_api_core_post_block'),
-//            'attrs' => array(
-//                'class' => 'api-save',
-//            )
-//        ));
-
         return $this->render('GravityCMSCoreBundle:Theme/Layout:new.html.twig', array(
-            'positions' => $layoutManager->getPositions(),
-            'blocks'    => $layoutManager->getBlocks(),
+            'positions' => $positions,
+            'blocks'    => $blocks,
             'form'      => $form->createView(),
             //            'blockForm' => $blockForm->createView(),
         ));
     }
 
-    public function editAction($id)
+    public function editAction(Layout $layout)
     {
-        $configurationManager = $this->get('gravity_cms.config_manager');
-        $layoutManager        = $this->get('gravity_cms.theme.layout_manager');
-        $config               = $layoutManager->get($id);
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->getDoctrine()->getManager();
+        $positions     = $entityManager->getRepository('GravityCMSCoreBundle:LayoutPosition')->findAll();
+        $blocks        = $entityManager->getRepository('GravityCMSCoreBundle:Block')->findAll();
 
-        $form = $this->createForm($config->getForm(), $config, array(
+        $form = $this->createForm('gravity_cms_layout', $layout, array(
             'method' => 'PUT',
             'action' => $this->generateUrl('gravity_api_core_put_layout', array(
-                'id' => $configurationManager->getConfigurationName($config),
+                'id' => $layout->getId()
             )),
             'attr'   => array(
                 'class' => 'api-save',
@@ -62,34 +65,23 @@ class LayoutController extends Controller
         ));
 
         return $this->render('GravityCMSCoreBundle:Theme/Layout:edit.html.twig', array(
-            'layout'    => $config,
-            'positions' => $layoutManager->getPositions(),
-            'blocks'    => $layoutManager->getBlocks(),
-            'existingBLocks' => $layoutManager->getC
+            'layout'    => $layout,
+            'positions' => $positions,
+            'blocks'    => $blocks,
             'form'      => $form->createView(),
-            //            'blockForm' => $blockForm->createView(),
         ));
     }
 
-    public function newBlockAction(Request $request, $id)
+    public function newBlockAction(Request $request, Layout $layout, Block $block)
     {
-        $configurationManager = $this->get('gravity_cms.config_manager');
-        $layoutManager        = $this->get('gravity_cms.theme.layout_manager');
-        $blockManager         = $this->get('gravity_cms.theme.block_manager');
-        $layoutConfig         = $layoutManager->get($id);
+        $blockManager    = $this->get('gravity_cms.theme.block_manager');
+        $blockDefinition = $blockManager->getBlock($block->getType());
 
-        $blockName = $request->query->get('block');
-
-        if (!$blockName) {
-            throw $this->createNotFoundException('Block not found');
-        }
-        $block       = $blockManager->getBlock($blockName);
-        $blockConfig = $block->getDefaultConfiguration();
-        $form        = $this->createForm($blockConfig->getForm(), $blockConfig, array(
+        $form = $this->createForm($blockDefinition->getForm(), null, array(
             'method' => 'POST',
             'action' => $this->generateUrl('gravity_api_core_post_layout_block', array(
-                'layout' => $layoutConfig->getConfigurationName(),
-                'block'  => $blockName,
+                'layout' => $layout->getId(),
+                'block'  => $block->getId(),
             )),
             'attr'   => array(
                 'class' => 'api-save',
@@ -97,9 +89,9 @@ class LayoutController extends Controller
         ));
 
         return $this->render('GravityCMSCoreBundle:Theme/Layout:block-add.html.twig', array(
-            'layout'    => $layoutConfig,
-            'block'     => $block,
-            'form'      => $form->createView(),
+            'layout' => $layout,
+            'block'  => $block,
+            'form'   => $form->createView(),
         ));
     }
 }

@@ -33,4 +33,12 @@ class HeaderPosition implements PositionInterface
     {
         return '';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDelta()
+    {
+        return 10;
+    }
 }

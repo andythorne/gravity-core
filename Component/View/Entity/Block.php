@@ -27,6 +27,13 @@ abstract class Block
      *
      * @ORM\Column(type="string")
      */
+    protected $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
     protected $name;
 
     /**
@@ -37,9 +44,9 @@ abstract class Block
     protected $description;
 
     /**
-     * @var LayoutLayoutPosition[]
+     * @var LayoutLayoutPositionBlock[]
      *
-     * @ORM\ManyToMany(targetEntity="LayoutLayoutPosition", mappedBy="blocks")
+     * @ORM\ManyToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="blocks")
      */
     protected $layoutPositions;
 
@@ -49,6 +56,22 @@ abstract class Block
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
     /**

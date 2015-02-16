@@ -3,6 +3,7 @@
 namespace GravityCMS\Component\View\Block;
 
 use GravityCMS\Component\View\Block\Configuration\AbstractBlockConfiguration;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -14,6 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 interface BlockInterface
 {
     /**
+     * Get the block type (the identifier for this block)
+     *
+     * @return string
+     */
+    public function getType();
+
+    /**
      * Get the block name
      *
      * @return string
@@ -21,16 +29,18 @@ interface BlockInterface
     public function getName();
 
     /**
-     * Get the parent name
+     * Get the block description
      *
      * @return string
      */
-    public function getParent();
+    public function getDescription();
 
     /**
-     * @return AbstractBlockConfiguration
+     * Get the block's entity form
+     *
+     * @return string|AbstractType
      */
-    public function getDefaultConfiguration();
+    public function getForm();
 
     /**
      * Fetch the template name

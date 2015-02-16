@@ -33,4 +33,12 @@ class NavigationPosition implements PositionInterface
     {
         return '';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDelta()
+    {
+        return 5;
+    }
 }

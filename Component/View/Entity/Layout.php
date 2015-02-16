@@ -4,6 +4,7 @@ namespace GravityCMS\Component\View\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use GravityCMS\CoreBundle\Entity\LayoutPosition;
 
 /**
  * Class Layout
@@ -38,9 +39,9 @@ abstract class Layout
     protected $description;
 
     /**
-     * @var LayoutLayoutPosition[]
+     * @var LayoutLayoutPositionBlock[]
      *
-     * @ORM\OneToMany(targetEntity="LayoutLayoutPosition", mappedBy="layout")
+     * @ORM\OneToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="layout")
      */
     protected $positions;
 
@@ -95,6 +96,38 @@ abstract class Layout
     public function getPositions()
     {
         return $this->positions;
+    }
+
+    /**
+     * @return Block[]
+     */
+    public function getBlocks()
+    {
+        $blockData = array();
+        foreach($this->positions as $position)
+        {
+            $blockData[$position->getPosition()->getId()][] = $position->getBlock();
+        }
+
+        return $blockData;
+    }
+
+    /**
+     * @param LayoutPosition $position
+     *
+     * @return Block[]
+     */
+    public function getPositionBlocks(LayoutPosition $position)
+    {
+        $blockData = array();
+        foreach($this->positions as $blockPosition)
+        {
+            if($position->getId() === $blockPosition->getPosition()->getId()) {
+                $blockData[] = $blockPosition->getBlock();
+            }
+        }
+
+        return $blockData;
     }
 
     /**

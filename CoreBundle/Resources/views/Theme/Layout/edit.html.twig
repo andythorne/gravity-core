@@ -16,6 +16,7 @@
         <div class="row col-md-9">
             {{ form_start(form) }}
             {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
 
             <h4>Layout Block Positions</h4>
             {% for i,position in positions %}
@@ -23,27 +24,27 @@
                     <table class="table table-striped layout-table">
                         <thead>
                         <tr>
-                            <th colspan="3">{{ position.label }}</th>
+                            <th colspan="3"><abbr title="{{ position.description }}">{{ position.name }}</abbr></th>
                         </tr>
                         </thead>
-                        <tbody data-position="{{ position.name }}">
+                        <tbody data-position="{{ position.id }}">
                         <tr class="placeholder">
                             <td colspan="3"><em>No Blocks</em></td>
                         </tr>
-                        {#
-                        <tr class="block-row">
-                            <td width="20px">
-                                <button type="button" class="btn-link drag-handle"><i class="fa-arrows"></i></button>
-                            </td>
-                            <td>Name</td>
-                            <td>
-                                <a class="btn btn-default pull-right" href="#">
-                                    Configure
-                                </a>
-                            </td>
-                        </tr>
-                        #}
-
+                        {% set blockPositions = layout.positionBlocks(position) %}
+                        {% for blockPosition in blockPositions %}
+                            <tr class="block-row">
+                                <td width="20px">
+                                    <button type="button" class="btn-link drag-handle"><i class="fa-arrows"></i></button>
+                                </td>
+                                <td>{{ blockPosition.name }}</td>
+                                <td>
+                                    <a class="btn btn-default pull-right" href="#">
+                                        Configure
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -65,16 +66,16 @@
                         <select class="form-control new-block-selector">
                             <option value="">Select New Block</option>
                             {% for block in blocks %}
-                                <option value="{{ url('gravity_cms_admin_layout_block_new', {id: layout.configurationName, block: block.name}) }}">{{ block.name }}</option>
+                                <option value="{{ url('gravity_cms_admin_layout_block_new', {layout: layout.id, block: block.id}) }}">{{ block.name|capitalize }}</option>
                             {% endfor %}
                         </select>
-                        <br>- or -</br>
+                        - or -<br/>
                         <select class="form-control existing-block-selector">
                             <option value="">Select Existing Block</option>
                         </select>
                     </div>
 
-                    <button type="button" class="btn btn-primary new-block-button pull-right" href="#">
+                    <button type="button" class="btn btn-primary new-block-button pull-right">
                         <i class="fa fa-plus"></i> Add Block
                     </button>
                 </div>

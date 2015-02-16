@@ -1,49 +1,44 @@
 <?php
-/**
- * Created by Andy Thorne
- *
- * @author Andy Thorne <contrabandvr@gmail.com>
- */
-
 namespace GravityCMS\Component\View\Form;
 
-
-use GravityCMS\Component\Configuration\Form\ConfigurationSettingsForm;
-use GravityCMS\Component\View\Block\BlockManager;
-use GravityCMS\Component\View\Layout\LayoutManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LayoutForm extends ConfigurationSettingsForm
+/**
+ * Class LayoutForm
+ *
+ * @package GravityCMS\Component\View\Form
+ * @author  Andy Thorne <contrabandvr@gmail.com>
+ */
+class LayoutForm extends AbstractType
 {
-    /**
-     * @var LayoutManager
-     */
-    protected $layoutManager;
-
-    protected $positionOptions = array();
-    protected $blockOptions = array();
-
-    function __construct(LayoutManager $layoutManager, BlockManager $blockManager)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->layoutManager = $layoutManager;
+        $builder
+            ->add('name', 'text')
+            ->add('description', 'text');
 
-        $positions = $layoutManager->getPositions();
-        foreach($positions as $position)
-        {
-            $this->positionOptions[$position->getName()] = $position->getLabel();
-        }
-
-        $blocks = $blockManager->getBlocks();
-        foreach($blocks as $block)
-        {
-            $this->blockOptions[$block->getName()] = $block->getName();
-        }
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            if ($event->getData()->getId()) {
+                $event->getForm()->add('positions', 'collection', array(
+                    'type'    => 'gravity_cms_layout_layout_position_block',
+                    'options' => array(
+                        'data_class'          => 'GravityCMS\CoreBundle\Entity\LayoutLayoutPositionBlock',
+                        'position_data_class' => 'GravityCMS\CoreBundle\Entity\LayoutPosition',
+                    ),
+                ));
+            }
+        });
     }
 
-    protected function buildConfigForm(FormBuilderInterface $builder, array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-
+        $resolver->setDefaults(array(
+            'data_class' => 'GravityCMS\Component\View\Entity\Layout',
+        ));
     }
 
     /**

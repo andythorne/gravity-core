@@ -46,9 +46,9 @@ abstract class LayoutPosition
     protected $delta;
 
     /**
-     * @var LayoutLayoutPosition[]
+     * @var LayoutLayoutPositionBlock[]
      *
-     * @ORM\OneToMany(targetEntity="LayoutLayoutPosition", mappedBy="position")
+     * @ORM\OneToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="position")
      */
     protected $layouts;
 

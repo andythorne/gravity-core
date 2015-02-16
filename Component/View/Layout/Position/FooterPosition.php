@@ -33,4 +33,12 @@ class FooterPosition implements PositionInterface
     {
         return '';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDelta()
+    {
+        return 100;
+    }
 }

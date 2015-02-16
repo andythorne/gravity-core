@@ -16,5 +16,19 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class BlockData
 {
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     */
+    protected $id;
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

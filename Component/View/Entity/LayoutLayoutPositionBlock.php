@@ -12,13 +12,23 @@ use Doctrine\ORM\Mapping as ORM;
  * @author  Andy Thorne <contrabandvr@gmail.com>
  *
  * @ORM\MappedSuperclass
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn("field_type")
  */
-abstract class LayoutLayoutPosition
+abstract class LayoutLayoutPositionBlock
 {
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;
+
     /**
      * @var Layout
      *
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Layout", inversedBy="positions")
      * @ORM\JoinColumn(name="layout_id", referencedColumnName="id")
      */
@@ -27,33 +37,25 @@ abstract class LayoutLayoutPosition
     /**
      * @var LayoutPosition
      *
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="LayoutPosition", inversedBy="layouts")
      * @ORM\JoinColumn(name="layout_position_id", referencedColumnName="id")
      */
     protected $position;
 
     /**
-     * @var Block[]
+     * @var Block
      *
-     * @ORM\ManyToMany(targetEntity="BlockData", inversedBy="layoutPositions")
-     * @ORM\JoinTable(
-     *      name="layout_layout_position_block",
-     *      joinColumns={
-     *          @ORM\JoinColumn(name="layout_id", referencedColumnName="layout_id"),
-     *          @ORM\JoinColumn(name="layout_position_id", referencedColumnName="layout_position_id")
-     *      },
-     *      inverseJoinColumns={
-     *          @ORM\JoinColumn(name="block_id", referencedColumnName="id", unique=true)
-     *      }
-     * )
+     * @ORM\ManyToOne(targetEntity="Block")
+     * @ORM\JoinColumn(name="block_id", referencedColumnName="id")
      */
-    protected $blocks;
+    protected $block;
 
-
-    function __construct()
+    /**
+     * @return int
+     */
+    public function getId()
     {
-        $this->blocks = new ArrayCollection();
+        return $this->id;
     }
 
     /**
@@ -91,24 +93,16 @@ abstract class LayoutLayoutPosition
     /**
      * @return Block
      */
-    public function getBlocks()
+    public function getBlock()
     {
-        return $this->blocks;
+        return $this->block;
     }
 
     /**
      * @param Block $block
      */
-    public function addBlock(Block $block)
+    public function setBlock(Block $block)
     {
-        $this->blocks[] = $block;
-    }
-
-    /**
-     * @param Block $block
-     */
-    public function removeBlock(Block $block)
-    {
-        $this->blocks->removeElement($block);
+        $this->block = $block;
     }
 }

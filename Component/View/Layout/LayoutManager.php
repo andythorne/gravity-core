@@ -4,6 +4,7 @@ namespace GravityCMS\Component\View\Layout;
 
 use GravityCMS\Component\Configuration\ConfigurationInterface;
 use GravityCMS\Component\Configuration\ConfigurationManager;
+use GravityCMS\Component\View\Block\BlockInterface;
 use GravityCMS\Component\View\Block\BlockManager;
 use GravityCMS\Component\View\Layout\Configuration\LayoutConfiguration;
 use GravityCMS\Component\View\Layout\Position\PositionInterface;
@@ -38,6 +39,9 @@ class LayoutManager
         return $this->configurationManager->getSet('layout:%');
     }
 
+    /**
+     * @return BlockInterface[]
+     */
     public function getBlocks()
     {
         return $this->blockManager->getBlocks();

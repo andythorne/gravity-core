@@ -21,13 +21,14 @@ class Block extends BlockModel
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
     /**
-     * @var LayoutLayoutPosition[]
+     * @var LayoutLayoutPositionBlock[]
      *
-     * @ORM\ManyToMany(targetEntity="LayoutLayoutPosition", mappedBy="blocks")
+     * @ORM\OneToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="block")
      */
     protected $layoutPositions;
 
