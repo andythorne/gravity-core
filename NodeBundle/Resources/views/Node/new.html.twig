@@ -1,0 +1,29 @@
+{% extends '@plugin_content_management/Node/base.html.twig' %}
+{% set page_modules = ['cms/content_management/node/form'] %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ url('nefarian_plugin_content_management_node_create_select') }}">Create</a></li>
+{% endblock %}
+
+{% block head_javascripts %}
+    {% set page_modules = page_modules | merge(editor.assets) %}
+    {% for field in fields %}
+        {% for library in field.widget.assetLibraries %}
+            {% set page_modules = page_modules | merge(library.javascripts) %}
+        {% endfor %}
+    {% endfor %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page_title %}
+    New {{ contentType.name }} Node
+{% endblock %}
+
+{% block page_desc %}
+
+{% endblock %}
+
+{% block plugin %}
+    {% include '@plugin_content_management/Node/form.html.twig' %}
+{% endblock %}

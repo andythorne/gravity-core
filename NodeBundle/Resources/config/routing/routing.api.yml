@@ -1,0 +1,16 @@
+api_content_type:
+  type:         rest
+  resource:     GravityCMS\NodeBundle\Controller\Api\ContentTypeController
+
+api_content_type_field:
+    type:         rest
+    resource:     GravityCMS\NodeBundle\Controller\Api\ContentTypeFieldController
+    parent:       api_content_type
+
+api_content_type_routing:
+    type:         rest
+    resource:     GravityCMS\NodeBundle\Controller\Api\RoutingController
+
+api_node:
+  type:         rest
+  resource:     GravityCMS\NodeBundle\Controller\Api\NodeController

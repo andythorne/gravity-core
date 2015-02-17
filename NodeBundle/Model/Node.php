@@ -1,113 +1,131 @@
 <?php
 
-namespace GravityCMS\CoreBundle\Entity\Content;
+namespace GravityCMS\NodeBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\Entity\AbstractEntity;
 use GravityCMS\CoreBundle\Entity\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="node")
+ * Class Node
+ *
+ * @package GravityCMS\NodeBundle\Model
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class Node extends AbstractEntity
+class Node
 {
+
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
      */
     protected $id;
 
     /**
-     * @var NodeData[]
-     *
-     * @ORM\OneToMany(targetEntity="NodeData", mappedBy="entity")
+     * @var string
      */
-    protected $content;
+    protected $path;
 
     /**
      * @var Route
-     *
-     * @ORM\ManyToOne(targetEntity="GravityCMS\CoreBundle\Entity\Route")
      */
     protected $route;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=150)
      */
     protected $title;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      */
     protected $description;
 
     /**
+     * @var ContentType
+     */
+    protected $contentType;
+
+    /**
+     * @var NodeContent[]
+     */
+    protected $contents;
+
+    /**
      * @var boolean
-     *
-     * @ORM\Column(type="boolean")
      */
     protected $published = true;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="published_on")
      */
     protected $publishedOn;
 
     /**
      * @var UserInterface
-     *
-     * @ORM\ManyToOne(targetEntity="GravityCMS\CoreBundle\Entity\User")
-     * @ORM\JoinColumn(name="published_by_id")
      */
     protected $publishedBy;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="created_on")
      */
     protected $createdOn;
 
     /**
      * @var UserInterface
-     *
-     * @ORM\ManyToOne(targetEntity="GravityCMS\CoreBundle\Entity\User")
-     * @ORM\JoinColumn(name="create_by_id")
      */
     protected $createdBy;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime", name="edited_on")
+     * @var UserInterface
      */
-    protected $editedOn;
+    protected $deletedBy;
+
+    /**
+     * @var \DateTime
+     */
+    protected $deletedOn;
 
     /**
      * @var UserInterface
-     *
-     * @ORM\ManyToOne(targetEntity="GravityCMS\CoreBundle\Entity\User")
-     * @ORM\JoinColumn(name="edited_by_id")
      */
     protected $editedBy;
+
+    /**
+     * @var \DateTime
+     */
+    protected $editedOn;
 
     function __construct()
     {
         // setup default values
-        $this->content = new ArrayCollection();
+        $this->contents = new ArrayCollection();
         $this->createdOn = new \DateTime();
         $this->publishedOn = new \DateTime();
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param ContentType $contentType
+     */
+    public function setContentType(ContentType $contentType)
+    {
+        $this->contentType = $contentType;
+    }
+
+    /**
+     * @return ContentType
+     */
+    public function getContentType()
+    {
+        return $this->contentType;
     }
 
     /**
@@ -140,6 +158,38 @@ class Node extends AbstractEntity
     public function getCreatedOn()
     {
         return $this->createdOn;
+    }
+
+    /**
+     * a@param UserInterface $deletedBy
+     */
+    public function setDeletedBy(UserInterface $deletedBy)
+    {
+        $this->deletedBy = $deletedBy;
+    }
+
+    /**
+     * @return UserInterface
+     */
+    public function getDeletedBy()
+    {
+        return $this->deletedBy;
+    }
+
+    /**
+     * @param \DateTime $deletedOn
+     */
+    public function setDeletedOn(\DateTime $deletedOn)
+    {
+        $this->deletedOn = $deletedOn;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDeletedOn()
+    {
+        return $this->deletedOn;
     }
 
     /**
@@ -188,6 +238,22 @@ class Node extends AbstractEntity
     public function getEditedOn()
     {
         return $this->editedOn;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**
@@ -269,4 +335,31 @@ class Node extends AbstractEntity
     {
         return $this->title;
     }
-}
+
+    /**
+     * @return NodeContent[]
+     */
+    public function getContents()
+    {
+        return $this->contents;
+    }
+
+    /**
+     * @param NodeContent $nodeContent
+     */
+    public function addContent(NodeContent $nodeContent)
+    {
+        $this->contents[] = $nodeContent;
+        $nodeContent->setNode($this);
+    }
+
+    /**
+     * @param NodeContent $nodeContent
+     */
+    public function removeContent(NodeContent $nodeContent)
+    {
+        $this->contents->removeElement($nodeContent);
+    }
+
+
+} 

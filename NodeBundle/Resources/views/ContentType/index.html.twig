@@ -1,0 +1,54 @@
+{% extends '@plugin_content_management/base.html.twig' %}
+
+{% set page_modules = ['cms/content_management/type/type'] %}
+
+{% block page_title %}
+    Content Types
+{% endblock %}
+
+{% block page_desc %}
+    Create and Manage all content types
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="#"><i class="fa-th"></i> All Content Types</a></li>
+{% endblock %}
+
+{% block plugin %}
+    <a class="btn btn-default" href="{{ url('nefarian_plugin_content_management_content_type_new') }}">
+        <i class="fa-plus"></i> New Content Type
+    </a>
+
+    <div class="responsive-table">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="70%">Name</th>
+                    <th width="30%">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contentType in contentTypes %}
+                    <tr>
+                        <td>{{ contentType.label }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{{ url('nefarian_plugin_content_management_content_type_edit', {type: contentType.name}) }}" class="btn btn-primary">Edit</a>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('nefarian_plugin_content_management_content_type_edit', {type: contentType.name}) }}">View</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ url('nefarian_api_content_management_delete_type', {id: contentType.id}) }}" class="content-type-delete text-danger"><i class="fa-trash-o"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
