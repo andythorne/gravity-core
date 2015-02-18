@@ -4,7 +4,7 @@ namespace GravityCMS\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\View\Entity\LayoutPosition as LayoutPositionModel;
+use GravityCMS\Component\Theme\Entity\LayoutPosition as LayoutPositionModel;
 
 /**
  * Class LayoutPosition
@@ -15,7 +15,7 @@ use GravityCMS\Component\View\Entity\LayoutPosition as LayoutPositionModel;
 class  LayoutPosition extends LayoutPositionModel
 {
     /**
-     * @var LayoutLayoutPositionBlock[]
+     * @var LayoutPositionBlock[]
      */
     protected $layouts;
 }

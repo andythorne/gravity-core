@@ -7,6 +7,6 @@
     <field name="name" type="string" column="name" precision="0" scale="0" nullable="false"/>
     <field name="description" type="string" column="description" precision="0" scale="0" nullable="false"/>
     <field name="delta" type="integer" column="delta" precision="0" scale="0" nullable="false"/>
-    <one-to-many field="layouts" target-entity="GravityCMS\CoreBundle\Entity\LayoutLayoutPositionBlock" mapped-by="position"/>
+    <one-to-many field="layouts" target-entity="GravityCMS\CoreBundle\Entity\LayoutPositionBlock" mapped-by="position"/>
   </entity>
 </doctrine-mapping>

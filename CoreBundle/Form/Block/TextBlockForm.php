@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Class TextBlockForm
  *
- * @package GravityCMS\Component\View\Block\Block\Text
+ * @package GravityCMS\CoreBundle\Form\Block
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class TextBlockForm extends AbstractType

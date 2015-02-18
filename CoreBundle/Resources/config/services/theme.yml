@@ -71,10 +71,10 @@ services:
   #
   # Views
   gravity_cms.view_manager:
-    class: GravityCMS\Component\View\ViewManager
+    class: GravityCMS\Component\Theme\View\ViewManager
 
   gravity_cms.theme.layout_manager:
-    class: GravityCMS\Component\View\Layout\LayoutManager
+    class: GravityCMS\Component\Theme\Layout\LayoutManager
     arguments:
       - @gravity_cms.config_manager
       - @gravity_cms.theme.block_manager
@@ -82,40 +82,40 @@ services:
   #
   # Layout Positions
   gravity_cms.theme.layout.position.header:
-    class: GravityCMS\Component\View\Layout\Position\HeaderPosition
+    class: GravityCMS\Component\Theme\Layout\Position\HeaderPosition
     tags:
       - { name: layout.position }
 
   gravity_cms.theme.layout.position.content:
-    class: GravityCMS\Component\View\Layout\Position\ContentPosition
+    class: GravityCMS\Component\Theme\Layout\Position\ContentPosition
     tags:
       - { name: layout.position }
 
   gravity_cms.theme.layout.position.footer:
-    class: GravityCMS\Component\View\Layout\Position\FooterPosition
+    class: GravityCMS\Component\Theme\Layout\Position\FooterPosition
     tags:
       - { name: layout.position }
 
   gravity_cms.theme.layout.position.navigation:
-    class: GravityCMS\Component\View\Layout\Position\NavigationPosition
+    class: GravityCMS\Component\Theme\Layout\Position\NavigationPosition
     tags:
       - { name: layout.position }
 
   gravity_cms.theme.form.layout:
-    class: GravityCMS\Component\View\Form\LayoutForm
+    class: GravityCMS\Component\Theme\Form\LayoutForm
     tags:
       - { name: form.type, alias: gravity_cms_layout }
 
 
   gravity_cms.theme.form.layout_block:
-    class: GravityCMS\Component\View\Form\LayoutBlockForm
+    class: GravityCMS\Component\Theme\Form\LayoutBlockForm
     arguments:
       - @gravity_cms.theme.block_manager
     tags:
       - { name: form.type, alias: gravity_cms_layout_block }
 
   gravity_cms.theme.form.ayout_layout_position_block:
-      class: GravityCMS\Component\View\Form\LayoutLayoutPositionBlockForm
+      class: GravityCMS\Component\Theme\Form\LayoutPositionBlockForm
       arguments:
         - @doctrine.orm.default_entity_manager
       tags:
@@ -124,7 +124,7 @@ services:
   #
   # Blocks
   gravity_cms.theme.block_manager:
-    class: GravityCMS\Component\View\Block\BlockManager
+    class: GravityCMS\Component\Theme\Block\BlockManager
     arguments:
       - @gravity_cms.config_manager
 

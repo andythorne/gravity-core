@@ -6,7 +6,7 @@ use GravityCMS\CoreBundle\Controller\Api\Event\ApiEvent;
 use GravityCMS\CoreBundle\Controller\Api\Event\ApiEvents;
 use GravityCMS\CoreBundle\Entity\Block;
 use GravityCMS\CoreBundle\Entity\Layout;
-use GravityCMS\CoreBundle\Entity\LayoutLayoutPositionBlock;
+use GravityCMS\CoreBundle\Entity\LayoutPositionBlock;
 use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
@@ -116,7 +116,7 @@ class LayoutController extends AbstractApiController
         $form->submit($payload[$formType->getName()]);
 
         if ($form->isValid()) {
-            /** @var LayoutLayoutPositionBlock $entity */
+            /** @var LayoutPositionBlock $entity */
             $entity          = $form->getData();
             $eventDispatcher = $this->get('event_dispatcher');
 

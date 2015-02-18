@@ -3,7 +3,6 @@
 namespace GravityCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\View\Block\Block\Text\BlockTextModel;
 
 /**
  * Class BlockText
@@ -11,7 +10,7 @@ use GravityCMS\Component\View\Block\Block\Text\BlockTextModel;
  * @package GravityCMS\CoreBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class BlockText extends LayoutLayoutPositionBlock
+class BlockText extends LayoutPositionBlock
 {
     /**
      * @var string

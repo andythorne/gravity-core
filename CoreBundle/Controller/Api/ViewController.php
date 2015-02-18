@@ -2,7 +2,7 @@
 
 namespace GravityCMS\CoreBundle\Controller\Api;
 
-use GravityCMS\Component\View\DataTable\ViewDataTableType;
+use GravityCMS\Component\Theme\View\DataTable\ViewDataTableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

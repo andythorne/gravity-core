@@ -2,7 +2,7 @@
 
 namespace GravityCMS\CoreBundle\View\Block\Text;
 
-use GravityCMS\Component\View\Block\AbstractBlock;
+use GravityCMS\Component\Theme\Block\AbstractBlock;
 use GravityCMS\CoreBundle\Form\Block\TextBlockForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class TextBlock
  *
- * @package GravityCMS\Component\View\Block\Block\Text
+ * @package GravityCMS\CoreBundle\View\Block\Text
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class TextBlock extends AbstractBlock
