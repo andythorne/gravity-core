@@ -1,3 +1,5 @@
+#
+# Themes
 theme_list:
   path: /theme
   defaults: { _controller: GravityCMSCoreBundle:Theme:list }
@@ -6,6 +8,8 @@ theme_new:
   path: /theme/new
   defaults: { _controller: GravityCMSCoreBundle:Theme:new }
 
+#
+# Layouts
 layout_list:
   path: /theme/layout
   defaults: { _controller: GravityCMSCoreBundle:Layout:list }
@@ -21,4 +25,14 @@ layout_edit:
 layout_block_new:
   path: /theme/layout/{layout}/block/{block}/new
   defaults: { _controller: GravityCMSCoreBundle:Layout:newBlock }
+
+#
+# Views
+theme_view_list:
+  path: /theme/view
+  defaults: { _controller: GravityCMSCoreBundle:View:list }
+
+theme_view_new:
+  path: /theme/view/new
+  defaults: { _controller: GravityCMSCoreBundle:View:new }
 

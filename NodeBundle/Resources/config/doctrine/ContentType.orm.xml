@@ -12,12 +12,12 @@
 
         <field name="name" type="string" column="name" length="100" nullable="false"/>
         <field name="label" type="string" column="label" length="100" nullable="false"/>
-        <field name="pathFormat" type="string" column="path_format" length="255" nullable="false"/>
         <field name="description" type="string" column="description" length="255" nullable="true"/>
 
         <one-to-many target-entity="Node" mapped-by="contentType" field="nodes" orphan-removal="true">
         </one-to-many>
-        <one-to-many target-entity="ContentTypeField" mapped-by="contentType" field="typeFields" orphan-removal="true">
+
+        <one-to-many target-entity="ContentTypeField" mapped-by="contentType" field="contentTypeFields" orphan-removal="true">
             <order-by>
                 <order-by-field name="order" direction="ASC"/>
             </order-by>

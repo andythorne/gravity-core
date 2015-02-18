@@ -1,3 +1,0 @@
-node_list:
-  path: /node/new
-  defaults: { _controller: GravityCMSCoreBundle:Node:list }

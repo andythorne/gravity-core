@@ -19,23 +19,13 @@ abstract class AbstractEntity
     protected $id;
 
     /**
-     * @var string
+     * @var AbstractEntityField[]
      */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @var AbstractEntityData[]
-     */
-    protected $content;
+    protected $fields;
 
     function __construct()
     {
-        $this->content = new ArrayCollection();
+        $this->fields = new ArrayCollection();
     }
 
     /**
@@ -47,59 +37,27 @@ abstract class AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return AbstractEntityField[]
      */
-    public function getName()
+    public function getFields()
     {
-        return $this->name;
+        return $this->fields;
     }
 
     /**
-     * @param mixed $name
+     * @param AbstractEntityField $field
      */
-    public function setName($name)
+    public function addField(AbstractEntityField $field)
     {
-        $this->name = $name;
+        $this->fields[] = $field;
+        $field->setEntity($this);
     }
 
     /**
-     * @return mixed
+     * @param AbstractEntityField $field
      */
-    public function getDescription()
+    public function removeField(AbstractEntityField $field)
     {
-        return $this->description;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return AbstractEntityData[]
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @param AbstractEntityData $content
-     */
-    public function addContent(AbstractEntityData $content)
-    {
-        $this->content[] = $content;
-        $content->setEntity($this);
-    }
-
-    /**
-     * @param AbstractEntityData $content
-     */
-    public function removeContent(AbstractEntityData $content)
-    {
-        $this->content->removeElement($content);
+        $this->fields->removeElement($field);
     }
 }

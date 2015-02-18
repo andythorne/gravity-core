@@ -1,6 +1,6 @@
 <?php
 
-namespace GravityCMS\CoreBundle\Model;
+namespace GravityCMS\Component\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

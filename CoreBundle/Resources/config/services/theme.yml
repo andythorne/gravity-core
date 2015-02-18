@@ -114,7 +114,7 @@ services:
     tags:
       - { name: form.type, alias: gravity_cms_layout_block }
 
-  gravity_cms.theme.form.ayout_layout_position_block:
+  gravity_cms.theme.form.layout_layout_position_block:
       class: GravityCMS\Component\Theme\Form\LayoutPositionBlockForm
       arguments:
         - @doctrine.orm.default_entity_manager
@@ -129,6 +129,6 @@ services:
       - @gravity_cms.config_manager
 
   gravity_cms.theme.block.text:
-    class: GravityCMS\CoreBundle\View\Block\Text\TextBlock
+    class: GravityCMS\CoreBundle\Theme\Block\Text\TextBlock
     tags:
       - { name: layout.block }

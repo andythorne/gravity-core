@@ -1,6 +1,6 @@
 <?php
 
-namespace GravityCMS\CoreBundle\View\Block\Text;
+namespace GravityCMS\CoreBundle\Theme\Block\Text;
 
 use GravityCMS\Component\Theme\Block\AbstractBlock;
 use GravityCMS\CoreBundle\Form\Block\TextBlockForm;

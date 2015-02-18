@@ -5,22 +5,17 @@ namespace GravityCMS\Component\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AbstractEntityData
+ * Class AbstractEntityField
  *
  * @package GravityCMS\Component\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-abstract class AbstractEntityData
+abstract class AbstractEntityField
 {
     /**
      * @var int
      */
     protected $id;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * @var int
@@ -33,6 +28,11 @@ abstract class AbstractEntityData
     protected $entity;
 
     /**
+     * @var Field
+     */
+    protected $field;
+
+    /**
      * @return string
      */
     public function getId()
@@ -41,19 +41,19 @@ abstract class AbstractEntityData
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getName()
+    public function getDelta()
     {
-        return $this->name;
+        return $this->delta;
     }
 
     /**
-     * @param string $name
+     * @param int $delta
      */
-    public function setName($name)
+    public function setDelta($delta)
     {
-        $this->name = $name;
+        $this->delta = $delta;
     }
 
     /**
@@ -72,4 +72,19 @@ abstract class AbstractEntityData
         $this->entity = $entity;
     }
 
+    /**
+     * @return Field
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
+
+    /**
+     * @param Field $field
+     */
+    public function setField(Field $field)
+    {
+        $this->field = $field;
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace GravityCMS\Component\Theme\Entity;
 
+use GravityCMS\Component\Entity\Route;
+
 /**
  * Class View
  *
@@ -31,9 +33,17 @@ class View
     protected $description;
 
     /**
-     * @var
+     * @var Route
+     */
+    protected $route;
+
+    /**
+     * @var string
      */
     protected $theme;
 
+    /**
+     * @var Layout
+     */
     protected $layout;
 }

@@ -1,10 +1,14 @@
 <?php
 
-namespace GravityCMS\NodeBundle\Model;
+namespace GravityCMS\Component\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
-abstract class Field
+/**
+ * Class EntityType
+ *
+ * @package GravityCMS\Component\Entity
+ * @author  Andy Thorne <contrabandvr@gmail.com>
+ */
+class EntityType
 {
     /**
      * @var int
@@ -27,19 +31,6 @@ abstract class Field
     protected $description;
 
     /**
-     * @var ContentTypeField[]
-     */
-    protected $typeFields;
-
-    /**
-     * Initialisation
-     */
-    function __construct()
-    {
-        $this->typeFields = new ArrayCollection();
-    }
-
-    /**
      * @return int
      */
     public function getId()
@@ -48,11 +39,11 @@ abstract class Field
     }
 
     /**
-     * @param string $name
+     * @param int $id
      */
-    public function setName($name)
+    public function setId($id)
     {
-        $this->name = $name;
+        $this->id = $id;
     }
 
     /**
@@ -61,6 +52,14 @@ abstract class Field
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
     /**
@@ -94,30 +93,4 @@ abstract class Field
     {
         $this->description = $description;
     }
-
-    /**
-     * @param ContentTypeField $typeField
-     */
-    public function addTypeField(ContentTypeField $typeField)
-    {
-        $this->typeFields[] = $typeField;
-        $typeField->setField($this);
-    }
-
-    /**
-     * @param ContentTypeField $typeField
-     */
-    public function removeTypeField(ContentTypeField $typeField)
-    {
-        $this->typeFields->removeElement($typeField);
-    }
-
-    /**
-     * @return ContentTypeField[]
-     */
-    public function getTypeFields()
-    {
-        return $this->typeFields;
-    }
-
-} 
+}

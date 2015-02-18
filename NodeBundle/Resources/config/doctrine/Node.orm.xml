@@ -11,7 +11,15 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="path" type="string" column="path" length="255" nullable="true"/>
+        <one-to-many target-entity="GravityCMS\NodeBundle\Entity\NodeContent" field="fields" mapped-by="entity"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-merge/>
+                <cascade-persist/>
+                <cascade-refresh/>
+            </cascade>
+        </one-to-many>
+
         <field name="title" type="string" column="title" length="150" nullable="true"/>
         <field name="description" type="string" column="description" length="100" nullable="true"/>
         <field name="published" type="boolean" column="published" nullable="false"/>
@@ -26,15 +34,6 @@
         <field name="createdOn" type="datetime" column="created_on" nullable="false">
             <gedmo:timestampable on="create"/>
         </field>
-
-        <one-to-many target-entity="GravityCMS\NodeBundle\Entity\NodeContent" field="contents" mapped-by="node"
-                     orphan-removal="true">
-            <cascade>
-                <cascade-merge/>
-                <cascade-persist/>
-                <cascade-refresh/>
-            </cascade>
-        </one-to-many>
 
         <many-to-one target-entity="GravityCMS\NodeBundle\Entity\ContentType" field="contentType" inversed-by="nodes"
                      orphan-removal="true">

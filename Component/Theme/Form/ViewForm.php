@@ -48,30 +48,31 @@ class ViewForm extends AbstractType
 
         $builder
             ->add('name', 'text')
+            ->add('description', 'text')
             ->add('route', 'basic_route')
-            ->add('view_type', 'choice', array(
+            ->add('type', 'choice', array(
                 'choices' => $viewChoices,
                 'mapped' => false,
             ))
         ;
 
-        $viewManager = $this->viewManager;
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($viewManager) {
-            $event->getForm()->add('config');
-            $data = $event->getData();
-
-            $type = $viewManager->getView($data['view_type']);
-            $data['config'] = $type->getConfiguration();
-            $event->setData($data);
-        });
-
-        $builder->addModelTransformer(new ViewDataTransformer($this->viewManager));
+//        $viewManager = $this->viewManager;
+//        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($viewManager) {
+//            $event->getForm()->add('config');
+//            $data = $event->getData();
+//
+//            $type = $viewManager->getView($data['view_type']);
+//            $data['config'] = $type->getConfiguration();
+//            $event->setData($data);
+//        });
+//
+//        $builder->addModelTransformer(new ViewDataTransformer($this->viewManager));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_type' => '\GravityCMS\Component\Entity\View'
+            'data_type' => '\GravityCMS\Component\Theme\Entity\View'
         ));
     }
 

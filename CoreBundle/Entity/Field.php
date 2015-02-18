@@ -2,15 +2,15 @@
 
 namespace GravityCMS\CoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\Entity\Route as BaseRoute;
+use GravityCMS\Component\Entity\Field as FieldModel;
+
 
 /**
- * Class Route
+ * Class Field
  *
  * @package GravityCMS\CoreBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class Route extends BaseRoute
+class Field extends FieldModel
 {
 } 

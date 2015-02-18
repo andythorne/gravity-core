@@ -2,15 +2,14 @@
 
 namespace GravityCMS\CoreBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\Entity\Route as BaseRoute;
+use GravityCMS\Component\Theme\Entity\View as ViewModel;
 
 /**
- * Class Route
+ * Class View
  *
  * @package GravityCMS\CoreBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class Route extends BaseRoute
+class View extends ViewModel
 {
-} 
+}
