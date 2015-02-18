@@ -71,7 +71,8 @@ class ContentTypeController extends AbstractApiController implements ClassResour
 
     function hasPermission($method)
     {
-        $this->get('security.acl.dbal.provider');
+        return true;
+        $this->get('security.acl.provider');
         $userManager = $this->get('nefarian_core.user_manager');
         switch ($method) {
             case self::METHOD_NEW:
