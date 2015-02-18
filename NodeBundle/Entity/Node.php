@@ -2,7 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Entity;
 
-use GravityCMS\Component\Entity\AbstractEntity;
+use GravityCMS\Component\Entity\Entity\AbstractEntity;
 use GravityCMS\CoreBundle\Entity\Route;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;

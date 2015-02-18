@@ -3,7 +3,7 @@
 namespace GravityCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\Entity\Route as BaseRoute;
+use GravityCMS\Component\Entity\Entity\Route as BaseRoute;
 
 /**
  * Class Route

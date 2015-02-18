@@ -2,7 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Entity;
 
-use GravityCMS\Component\Entity\AbstractEntityField;
+use GravityCMS\Component\Entity\Entity\AbstractEntityField;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

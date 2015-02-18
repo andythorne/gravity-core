@@ -22,7 +22,7 @@ class ViewController extends AbstractApiController
      */
     function getForm()
     {
-        return $this->get('nefarian.view.form.view_form');
+        return $this->get('gravity_cms.form.view');
     }
 
     /**
@@ -32,7 +32,7 @@ class ViewController extends AbstractApiController
      */
     function getEntityClass()
     {
-        return '\GravityCMS\Component\Entity\View';
+        return '\GravityCMS\CoreBundle\Entity\View';
     }
 
     /**
@@ -68,6 +68,7 @@ class ViewController extends AbstractApiController
 
     function hasPermission($method)
     {
+        return true;
         $userManager = $this->get('nefarian_core.user_manager');
         switch($method)
         {

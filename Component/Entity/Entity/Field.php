@@ -1,6 +1,6 @@
 <?php
 
-namespace GravityCMS\Component\Entity;
+namespace GravityCMS\Component\Entity\Entity;
 
 /**
  * Class Field

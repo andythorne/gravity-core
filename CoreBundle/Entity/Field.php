@@ -2,7 +2,7 @@
 
 namespace GravityCMS\CoreBundle\Entity;
 
-use GravityCMS\Component\Entity\Field as FieldModel;
+use GravityCMS\Component\Entity\Entity\Field as FieldModel;
 
 
 /**

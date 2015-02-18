@@ -34,7 +34,7 @@ class ViewBlockForm extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_type' => '\GravityCMS\Component\Entity\View'
+            'data_type' => '\GravityCMS\Component\Entity\Entity\View'
         ));
     }
 

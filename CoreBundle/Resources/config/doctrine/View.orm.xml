@@ -8,8 +8,15 @@
             <generator strategy="IDENTITY"/>
         </id>
 
-        <field name="type" type="string" column="type" precision="0" scale="0" nullable="false"/>
-        <field name="name" type="string" column="name" precision="0" scale="0" nullable="false"/>
+        <field name="type" type="string" column="type" nullable="false"/>
+        <field name="name" type="string" column="name" nullable="false"/>
         <field name="description" type="string" column="description" precision="0" scale="0" nullable="false"/>
+
+        <many-to-one target-entity="GravityCMS\CoreBundle\Entity\Route" field="route" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </many-to-one>
     </entity>
 </doctrine-mapping>

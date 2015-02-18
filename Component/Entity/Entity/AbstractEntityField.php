@@ -1,13 +1,13 @@
 <?php
 
-namespace GravityCMS\Component\Entity;
+namespace GravityCMS\Component\Entity\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class AbstractEntityField
  *
- * @package GravityCMS\Component\Entity
+ * @package GravityCMS\Component\Entity\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 abstract class AbstractEntityField

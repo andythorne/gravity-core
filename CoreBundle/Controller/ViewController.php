@@ -5,6 +5,7 @@ namespace GravityCMS\CoreBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use GravityCMS\CoreBundle\Entity\Block;
 use GravityCMS\CoreBundle\Entity\Layout;
+use GravityCMS\CoreBundle\Entity\View;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,10 +16,10 @@ class ViewController extends Controller
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
 
-        $layouts = $entityManager->getRepository('GravityCMSCoreBundle:Layout')->findAll();
+        $views = $entityManager->getRepository('GravityCMSCoreBundle:View')->findAll();
 
-        return $this->render('GravityCMSCoreBundle:Theme/Layout:list.html.twig', array(
-            'layouts' => $layouts,
+        return $this->render('GravityCMSCoreBundle:Theme/View:list.html.twig', array(
+            'views' => $views,
         ));
     }
 
@@ -27,23 +28,17 @@ class ViewController extends Controller
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
 
-        $positions = $entityManager->getRepository('GravityCMSCoreBundle:LayoutPosition')->findAll();
-        $blocks    = $entityManager->getRepository('GravityCMSCoreBundle:Block')->findAll();
-        $layout    = new Layout();
-
-        $form = $this->createForm('gravity_cms_layout', $layout, array(
+        $view = new View();
+        $form = $this->createForm('gravity_cms_view', $view, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('gravity_api_post_layout'),
+            'action' => $this->generateUrl('gravity_api_post_view'),
             'attr'   => array(
                 'class' => 'api-save',
             )
         ));
 
-        return $this->render('GravityCMSCoreBundle:Theme/Layout:new.html.twig', array(
-            'positions' => $positions,
-            'blocks'    => $blocks,
+        return $this->render('GravityCMSCoreBundle:Theme/View:new.html.twig', array(
             'form'      => $form->createView(),
-            //            'blockForm' => $blockForm->createView(),
         ));
     }
 
@@ -69,29 +64,6 @@ class ViewController extends Controller
             'positions' => $positions,
             'blocks'    => $blocks,
             'form'      => $form->createView(),
-        ));
-    }
-
-    public function newBlockAction(Request $request, Layout $layout, Block $block)
-    {
-        $blockManager    = $this->get('gravity_cms.theme.block_manager');
-        $blockDefinition = $blockManager->getBlock($block->getType());
-
-        $form = $this->createForm($blockDefinition->getForm(), null, array(
-            'method' => 'POST',
-            'action' => $this->generateUrl('gravity_api_post_layout_block', array(
-                'layout' => $layout->getId(),
-                'block'  => $block->getId(),
-            )),
-            'attr'   => array(
-                'class' => 'api-save',
-            )
-        ));
-
-        return $this->render('GravityCMSCoreBundle:Theme/Layout:block-add.html.twig', array(
-            'layout' => $layout,
-            'block'  => $block,
-            'form'   => $form->createView(),
         ));
     }
 }

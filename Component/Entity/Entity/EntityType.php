@@ -1,11 +1,11 @@
 <?php
 
-namespace GravityCMS\Component\Entity;
+namespace GravityCMS\Component\Entity\Entity;
 
 /**
  * Class EntityType
  *
- * @package GravityCMS\Component\Entity
+ * @package GravityCMS\Component\Entity\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class EntityType

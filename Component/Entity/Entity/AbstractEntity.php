@@ -1,6 +1,6 @@
 <?php
 
-namespace GravityCMS\Component\Entity;
+namespace GravityCMS\Component\Entity\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class AbstractEntity
  *
- * @package GravityCMS\Component\Entity
+ * @package GravityCMS\Component\Entity\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 abstract class AbstractEntity

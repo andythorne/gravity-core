@@ -3,7 +3,7 @@
 namespace GravityCMS\Component\Content\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\Entity\AbstractEntityData;
+use GravityCMS\Component\Entity\Entity\AbstractEntityData;
 
 /**
  * Class AbstractField

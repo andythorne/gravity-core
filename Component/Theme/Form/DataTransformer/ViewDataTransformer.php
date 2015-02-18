@@ -2,7 +2,7 @@
 
 namespace GravityCMS\Component\Theme\Form\DataTransformer;
 
-use GravityCMS\Component\Entity\View;
+use GravityCMS\Component\Theme\Entity\View;
 use GravityCMS\Component\Theme\View\ViewManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;

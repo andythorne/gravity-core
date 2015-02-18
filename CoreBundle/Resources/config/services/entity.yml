@@ -1,0 +1,12 @@
+services:
+  gravity_cms.entity_manager:
+      class: GravityCMS\Component\Entity\EntityManager
+#      tags:
+#          - { name: gravity.entity }
+
+  gravity_cms.form.view:
+      class: GravityCMS\Component\Theme\Form\ViewForm
+      arguments:
+        - @gravity_cms.entity_manager
+      tags:
+        - { name: form.type, alias: gravity_cms_view }

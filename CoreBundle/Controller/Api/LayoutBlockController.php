@@ -32,7 +32,7 @@ class LayoutBlockController extends AbstractApiController
      */
     function getEntityClass()
     {
-        return '\GravityCMS\Component\Entity\View';
+        return '\GravityCMS\Component\Entity\Entity\View';
     }
 
     /**

@@ -9,6 +9,13 @@ parameters:
 services:
 
   #
+  # Entity Definitions
+  gravity_node.entity.node:
+    class: GravityCMS\NodeBundle\Gravity\Entity\NodeEntity
+    tags:
+      - { name: gravity.entity }
+
+  #
   # Doctrine - Map node listener
   gravity_node.doctrine.node_listener:
     class: %gravity_node.doctrine.node_listener.class%

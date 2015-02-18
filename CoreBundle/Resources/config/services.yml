@@ -3,6 +3,7 @@ imports:
     - { resource: services/router.yml }
     - { resource: services/menu.yml }
     - { resource: services/forms.yml }
+    - { resource: services/entity.yml }
 
 parameters: ~
 
