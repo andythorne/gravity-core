@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class ContentType
  *
- * @package Nefarian\CmsBundle\Entity
+ * @package GravityCMS\NodeBundle\Model
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class ContentType

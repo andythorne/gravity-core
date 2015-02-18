@@ -5,13 +5,11 @@ namespace GravityCMS\NodeBundle\Controller\Api;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Nefarian\CmsBundle\FosRest\View\View\JsonApiView;
+use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
 use GravityCMS\NodeBundle\Entity\ContentType;
 use GravityCMS\NodeBundle\Entity\ContentTypeField;
 use GravityCMS\NodeBundle\Entity\ContentTypeFieldDisplay;
 use GravityCMS\NodeBundle\Entity\ContentTypeFieldWidget;
-use GravityCMS\NodeBundle\Entity\FieldViewDisplay;
-use GravityCMS\NodeBundle\Entity\FieldViewForm;
 use GravityCMS\NodeBundle\Field\Widget\WidgetSettingsInterface;
 use GravityCMS\NodeBundle\Form\ContentTypeFieldForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -68,7 +66,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             if ($entity instanceof ContentTypeField) {
                 $em = $this->getDoctrine()->getManager();
 
-                $fieldManager    = $this->get('nefarian_core.content_field_manager');
+                $fieldManager    = $this->get('gravity_cms.field_manager');
                 $fieldDefinition = $fieldManager->getField($entity->getField()->getName());
                 $configClass     = $fieldDefinition->getSettings();
                 $defaultConfig   = new $configClass();
@@ -99,7 +97,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 $em->flush();
 
                 $view = JsonApiView::create(null, 302, array(
-                    'location' => $this->generateUrl('nefarian_plugin_content_management_content_type_edit_field_settings',
+                    'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_field_settings',
                         array(
                             'type' => $contentType->getName(),
                             'typeField' => $contentTypeField->getName(),
@@ -129,7 +127,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 'class' => 'api-save'
             ),
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_type_field', array(
+            'action' => $this->generateUrl('gravity_api_put_type_field', array(
                 'contentType' => $contentType->getId(),
                 'contentTypeField' => $contentTypeField->getId(),
             )),
@@ -145,7 +143,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $em->flush($contentTypeField);
 
             $view = JsonApiView::create(null, 200, array(
-                'location' => $this->generateUrl('nefarian_plugin_content_management_content_type_edit_fields',
+                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields',
                     array('type' => $contentType->getName())),
             ));
         } else {
@@ -171,7 +169,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             array(
                 'field'  => $contentTypeField->getField(),
                 'method' => 'PATCH',
-                'action' => $this->generateUrl('nefarian_api_content_management_patch_type_field_widget', array(
+                'action' => $this->generateUrl('gravity_api_patch_type_field_widget', array(
                     'contentType' => $contentType->getId(),
                     'contentTypeField' => $contentTypeField->getId(),
                 )),
@@ -186,7 +184,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
         if ($form->isValid()) {
             $form = $form->getData();
 
-            $fieldManager = $this->get('nefarian_core.content_field_manager');
+            $fieldManager = $this->get('gravity_cms.field_manager');
             $widget = $fieldManager->getFieldWidget($form['type']);
 
             $widgetEntity = $contentTypeField->getViewWidget();
@@ -205,7 +203,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $em->flush($widgetEntity);
 
             $view = JsonApiView::create(null, 200, array(
-                'location' => $this->generateUrl('nefarian_plugin_content_management_content_type_edit_fields',
+                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields',
                     array('type' => $contentType->getName())),
             ));
         } else {
@@ -228,7 +226,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 'class' => 'api-save'
             ),
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_type_field', array(
+            'action' => $this->generateUrl('gravity_api_put_type_field', array(
                 'contentType' => $contentType->getId(),
                 'contentTypeField' => $contentTypeField->getId(),
             )),
@@ -246,7 +244,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $em->flush();
 
             $view = JsonApiView::create(null, 200, array(
-                'location' => $this->generateUrl('nefarian_plugin_content_management_content_type_edit_fields',
+                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields',
                     array('type' => $contentType->getName())),
             ));
         } else {
@@ -271,7 +269,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
     /*public function postAction(Request $request, ContentType $contentType, ContentTypeField $contentTypeField)
     {
         /** @var EntityManager $em * /
-        $configManager = $this->get('nefarian_core.config_manager');
+        $configManager = $this->get('gravity_cms.configuration_manager');
 
         $fieldConfigName = 'content_type.' . $contentType->getName() . '.' . $contentTypeField->getName();
         $fieldConfig     = $configManager->get($fieldConfigName);
@@ -284,7 +282,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 'class' => 'api-save'
             ),
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_type_field', array(
+            'action' => $this->generateUrl('gravity_api_put_type_field', array(
                 'contentType' => $contentType->getId(),
                 'contentTypeField' => $contentTypeField->getId(),
             )),
@@ -298,7 +296,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $configManager->set($fieldConfigName, $entity);
 
             $view = JsonApiView::create(null, 201, array(
-                'location' => $this->generateUrl('nefarian_plugin_content_management_content_type_edit_fields', array('type' => $contentType->getName())),
+                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields', array('type' => $contentType->getName())),
             ));
         }
         else
@@ -317,20 +315,20 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
     {
         switch ($method) {
             case self::METHOD_POST:
-                return $this->generateUrl('nefarian_api_content_management_post_type');
+                return $this->generateUrl('gravity_api_post_type');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('nefarian_api_content_management_put_type', array('id' => $entity->getId()));
+                return $this->generateUrl('gravity_api_put_type', array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('nefarian_api_content_management_delete_type',
+                return $this->generateUrl('gravity_api_delete_type',
                     array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_edit',
+                return $this->generateUrl('gravity_cms_admin_content_type_edit',
                     array('type' => $entity->getName()));
                 break;
         }

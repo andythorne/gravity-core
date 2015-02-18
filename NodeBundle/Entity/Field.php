@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Field
  *
- * @package Nefarian\CmsBundle\Entity
+ * @package GravityCMS\NodeBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class Field extends BaseField

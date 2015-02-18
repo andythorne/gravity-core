@@ -2,7 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Field\Widget;
 
-use Nefarian\CmsBundle\Configuration\ConfigurationInterface;
+use GravityCMS\Component\Configuration\ConfigurationInterface;
 
 /**
  * Interface WidgetSettingsInterface

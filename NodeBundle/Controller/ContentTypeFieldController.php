@@ -37,7 +37,7 @@ class ContentTypeFieldController extends Controller
 
         $form = $this->createForm($formType, $formConfig, array());
 
-        return $this->render('@plugin_content_management/ContentType/edit-tab-form-view-settings.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:ContentType:edit-tab-form-view-settings.html.twig', array(
             'contentType'      => $contentType,
             'contentTypeField' => $contentTypeField,
             'form'             => $form->createView(),
@@ -69,7 +69,7 @@ class ContentTypeFieldController extends Controller
             array(
                 'field'  => $contentTypeField->getField(),
                 'method' => 'PATCH',
-                'action' => $this->generateUrl('nefarian_api_content_management_patch_type_field_widget', array(
+                'action' => $this->generateUrl('gravity_api_patch_type_field_widget', array(
                     'contentType' => $contentType->getId(),
                     'contentTypeField' => $contentTypeField->getId(),
                 )),
@@ -79,7 +79,7 @@ class ContentTypeFieldController extends Controller
             )
         );
 
-        return $this->render('@plugin_content_management/ContentType/edit-tab-form-change.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:ContentType:edit-tab-form-change.html.twig', array(
             'contentType'      => $contentType,
             'contentTypeField' => $contentTypeField,
             'form'             => $form->createView(),

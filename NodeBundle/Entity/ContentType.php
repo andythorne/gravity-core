@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class ContentType
  *
- * @package Nefarian\CmsBundle\Entity
+ * @package GravityCMS\NodeBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class ContentType extends BaseContentType

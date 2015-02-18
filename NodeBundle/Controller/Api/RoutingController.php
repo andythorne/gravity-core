@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use FOS\RestBundle\View\View;
-use Nefarian\CmsBundle\Entity\Route;
+use GravityCMS\CoreBundle\Entity\Route;
 use GravityCMS\NodeBundle\Form\RoutingConfigurationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -34,7 +34,7 @@ class RoutingController extends Controller implements ClassResourceInterface
     public function putAction(Request $request)
     {
         /** @var EntityManager $em */
-        $configManager = $this->get('nefarian_core.config_manager');
+        $configManager = $this->get('gravity_cms.configuration_manager');
 
         $fieldConfigName = 'content_type.routing';
         $fieldConfig     = $configManager->get($fieldConfigName);
@@ -47,7 +47,7 @@ class RoutingController extends Controller implements ClassResourceInterface
                 'class' => 'api-save'
             ),
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_routing'),
+            'action' => $this->generateUrl('gravity_api_put_routing'),
         ));
 
         $form->submit($payload[$fieldConfigForm->getName()]);
@@ -57,7 +57,7 @@ class RoutingController extends Controller implements ClassResourceInterface
             $configManager->set($fieldConfigName, $entity);
 
             $view = View::create(array(
-                'location' => $this->generateUrl('nefarian_plugin_content_management_routing_settings'),
+                'location' => $this->generateUrl('gravity_cms_admin_routing_settings'),
             ), 200);
         } else {
             $view = View::create($form);
@@ -70,7 +70,7 @@ class RoutingController extends Controller implements ClassResourceInterface
     {
         /** @var EntityManager $em */
         $em   = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('NefarianCmsBundle:Route');
+        $repo = $em->getRepository('GravityCMSCoreBundle:Route');
         $queryBuilder = $repo->createQueryBuilder('r');
 
         $dataColumns = array(
@@ -108,7 +108,7 @@ class RoutingController extends Controller implements ClassResourceInterface
 
         $totalRecords = $em->createQuery('
             SELECT count(r)
-            FROM NefarianCmsBundle:Route r
+            FROM GravityCMSCoreBundle:Route r
         ')->getSingleScalarResult();
 
         /** @var Route[] $routes */

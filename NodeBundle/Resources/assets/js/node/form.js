@@ -1,4 +1,4 @@
-define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api', 'cms/content_management/node/form'], function ($, ui, bs, bootbox, api, nodeForm) {
+define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api', 'cms/node/node/form'], function ($, ui, bs, bootbox, api, nodeForm) {
 
     var widgets = {};
 

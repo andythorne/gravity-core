@@ -6,9 +6,9 @@ use GravityCMS\NodeBundle\Model\ContentTypeFieldDisplay as BaseContentTypeFieldD
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Field
+ * Class ContentTypeFieldDisplay
  *
- * @package Nefarian\CmsBundle\Entity
+ * @package GravityCMS\NodeBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class ContentTypeFieldDisplay extends BaseContentTypeFieldDisplay

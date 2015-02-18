@@ -2,7 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Configuration\Field\View\Display;
 
-use Nefarian\CmsBundle\Configuration\AbstractConfiguration;
+use GravityCMS\Component\Configuration\AbstractConfiguration;
 
 /**
  * Class AbstractDisplayConfiguration

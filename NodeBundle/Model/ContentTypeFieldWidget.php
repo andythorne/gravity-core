@@ -2,7 +2,6 @@
 
 namespace GravityCMS\NodeBundle\Model;
 
-use Nefarian\CmsBundle\Entity\Config;
 use GravityCMS\NodeBundle\Field\Widget\WidgetSettingsInterface;
 
 abstract class ContentTypeFieldWidget

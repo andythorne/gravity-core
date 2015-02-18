@@ -3,7 +3,7 @@
 namespace GravityCMS\NodeBundle\Form\Type;
 
 use GravityCMS\Component\Configuration\ConfigurationManager;
-use Nefarian\CmsBundle\Content\Field\FieldManager;
+use GravityCMS\Component\Field\FieldManager;
 use GravityCMS\NodeBundle\Entity\Node;
 use GravityCMS\NodeBundle\Entity\NodeContent;
 use GravityCMS\NodeBundle\Field\FieldInterface;

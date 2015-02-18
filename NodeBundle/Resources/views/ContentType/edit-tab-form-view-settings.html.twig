@@ -1,6 +1,6 @@
-{% extends '@plugin_content_management/ContentType/edit.html.twig' %}
+{% extends 'GravityCMSNodeBundle:ContentType:edit.html.twig' %}
 {% set selected_tab = 'form' %}
-{% set page_modules = ['cms/content_management/type/form_view'] %}
+{% set page_modules = ['cms/node/type/form_view'] %}
 
 {% block breadcrumbs %}
     {{ parent() }}

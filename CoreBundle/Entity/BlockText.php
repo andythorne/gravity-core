@@ -6,20 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use GravityCMS\Component\View\Block\Block\Text\BlockTextModel;
 
 /**
- * Class Block
+ * Class BlockText
  *
  * @package GravityCMS\CoreBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="block_text")
  */
 class BlockText extends LayoutLayoutPositionBlock
 {
     /**
      * @var string
-     *
-     * @ORM\Column(type="text")
      */
     protected $text;
 

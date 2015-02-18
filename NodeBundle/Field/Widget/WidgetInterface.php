@@ -2,7 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Field\Widget;
 
-use Nefarian\CmsBundle\Asset\AssetLibraryInterface;
+use GravityCMS\Component\Asset\AssetLibraryInterface;
 use GravityCMS\NodeBundle\Field\FieldInterface;
 use Symfony\Component\Form\AbstractType;
 

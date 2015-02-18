@@ -9,8 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package GravityCMS\CoreBundle\Model
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\MappedSuperclass
  */
 class Route
 {
@@ -21,29 +19,21 @@ class Route
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255, unique=True, nullable=False)
      */
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255, unique=True, nullable=False)
      */
     protected $path;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255, unique=True, nullable=False)
      */
     protected $pattern;
 
     /**
      * @var \Symfony\Component\Routing\Route
-     *
-     * @ORM\Column(type="object", nullable=False)
      */
     protected $route;
 

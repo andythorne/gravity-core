@@ -43,23 +43,23 @@ class ViewController extends AbstractApiController
         switch($method)
         {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_manage');
+                return $this->generateUrl('gravity_cms_admin_content_type_manage');
                 break;
 
             case self::METHOD_POST:
-                return $this->generateUrl('nefarian_api_content_management_post_type');
+                return $this->generateUrl('gravity_api_post_type');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('nefarian_api_content_management_put_type', array( 'id' => $entity->getId() ));
+                return $this->generateUrl('gravity_api_put_type', array( 'id' => $entity->getId() ));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('nefarian_api_content_management_delete_type', array( 'id' => $entity->getId() ));
+                return $this->generateUrl('gravity_api_delete_type', array( 'id' => $entity->getId() ));
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_edit', array( 'type' => $entity->getName() ));
+                return $this->generateUrl('gravity_cms_admin_content_type_edit', array( 'type' => $entity->getName() ));
                 break;
         }
 

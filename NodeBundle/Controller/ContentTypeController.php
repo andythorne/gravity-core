@@ -21,11 +21,12 @@ class ContentTypeController extends Controller
      */
     public function indexAction()
     {
+        /** @var EntityManager $em */
         $em           = $this->getDoctrine()->getManager();
-        $contentTypes = $em->getRepository('PluginContentManagement:ContentType')->findAll();
+        $contentTypes = $em->getRepository('GravityCMSNodeBundle:ContentType')->findAll();
 
         return $this->render(
-            '@plugin_content_management/ContentType/index.html.twig',
+            'GravityCMSNodeBundle:ContentType:index.html.twig',
             array(
                 'contentTypes' => $contentTypes,
             )
@@ -49,12 +50,12 @@ class ContentTypeController extends Controller
                     'class' => 'api-save'
                 ),
                 'method' => 'POST',
-                'action' => $this->generateUrl('nefarian_api_content_management_post_type'),
+                'action' => $this->generateUrl('gravity_api_post_type'),
             )
         );
 
         return $this->render(
-            '@plugin_content_management/ContentType/new.html.twig',
+            'GravityCMSNodeBundle:ContentType:new.html.twig',
             array(
                 'form' => $form->createView(),
             )
@@ -78,13 +79,13 @@ class ContentTypeController extends Controller
                     'class' => 'api-save'
                 ),
                 'method' => 'PUT',
-                'action' => $this->generateUrl('nefarian_api_content_management_put_type',
+                'action' => $this->generateUrl('gravity_api_put_type',
                     array('id' => $contentType->getId())),
             )
         );
 
         return $this->render(
-            '@plugin_content_management/ContentType/edit-tab-content-type.html.twig',
+            'GravityCMSNodeBundle:ContentType:edit-tab-content-type.html.twig',
             array(
                 'contentType' => $contentType,
                 'form' => $form->createView(),
@@ -112,17 +113,17 @@ class ContentTypeController extends Controller
                 'class' => 'api-save'
             ),
             'method' => 'POST',
-            'action' => $this->generateUrl('nefarian_api_content_management_post_type_field', array(
+            'action' => $this->generateUrl('gravity_api_post_type_field', array(
                 'contentType' => $contentType->getId(),
             )),
         ));
 
         $form->remove('name');
 
-        $fields = $em->getRepository('PluginContentManagement:Field')->findAll();
+        $fields = $em->getRepository('GravityCMSNodeBundle:Field')->findAll();
 
         return $this->render(
-            '@plugin_content_management/ContentType/edit-tab-fields.html.twig',
+            'GravityCMSNodeBundle:ContentType:edit-tab-fields.html.twig',
             array(
                 'contentType' => $contentType,
                 'fields' => $fields,
@@ -150,7 +151,7 @@ class ContentTypeController extends Controller
                     'class' => 'api-save'
                 ),
                 'method' => 'PUT',
-                'action' => $this->generateUrl('nefarian_api_content_management_put_type_field', array(
+                'action' => $this->generateUrl('gravity_api_put_type_field', array(
                     'contentType' => $contentType->getId(),
                     'contentTypeField' => $contentTypeField->getId(),
                 )),
@@ -160,7 +161,7 @@ class ContentTypeController extends Controller
         $form->remove('field');
 
         return $this->render(
-            '@plugin_content_management/ContentType/edit-tab-field-edit.html.twig',
+            'GravityCMSNodeBundle:ContentType:edit-tab-field-edit.html.twig',
             array(
                 'contentType' => $contentTypeField->getContentType(),
                 'contentTypeField' => $contentTypeField,
@@ -188,14 +189,14 @@ class ContentTypeController extends Controller
                 'class' => 'api-save'
             ),
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_type_field_settings', array(
+            'action' => $this->generateUrl('gravity_api_put_type_field_settings', array(
                 'contentType' => $contentType->getId(),
                 'contentTypeField' => $contentTypeField->getId(),
             )),
         ));
 
         return $this->render(
-            '@plugin_content_management/ContentType/edit-tab-field-settings.html.twig',
+            'GravityCMSNodeBundle:ContentType:edit-tab-field-settings.html.twig',
             array(
                 'contentType' => $contentType,
                 'form' => $form->createView(),
@@ -217,13 +218,13 @@ class ContentTypeController extends Controller
                 'class' => 'api-save'
             ),
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_type_form_view', array(
+            'action' => $this->generateUrl('gravity_api_put_type_form_view', array(
                 'id' => $contentType->getId(),
             )),
         ));
 
         return $this->render(
-            '@plugin_content_management/ContentType/edit-tab-form-view.html.twig',
+            'GravityCMSNodeBundle:ContentType:edit-tab-form-view.html.twig',
             array(
                 'contentType' => $contentType,
                 'form' => $form->createView(),

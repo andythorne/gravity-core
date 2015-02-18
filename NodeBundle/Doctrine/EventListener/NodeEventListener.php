@@ -9,15 +9,15 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\UnitOfWork;
 use Gedmo\SoftDeleteable\SoftDeleteableListener;
-use Nefarian\CmsBundle\Entity\Route;
+use GravityCMS\CoreBundle\Entity\Route;
 use GravityCMS\NodeBundle\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 
 /**
- * Class NodeListener
+ * Class NodeEventListener
  *
- * @package Nefarian\CmsBundle\Plugin\ConentManagement\Doctrine\EventListener
+ * @package GravityCMS\NodeBundle\Doctrine\EventListener
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class NodeEventListener implements EventSubscriber
@@ -297,7 +297,7 @@ class NodeEventListener implements EventSubscriber
         $newPathName = str_replace(array('/', '-'), '_', ltrim($route->getPath(), '/'));
 
         $newRoute = new Route();
-        $newRoute->setName('nefarian_node_' . $newPathName);
+        $newRoute->setName('gravity_node_' . $newPathName);
         $newRoute->setPattern($route->getPath());
         $newRoute->setPath($route->getPath());
         $newRoute->setRoute($route);

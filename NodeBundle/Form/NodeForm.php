@@ -2,9 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Form;
 
-use Nefarian\CmsBundle\Content\Field\FieldManager;
-use Nefarian\CmsBundle\Content\Field\Field;
-use GravityCMS\NodeBundle\Entity\ContentType;
+use GravityCMS\Component\Field\FieldManager;
 use GravityCMS\NodeBundle\Entity\Node;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

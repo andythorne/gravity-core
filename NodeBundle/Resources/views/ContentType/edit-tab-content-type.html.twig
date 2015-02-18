@@ -1,6 +1,6 @@
-{% extends '@plugin_content_management/ContentType/edit.html.twig' %}
+{% extends 'GravityCMSNodeBundle:ContentType:edit.html.twig' %}
 {% block tab %}
-    {% form_theme form '@plugin_content_management/ContentType/Fields/form.html.twig' %}
+    {% form_theme form 'GravityCMSNodeBundle:ContentType:Fields/form.html.twig' %}
 
     {{ form_start(form) }}
         {{ form_row(form.label) }}

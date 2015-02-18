@@ -9,31 +9,20 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package GravityCMS\Component\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\MappedSuperclass
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn("field_type")
  */
 abstract class AbstractEntityData
 {
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="integer")
-     *
      * @var int
      */
     protected $delta;

@@ -1,8 +1,8 @@
-{% extends '@plugin_content_management/Node/base.html.twig' %}
+{% extends 'GravityCMSNodeBundle:Node:base.html.twig' %}
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ url('nefarian_plugin_content_management_node_create_select') }}">View</a></li>
+    <li><a href="{{ url('gravity_cms_admin_node_create_select') }}">View</a></li>
 {% endblock %}
 
 {% block page_title %}

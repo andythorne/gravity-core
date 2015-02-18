@@ -33,7 +33,7 @@ class LayoutController extends Controller
 
         $form = $this->createForm('gravity_cms_layout', $layout, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('gravity_api_core_post_layout'),
+            'action' => $this->generateUrl('gravity_api_post_layout'),
             'attr'   => array(
                 'class' => 'api-save',
             )
@@ -56,7 +56,7 @@ class LayoutController extends Controller
 
         $form = $this->createForm('gravity_cms_layout', $layout, array(
             'method' => 'PUT',
-            'action' => $this->generateUrl('gravity_api_core_put_layout', array(
+            'action' => $this->generateUrl('gravity_api_put_layout', array(
                 'id' => $layout->getId()
             )),
             'attr'   => array(
@@ -79,7 +79,7 @@ class LayoutController extends Controller
 
         $form = $this->createForm($blockDefinition->getForm(), null, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('gravity_api_core_post_layout_block', array(
+            'action' => $this->generateUrl('gravity_api_post_layout_block', array(
                 'layout' => $layout->getId(),
                 'block'  => $block->getId(),
             )),

@@ -1,9 +1,9 @@
-{% extends '@plugin_content_management/ContentType/edit.html.twig' %}
+{% extends 'GravityCMSNodeBundle:ContentType:edit.html.twig' %}
 {% set selected_tab = 'fields' %}
 {% block tab %}
     <h3>Field Settings</h3>
 
-    {% form_theme form '@plugin_content_management/ContentType/Fields/form.html.twig' %}
+    {% form_theme form 'GravityCMSNodeBundle:ContentType:Fields/form.html.twig' %}
 
     {{ form_start(form) }}
 

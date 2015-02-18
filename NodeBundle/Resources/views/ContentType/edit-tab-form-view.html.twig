@@ -1,8 +1,8 @@
-{% extends '@plugin_content_management/ContentType/edit.html.twig' %}
+{% extends 'GravityCMSNodeBundle:ContentType:edit.html.twig' %}
 {% set selected_tab = 'form' %}
-{% set page_modules = ['cms/content_management/type/form_view'] %}
+{% set page_modules = ['cms/node/type/form_view'] %}
 {% block tab %}
-    {% form_theme form '@plugin_content_management/ContentType/Fields/form.html.twig' %}
+    {% form_theme form 'GravityCMSNodeBundle:ContentType:Fields/form.html.twig' %}
     {{ form_start(form) }}
         <div class="table-responsive">
             <table class="table table-striped content-type-form-view">
@@ -33,7 +33,7 @@
 
                                 <div class="btn-group pull-right">
                                     {% if contentType.typeFields[i].viewWidget.config %}
-                                    <a href="{{ url('nefarian_plugin_content_management_content_type_edit_form_view_settings', {
+                                    <a href="{{ url('gravity_cms_admin_content_type_edit_form_view_settings', {
                                         type: contentType.name,
                                         typeField: contentType.typeFields[i].name
                                     }) }}" class="btn btn-default">
@@ -47,7 +47,7 @@
 
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
                                     <ul class="dropdown-menu dropdown-menu-right pull-right">
-                                        <li><a class="field-type-remove" href="{{ url('nefarian_plugin_content_management_content_type_edit_form_view_change', {
+                                        <li><a class="field-type-remove" href="{{ url('gravity_cms_admin_content_type_edit_form_view_change', {
                                                 type: contentType.name,
                                                 typeField: contentType.typeFields[i].name
                                             }) }}"><i class="fa-pencil"></i> Change</a></li>

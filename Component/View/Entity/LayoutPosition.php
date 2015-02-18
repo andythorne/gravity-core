@@ -17,38 +17,27 @@ abstract class LayoutPosition
 {
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
      */
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $name;
 
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $description;
 
     /**
      * @var int
-     *
-     * @ORM\Column(type="integer")
      */
     protected $delta;
 
     /**
      * @var LayoutLayoutPositionBlock[]
-     *
-     * @ORM\OneToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="position")
      */
     protected $layouts;
 

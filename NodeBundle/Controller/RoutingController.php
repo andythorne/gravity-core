@@ -15,25 +15,25 @@ class RoutingController extends Controller
 {
     public function settingsAction()
     {
-        $configManager = $this->get('nefarian_core.config_manager');
+        $configManager = $this->get('gravity_cms.configuration_manager');
         $config        = $configManager->get('routing.settings');
 
         $form = $this->createForm($config->getForm(), $config, array(
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_routing'),
+            'action' => $this->generateUrl('gravity_api_put_routing'),
             'attr' => array(
                 'class' => 'api-save',
             ),
         ));
 
-        return $this->render('@plugin_content_management/Routing/tab-settings.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:Routing:tab-settings.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
     public function routesAction()
     {
-        return $this->render('@plugin_content_management/Routing/tab-routes.html.twig');
+        return $this->render('GravityCMSNodeBundle:Routing:tab-routes.html.twig');
     }
 
 
@@ -42,7 +42,7 @@ class RoutingController extends Controller
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('@plugin_content_management/Routing/tab-manage.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:Routing:tab-manage.html.twig', array(
 
         ));
     }

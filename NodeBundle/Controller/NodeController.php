@@ -20,7 +20,7 @@ class NodeController extends Controller
 {
     public function viewAction(Node $node)
     {
-        return $this->render('@plugin_content_management/Node/view.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:Node:view.html.twig', array(
             'node' => $node,
         ));
     }

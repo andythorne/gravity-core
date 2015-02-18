@@ -48,7 +48,7 @@ class ConfigurationEventSubscriber implements EventSubscriberInterface
     public function onConfigRebuild(Event $event)
     {
         /** @var ContentType[] $contentTypes */
-        $contentTypes = $this->entityManager->getRepository('PluginContentManagement:ContentType')->findAll();
+        $contentTypes = $this->entityManager->getRepository('GravityCMSNodeBundle:ContentType')->findAll();
 
         foreach ($contentTypes as $contentType) {
             $fields = $contentType->getTypeFields();

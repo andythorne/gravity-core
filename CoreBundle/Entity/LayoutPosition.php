@@ -11,25 +11,11 @@ use GravityCMS\Component\View\Entity\LayoutPosition as LayoutPositionModel;
  *
  * @package GravityCMS\CoreBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="layout_position")
  */
 class  LayoutPosition extends LayoutPositionModel
 {
     /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    protected $id;
-
-    /**
      * @var LayoutLayoutPositionBlock[]
-     *
-     * @ORM\OneToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="position")
      */
     protected $layouts;
 }

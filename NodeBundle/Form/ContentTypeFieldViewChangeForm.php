@@ -8,7 +8,7 @@
 namespace GravityCMS\NodeBundle\Form;
 
 
-use Nefarian\CmsBundle\Content\Field\FieldManager;
+use GravityCMS\Component\Field\FieldManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

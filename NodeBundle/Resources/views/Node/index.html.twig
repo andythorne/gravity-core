@@ -1,4 +1,4 @@
-{% extends '@plugin_content_management/Node/base.html.twig' %}
+{% extends 'GravityCMSNodeBundle:Node:base.html.twig' %}
 
 {% block page_title %}
     View Nodes
@@ -23,7 +23,7 @@
                         <tbody>
                             {% for node in nodes %}
                                 <tr>
-                                    <td><a href="{{ url('nefarian_plugin_content_management_node_edit', {id: node.id}) }}">{{ node.title }}</a></td>
+                                    <td><a href="{{ url('gravity_cms_admin_node_edit', {id: node.id}) }}">{{ node.title }}</a></td>
                                     <td>{{ node.contentType.label|capitalize }}</td>
                                     <td>{% if node.published %}{{ node.publishedOn|date('Y-m-d') }}{% endif %}</td>
                                 </tr>
@@ -33,7 +33,7 @@
                 </div>
         </div>
         <div class="col-sm-3">
-            <a class="btn btn-primary" href="{{ url('nefarian_plugin_content_management_node_create_select') }}">
+            <a class="btn btn-primary" href="{{ url('gravity_cms_admin_node_create_select') }}">
                 <i class="fa-plus"></i> New Node
             </a>
         </div>

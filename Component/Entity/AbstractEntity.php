@@ -10,29 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package GravityCMS\Component\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\MappedSuperclass
  */
 abstract class AbstractEntity
 {
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string
      */
     protected $description;

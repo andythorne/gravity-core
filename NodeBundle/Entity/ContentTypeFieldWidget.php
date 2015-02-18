@@ -6,9 +6,9 @@ use GravityCMS\NodeBundle\Model\ContentTypeFieldWidget as BaseContentTypeFieldWi
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Field
+ * Class ContentTypeFieldWidget
  *
- * @package Nefarian\CmsBundle\Entity
+ * @package GravityCMS\NodeBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class ContentTypeFieldWidget extends BaseContentTypeFieldWidget

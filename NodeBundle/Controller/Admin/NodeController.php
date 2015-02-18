@@ -2,6 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Controller\Admin;
 
+use Doctrine\ORM\EntityManager;
 use GravityCMS\NodeBundle\Entity\ContentType;
 use GravityCMS\NodeBundle\Entity\Node;
 use GravityCMS\NodeBundle\Form\NodeForm;
@@ -19,10 +20,11 @@ class NodeController extends Controller
 {
     public function indexAction()
     {
+        /** @var EntityManager $em */
         $em    = $this->getDoctrine()->getManager();
-        $nodes = $em->getRepository('PluginContentManagement:Node')->findAll();
+        $nodes = $em->getRepository('GravityCMSNodeBundle:Node')->findAll();
 
-        return $this->render('@plugin_content_management/Node/index.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:Node:index.html.twig', array(
             'nodes' => $nodes,
         ));
     }
@@ -33,9 +35,9 @@ class NodeController extends Controller
     public function newSelectAction()
     {
         $em           = $this->getDoctrine()->getManager();
-        $contentTypes = $em->getRepository('PluginContentManagement:ContentType')->findAll();
+        $contentTypes = $em->getRepository('GravityCMSNodeBundle:ContentType')->findAll();
 
-        return $this->render('@plugin_content_management/Node/new-select.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:Node:new-select.html.twig', array(
             'contentTypes' => $contentTypes,
         ));
     }
@@ -51,14 +53,14 @@ class NodeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var ContentType $contentType */
-        $contentType = $em->getRepository('PluginContentManagement:ContentType')->find($id);
+        $contentType = $em->getRepository('GravityCMSNodeBundle:ContentType')->find($id);
 
         if(!$contentType instanceof ContentType)
         {
             throw $this->createNotFoundException('Content Type Not Found');
         }
 
-        $fieldManager = $this->get('nefarian_core.content_field_manager');
+        $fieldManager = $this->get('gravity_cms.field_manager');
         $node         = new Node();
         $node->setContentType($contentType);
 
@@ -67,12 +69,12 @@ class NodeController extends Controller
                 'class' => 'api-save'
             ),
             'method' => 'POST',
-            'action' => $this->generateUrl('nefarian_api_content_management_post_node_type', array(
+            'action' => $this->generateUrl('gravity_api_post_node_type', array(
                     'contentType' => $contentType->getId()
                 )),
         ));
 
-        return $this->render('@plugin_content_management/Node/new.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:Node:new.html.twig', array(
             'editor' => $this->get('nefarian.editor'), // @TODO: make this dynamic
             'fields'      => $fieldManager->getFields(),
             'contentType' => $contentType,
@@ -82,19 +84,19 @@ class NodeController extends Controller
 
     public function editAction(Node $node)
     {
-        $fieldManager = $this->get('nefarian_core.content_field_manager');
+        $fieldManager = $this->get('gravity_cms.field_manager');
 
         $form = $this->createForm(new NodeForm($fieldManager), $node, array(
             'attr'   => array(
                 'class' => 'api-save'
             ),
             'method' => 'PUT',
-            'action' => $this->generateUrl('nefarian_api_content_management_put_node', array(
+            'action' => $this->generateUrl('gravity_api_put_node', array(
                 'id' => $node->getId()
             )),
         ));
 
-        return $this->render('@plugin_content_management/Node/edit.html.twig', array(
+        return $this->render('GravityCMSNodeBundle:Node:edit.html.twig', array(
             'editor' => $this->get('nefarian.editor'), // @TODO: make this dynamic
             'fields' => $fieldManager->getFields(),
             'node'   => $node,

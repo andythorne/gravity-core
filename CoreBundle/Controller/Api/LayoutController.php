@@ -53,16 +53,16 @@ class LayoutController extends AbstractApiController
                 break;
 
             case self::METHOD_POST:
-                return $this->generateUrl('gravity_api_core_post_layout');
+                return $this->generateUrl('gravity_api_post_layout');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('gravity_api_core_put_layout',
+                return $this->generateUrl('gravity_api_put_layout',
                     array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('gravity_api_core_delete_layout',
+                return $this->generateUrl('gravity_api_delete_layout',
                     array('id' => $entity->getId()));
                 break;
 

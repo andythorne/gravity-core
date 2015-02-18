@@ -29,11 +29,11 @@ class ApiLoader extends Loader
             $resourceRoutes = $this->import($resource, 'rest');
             $pluginRoutes->addCollection($resourceRoutes);
 
-            $pluginRoutes->addPrefix('/core');
+            //$pluginRoutes->addPrefix('/core');
 
             // prefix all the routes with the plugin base
             foreach ($pluginRoutes->all() as $name => $route) {
-                $routes->add('gravity_api_core_' . $name, $route);
+                $routes->add('gravity_api_' . $name, $route);
             }
 
             $routes->addPrefix('/api');

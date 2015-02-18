@@ -4,6 +4,7 @@ namespace GravityCMS\Component\Theme\Templating\Locator;
 
 use GravityCMS\Component\Theme\ThemeInterface;
 use GravityCMS\Component\Theme\ThemeManager;
+use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
 use Symfony\Component\Config\FileLocatorInterface;
 
 class ThemeLocator implements FileLocatorInterface
@@ -34,19 +35,20 @@ class ThemeLocator implements FileLocatorInterface
      */
     public function locate($name, $currentPath = null, $first = true)
     {
-        if(strpos($name->getPath(), '@theme_') === 0)
+        if($name instanceof TemplateReference)
         {
-            if(preg_match('/@theme_([^\/]+)(.+)/', $name->getPath(), $matches))
-            {
-                list($fullPath, $themeName, $path) = $matches;
-                $theme = $this->themeManager->getTheme($themeName);
-                if($theme instanceof ThemeInterface)
-                {
-                    $meta = new \ReflectionClass($theme);
-                    $file = dirname($meta->getFileName()).$path;
-                    return $file;
-                }
+            $name = $name->getPath();
+        }
 
+        if(strpos($name, '@theme_') === 0 && preg_match('/@theme_([^\/]+)(.+)/', $name, $matches))
+        {
+            list($fullPath, $themeName, $path) = $matches;
+            $theme = $this->themeManager->getTheme($themeName);
+            if($theme instanceof ThemeInterface)
+            {
+                $meta = new \ReflectionClass($theme);
+                $file = dirname($meta->getFileName()).$path;
+                return $file;
             }
         }
 

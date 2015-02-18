@@ -6,9 +6,9 @@ use GravityCMS\NodeBundle\Model\NodeContent as BaseNodeContent;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class NodeContentType
+ * Class NodeContent
  *
- * @package Nefarian\CmsBundle\Entity
+ * @package GravityCMS\NodeBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class NodeContent extends BaseNodeContent

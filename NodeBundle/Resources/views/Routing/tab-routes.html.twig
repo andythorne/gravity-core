@@ -1,6 +1,6 @@
-{% extends '@plugin_content_management/Routing/base.html.twig' %}
+{% extends 'GravityCMSNodeBundle:Routing:base.html.twig' %}
 {% set selected_tab = 'routes' %}
-{% set page_modules = ['cms/content_management/routing/routes'] %}
+{% set page_modules = ['cms/node/routing/routes'] %}
 
 {% block page_title %}
     Routing
@@ -13,7 +13,7 @@
 {% block tab %}
     <div class="table-primary">
         <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered"
-               id="jq-datatables-example" data-url="{{ url('nefarian_api_content_management_get_routing_table') }}">
+               id="jq-datatables-example" data-url="{{ url('gravity_api_get_routing_table') }}">
             <thead>
                 <tr role="row">
                     <th class="sorting">Path</th>

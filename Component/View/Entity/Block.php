@@ -9,44 +9,31 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package GravityCMS\Component\View\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\MappedSuperclass
  */
 abstract class Block
 {
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
      */
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $type;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $description;
 
     /**
      * @var LayoutLayoutPositionBlock[]
-     *
-     * @ORM\ManyToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="blocks")
      */
     protected $layoutPositions;
 

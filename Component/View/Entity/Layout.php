@@ -4,44 +4,32 @@ namespace GravityCMS\Component\View\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\CoreBundle\Entity\LayoutPosition;
 
 /**
  * Class Layout
  *
  * @package GravityCMS\Component\View\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\MappedSuperclass
  */
 abstract class Layout
 {
     /**
      * @var int
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
      */
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $description;
 
     /**
      * @var LayoutLayoutPositionBlock[]
-     *
-     * @ORM\OneToMany(targetEntity="LayoutLayoutPositionBlock", mappedBy="layout")
      */
     protected $positions;
 

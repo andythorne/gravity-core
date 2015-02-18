@@ -1,6 +1,6 @@
-{% extends '@plugin_content_management/ContentType/edit.html.twig' %}
+{% extends 'GravityCMSNodeBundle:ContentType:edit.html.twig' %}
 {% set selected_tab = 'form' %}
-{% set page_modules = ['cms/content_management/type/form_view'] %}
+{% set page_modules = ['cms/node/type/form_view'] %}
 
 {% block breadcrumbs %}
     {{ parent() }}
@@ -13,7 +13,7 @@
 
     <h3>Change {{ contentTypeField.label }} Widget</h3>
 
-    {% form_theme form '@plugin_content_management/ContentType/Fields/form.html.twig' %}
+    {% form_theme form 'GravityCMSNodeBundle:ContentType:Fields/form.html.twig' %}
     {{ form_start(form) }}
         {{ form_rest(form) }}
 

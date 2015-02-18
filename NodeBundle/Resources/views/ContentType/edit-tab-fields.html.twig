@@ -1,4 +1,4 @@
-{% extends '@plugin_content_management/ContentType/edit.html.twig' %}
+{% extends 'GravityCMSNodeBundle:ContentType:edit.html.twig' %}
 {% set selected_tab = 'fields' %}
 {% block tab %}
     {{ form_start(form) }}
@@ -19,7 +19,7 @@
                         <tr>
                             <td><abbr title="{{ field.name }}" >{{ field.label|capitalize }}</abbr></td>
                             <td><abbr title="Edit {{ field.label }} Settings">
-                                    <a href="{{ url('nefarian_plugin_content_management_content_type_edit_field_settings', {
+                                    <a href="{{ url('gravity_cms_admin_content_type_edit_field_settings', {
                                         type: contentType.name,
                                         typeField: field.name
                                     }) }}">{{ field.field.label|capitalize }}</a>
@@ -27,7 +27,7 @@
                             <td>
                                 {% if field.viewWidget.config %}
                                         <abbr title="Configure Widget Settings">
-                                            <a href="{{ url('nefarian_plugin_content_management_content_type_edit_form_view_settings', {
+                                            <a href="{{ url('gravity_cms_admin_content_type_edit_form_view_settings', {
                                                 type: contentType.name,
                                                 typeField: field.name
                                             }) }}">
@@ -46,7 +46,7 @@
                             <td>
                                 <div class="btn-group">
                                     <a href="{{
-                                        url('nefarian_plugin_content_management_content_type_edit_field', {
+                                        url('gravity_cms_admin_content_type_edit_field', {
                                             type: contentType.name,
                                             typeField: field.name
                                         })
@@ -54,7 +54,7 @@
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-down"></i></button>
                                     <ul class="dropdown-menu">
                                         <li><a class="field-type-remove" href="{{
-                                            url('nefarian_api_content_management_delete_type_field', {
+                                            url('gravity_api_delete_type_field', {
                                                 contentType: contentType.id,
                                                 contentTypeField: field.id
                                             })

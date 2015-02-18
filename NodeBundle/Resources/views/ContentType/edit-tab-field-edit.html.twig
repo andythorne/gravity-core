@@ -1,7 +1,7 @@
-{% extends '@plugin_content_management/ContentType/edit.html.twig' %}
+{% extends 'GravityCMSNodeBundle:ContentType:edit.html.twig' %}
 {% set selected_tab = 'fields' %}
 {% block tab %}
-    {% form_theme form '@plugin_content_management/ContentType/Fields/form.html.twig' %}
+    {% form_theme form 'GravityCMSNodeBundle:ContentType:Fields/form.html.twig' %}
 
     <h4 class="text-light-gray text-semibold text-md">{{ contentTypeField.field.name|capitalize }} field settings</h4>
     {{ form_start(form) }}

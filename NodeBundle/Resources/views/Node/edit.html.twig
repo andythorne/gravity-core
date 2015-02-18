@@ -1,5 +1,5 @@
-{% extends '@plugin_content_management/Node/base.html.twig' %}
-{% set page_modules = ['cms/content_management/node/form'] %}
+{% extends 'GravityCMSNodeBundle:Node:base.html.twig' %}
+{% set page_modules = ['cms/node/node/form'] %}
 
 {% block head_javascripts %}
     {% set page_modules = page_modules | merge(editor.assets) %}
@@ -13,7 +13,7 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ url('nefarian_plugin_content_management_node_create_select') }}">Edit</a></li>
+    <li><a href="{{ url('gravity_cms_admin_node_create_select') }}">Edit</a></li>
 {% endblock %}
 
 {% block page_title %}
@@ -29,5 +29,5 @@
 {% endblock %}
 
 {% block plugin %}
-    {% include '@plugin_content_management/Node/form.html.twig' %}
+    {% include 'GravityCMSNodeBundle:Node:form.html.twig' %}
 {% endblock %}

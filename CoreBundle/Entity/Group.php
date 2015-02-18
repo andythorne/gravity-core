@@ -7,30 +7,22 @@ use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="user_groups")
+ * Class Group
+ *
+ * @package GravityCMS\CoreBundle\Entity
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class Group extends BaseGroup
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
-     */
-    protected $name;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="groups")
-     * @ORM\JoinTable(name="user_group_roles")
+     * @var Role[]
      */
     protected $roles;
+
+    /**
+     * @var User[]
+     */
+    protected $users;
 
     public function __construct()
     {

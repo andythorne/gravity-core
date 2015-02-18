@@ -46,21 +46,21 @@ class LayoutBlockController extends AbstractApiController
                 break;
 
             case self::METHOD_POST:
-                return $this->generateUrl('gravity_api_core_post_block');
+                return $this->generateUrl('gravity_api_post_block');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('gravity_api_core_put_block', array('id' => $entity->getId()));
+                return $this->generateUrl('gravity_api_put_block', array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('gravity_api_core_delete_block',
+                return $this->generateUrl('gravity_api_delete_block',
                     array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_GET:
                 return '';
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_edit',
+                return $this->generateUrl('gravity_cms_admin_content_type_edit',
                     array('type' => $entity->getName()));
                 break;
         }

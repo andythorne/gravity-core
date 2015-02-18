@@ -8,11 +8,6 @@ parameters:
 
 services:
 
-#  nefarian.plugin.content_management:
-#    class: GravityCMS\NodeBundle\ContentManagementPlugin
-#    tags:
-#      - { name: nefarian.plugin }
-
   #
   # Doctrine - Map node listener
   gravity_node.doctrine.node_listener:
@@ -69,12 +64,12 @@ services:
 
   #
   # Views
-#  nefarian.plugin.content_management.view.mode:
+#  gravity_node.view.node:
 #    class: GravityCMS\NodeBundle\View\NodeView
 #    tags:
-#      - { name: nefarian.view_type }
+#      - { name: gravity.view_type }
 #
-#  nefarian.plugin.content_management.view.block.content:
+#  gravity_node.view.block.content:
 #    class: GravityCMS\NodeBundle\View\Block\ContentBlock
 #    tags:
-#      - { name: nefarian.view.block }
+#      - { name: gravity.view.block }

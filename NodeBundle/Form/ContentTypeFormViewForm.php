@@ -2,7 +2,6 @@
 
 namespace GravityCMS\NodeBundle\Form;
 
-use Nefarian\CmsBundle\Form\Type\Table\Table;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

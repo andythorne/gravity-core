@@ -1,0 +1,7 @@
+gravity_cms_node:
+  resource: @GravityCMSNodeBundle/Resources/config/routing/admin.yml
+  type: gravity_admin
+
+gravity_cms_api:
+  resource: @GravityCMSNodeBundle/Resources/config/routing/api.yml
+  type: gravity_api

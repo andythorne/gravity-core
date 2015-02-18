@@ -119,7 +119,7 @@ class ContentTypeEventListener implements EventSubscriber
 
     protected function getConfigurationManager()
     {
-        return $this->configManager = $this->container->get('nefarian_core.config_manager');
+        return $this->configManager = $this->container->get('gravity_cms.configuration_manager');
     }
 
 } 

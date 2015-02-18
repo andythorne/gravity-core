@@ -3,14 +3,13 @@
 namespace GravityCMS\NodeBundle\Controller\Api;
 
 use Doctrine\ORM\EntityManager;
+use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Nefarian\CmsBundle\Controller\AbstractApiController;
-use Nefarian\CmsBundle\FosRest\View\View\JsonApiView;
-use GravityCMS\NodeBundle\Entity\ContentType;
+use GravityCMS\CoreBundle\Controller\Api\AbstractApiController;
+use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
 use GravityCMS\NodeBundle\Form\ContentTypeForm;
 use GravityCMS\NodeBundle\Form\ContentTypeFormViewForm;
 use Symfony\Component\Form\Form;
-use FOS\RestBundle\Controller\Annotations as FOSRest;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -43,26 +42,27 @@ class ContentTypeController extends AbstractApiController implements ClassResour
      */
     function getUrl($method, $entity = null)
     {
-        switch($method)
-        {
+        switch ($method) {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_manage');
+                return $this->generateUrl('gravity_cms_admin_content_type_manage');
                 break;
 
             case self::METHOD_POST:
-                return $this->generateUrl('nefarian_api_content_management_post_type');
+                return $this->generateUrl('gravity_api_post_type');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('nefarian_api_content_management_put_type', array( 'id' => $entity->getId() ));
+                return $this->generateUrl('gravity_api_put_type', array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('nefarian_api_content_management_delete_type', array( 'id' => $entity->getId() ));
+                return $this->generateUrl('gravity_api_delete_type',
+                    array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_edit', array( 'type' => $entity->getName() ));
+                return $this->generateUrl('gravity_cms_admin_content_type_edit',
+                    array('type' => $entity->getName()));
                 break;
         }
 
@@ -71,9 +71,9 @@ class ContentTypeController extends AbstractApiController implements ClassResour
 
     function hasPermission($method)
     {
+        $this->get('security.acl.dbal.provider');
         $userManager = $this->get('nefarian_core.user_manager');
-        switch($method)
-        {
+        switch ($method) {
             case self::METHOD_NEW:
             case self::METHOD_POST:
                 return $userManager->hasPermission($this->getUser(), 'content.type.create');
@@ -110,19 +110,17 @@ class ContentTypeController extends AbstractApiController implements ClassResour
         $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository($class)->find($id);
 
-        if(!$entity instanceof $class)
-        {
+        if (!$entity instanceof $class) {
             throw $this->createNotFoundException('Entity Not Found');
         }
 
         $payload = json_decode($request->getContent(), true);
 
-        $formType  = new ContentTypeFormViewForm();
-        $form      = $this->createForm($formType, $entity);
+        $formType = new ContentTypeFormViewForm();
+        $form     = $this->createForm($formType, $entity);
         $form->submit($payload[$formType->getName()]);
 
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $entity = $form->getData();
 
             $this->preUpdate($entity);
@@ -133,13 +131,12 @@ class ContentTypeController extends AbstractApiController implements ClassResour
             $this->postUpdate($entity);
 
             $view = JsonApiView::create(null, 201, array(
-                'location' => $this->generateUrl('nefarian_plugin_content_management_content_type_edit_form_view', array(
-                    'type' => $entity->getName()
-                ))
+                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_form_view',
+                    array(
+                        'type' => $entity->getName()
+                    ))
             ));
-        }
-        else
-        {
+        } else {
             $view = JsonApiView::create($form, 400);
         }
 

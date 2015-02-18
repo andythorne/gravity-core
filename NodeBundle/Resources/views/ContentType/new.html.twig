@@ -1,6 +1,6 @@
-{% extends '@plugin_content_management/base.html.twig' %}
+{% extends 'GravityCMSNodeBundle::base.html.twig' %}
 
-{% set page_modules = ['cms/content_management/type/form'] %}
+{% set page_modules = ['cms/node/type/form'] %}
 {% block plugin %}
     {{ form_start(form) }}
         {{ form_row(form.name) }}

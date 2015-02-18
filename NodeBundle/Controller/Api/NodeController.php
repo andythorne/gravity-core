@@ -6,17 +6,14 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use FOS\RestBundle\View\View;
-use Nefarian\CmsBundle\Controller\AbstractApiController;
-use Nefarian\CmsBundle\Controller\ApiControllerInterface;
-use Nefarian\CmsBundle\FosRest\View\View\JsonApiView;
+use GravityCMS\CoreBundle\Controller\Api\AbstractApiController;
+use GravityCMS\CoreBundle\Controller\Api\ApiControllerInterface;
+use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
 use GravityCMS\NodeBundle\Entity\ContentType;
 use GravityCMS\NodeBundle\Entity\Node;
-use GravityCMS\NodeBundle\Entity\NodeContent;
 use GravityCMS\NodeBundle\Form\NodeForm;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -59,7 +56,7 @@ class NodeController extends AbstractApiController implements ClassResourceInter
      */
     function getForm()
     {
-        return new NodeForm($this->get('nefarian_core.content_field_manager'));
+        return new NodeForm($this->get('gravity_cms.field_manager'));
     }
 
     /**
@@ -75,26 +72,27 @@ class NodeController extends AbstractApiController implements ClassResourceInter
      */
     function getUrl($method, $entity = null)
     {
-        switch($method)
-        {
+        switch ($method) {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_manage');
+                return $this->generateUrl('gravity_cms_admin_content_type_manage');
                 break;
 
             case self::METHOD_POST:
-                return $this->generateUrl('nefarian_api_content_management_post_node_type');
+                return $this->generateUrl('gravity_api_post_node_type');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('nefarian_api_content_management_put_node', array('id' => $entity->getId()));
+                return $this->generateUrl('gravity_api_put_node', array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('nefarian_api_content_management_delete_node', array('id' => $entity->getId()));
+                return $this->generateUrl('gravity_api_delete_node',
+                    array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('nefarian_plugin_content_management_node_edit', array('id' => $entity->getId()));
+                return $this->generateUrl('gravity_cms_admin_node_edit',
+                    array('id' => $entity->getId()));
                 break;
         }
 
@@ -104,8 +102,7 @@ class NodeController extends AbstractApiController implements ClassResourceInter
     function hasPermission($method)
     {
         $userManager = $this->get('nefarian_core.user_manager');
-        switch($method)
-        {
+        switch ($method) {
             case self::METHOD_NEW:
             case self::METHOD_POST:
                 return $userManager->hasPermission($this->getUser(), 'content.type.create');
@@ -113,7 +110,7 @@ class NodeController extends AbstractApiController implements ClassResourceInter
 
             case self::METHOD_EDIT:
             case self::METHOD_PUT:
-            return $userManager->hasPermission($this->getUser(), 'content.type.update');
+                return $userManager->hasPermission($this->getUser(), 'content.type.update');
                 break;
 
             case self::METHOD_DELETE:
@@ -140,8 +137,7 @@ class NodeController extends AbstractApiController implements ClassResourceInter
     {
         $this->authenticate(self::METHOD_POST);
 
-        if(!$contentType instanceof ContentType)
-        {
+        if (!$contentType instanceof ContentType) {
             throw $this->createNotFoundException('Content Type Not Found');
         }
 
@@ -150,17 +146,16 @@ class NodeController extends AbstractApiController implements ClassResourceInter
 
         $payload = json_decode($request->getContent(), true);
 
-        $class     = $this->getEntityClass();
+        $class = $this->getEntityClass();
 
         /** @var Node $newEntity */
         $newEntity = new $class();
         $newEntity->setContentType($contentType);
-        $formType  = new NodeForm($this->get('nefarian_core.content_field_manager'), $contentType);
-        $form      = $this->createForm($formType, $newEntity);
+        $formType = new NodeForm($this->get('gravity_cms.field_manager'), $contentType);
+        $form     = $this->createForm($formType, $newEntity);
         $form->submit($payload[$formType->getName()]);
 
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             /** @var Node $entity */
             $entity = $form->getData();
             $em->persist($entity);
@@ -169,9 +164,7 @@ class NodeController extends AbstractApiController implements ClassResourceInter
             $view = JsonApiView::create($entity, 200, array(
                 'location' => $this->getUrl(self::METHOD_GET, $entity)
             ));
-        }
-        else
-        {
+        } else {
             $view = JsonApiView::create($form);
         }
 

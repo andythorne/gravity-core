@@ -12,6 +12,8 @@ services:
 
   gravity_cms.routing.api_loader:
     class: %gravity_cms.routing.api_loader.class%
+    arguments:
+      - @file_locator
     tags:
       - { name: routing.loader }
 

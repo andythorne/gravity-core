@@ -1,6 +1,6 @@
-{% extends '@plugin_content_management/base.html.twig' %}
+{% extends 'GravityCMSNodeBundle::base.html.twig' %}
 
-{% set page_modules = ['cms/content_management/type/type'] %}
+{% set page_modules = ['cms/node/type/type'] %}
 
 {% block page_title %}
     Content Types
@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block plugin %}
-    <a class="btn btn-default" href="{{ url('nefarian_plugin_content_management_content_type_new') }}">
+    <a class="btn btn-default" href="{{ url('gravity_cms_admin_content_type_new') }}">
         <i class="fa-plus"></i> New Content Type
     </a>
 
@@ -34,15 +34,15 @@
                         <td>{{ contentType.label }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ url('nefarian_plugin_content_management_content_type_edit', {type: contentType.name}) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ url('gravity_cms_admin_content_type_edit', {type: contentType.name}) }}" class="btn btn-primary">Edit</a>
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('nefarian_plugin_content_management_content_type_edit', {type: contentType.name}) }}">View</a></li>
+                                    <li><a href="{{ url('gravity_cms_admin_content_type_edit', {type: contentType.name}) }}">View</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="{{ url('nefarian_api_content_management_delete_type', {id: contentType.id}) }}" class="content-type-delete text-danger"><i class="fa-trash-o"></i> Delete</a></li>
+                                    <li><a href="{{ url('gravity_api_delete_type', {id: contentType.id}) }}" class="content-type-delete text-danger"><i class="fa-trash-o"></i> Delete</a></li>
                                 </ul>
                             </div>
                         </td>
