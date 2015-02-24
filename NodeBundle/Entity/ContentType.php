@@ -44,16 +44,6 @@ class ContentType
     protected $nodes;
 
     /**
-     * @var string
-     *
-     * @Assert\Regex(
-     *      pattern="/^(\/[\w\d-]+|\/\[[\w\d-]+:[\w\d-]+\])+$/",
-     *      message="Format must follow a path structure (e.g. /node/[node:title]")
-     * )
-     */
-    protected $pathFormat;
-
-    /**
      * Initialisation
      */
     function __construct()

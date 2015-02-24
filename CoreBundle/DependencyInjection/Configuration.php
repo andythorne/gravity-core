@@ -29,8 +29,8 @@ class Configuration implements ConfigurationInterface
             ->end();
 
         $this->addCMSSection($rootNode);
-//        $this->addPluginSection($rootNode);
-//        $this->addThemeSection($rootNode);
+        $this->addModuleSection($rootNode);
+        $this->addThemeSection($rootNode);
 
         return $treeBuilder;
     }
@@ -47,10 +47,10 @@ class Configuration implements ConfigurationInterface
         ->end();
     }
 
-    private function addPluginSection(NodeDefinition $rootNode)
+    private function addModuleSection(NodeDefinition $rootNode)
     {
         $rootNode->children()
-            ->arrayNode('plugins')->isRequired()
+            ->arrayNode('modules')->isRequired()
                 ->prototype('scalar')
                 ->end()
             ->end()

@@ -2,7 +2,8 @@
 
 namespace GravityCMS\NodeBundle\Model;
 
-use GravityCMS\NodeBundle\Field\Display\DisplaySettingsInterface;
+use GravityCMS\Component\Field\Display\DisplaySettingsInterface;
+use GravityCMS\NodeBundle\Entity\ContentTypeField;
 
 abstract class ContentTypeFieldDisplay
 {

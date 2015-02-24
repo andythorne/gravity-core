@@ -78,7 +78,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 $viewDisplay->setLabel($fieldDisplay->getLabel());
                 $viewDisplay->setConfig($fieldDisplay->getSettings());
                 $viewDisplay->setTypeField($entity);
-                $viewDisplay->setOrder(count($contentType->getTypeFields()));
+                $viewDisplay->setOrder(count($contentType->getContentTypeFields()));
                 $em->persist($viewDisplay);
                 $entity->setViewDisplay($viewDisplay);
 
@@ -89,7 +89,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 $viewWidget->setLabel($fieldWidget->getLabel());
                 $viewWidget->setConfig($fieldWidget->getSettings());
                 $viewWidget->setTypeField($entity);
-                $viewWidget->setOrder(count($contentType->getTypeFields()));
+                $viewWidget->setOrder(count($contentType->getContentTypeFields()));
                 $em->persist($viewWidget);
                 $entity->setViewWidget($viewWidget);
 

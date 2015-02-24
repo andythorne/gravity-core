@@ -5,7 +5,7 @@ namespace GravityCMS\NodeBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use GravityCMS\NodeBundle\Entity\ContentType;
 use GravityCMS\NodeBundle\Entity\ContentTypeField;
-use GravityCMS\NodeBundle\Entity\Field;
+use GravityCMS\CoreBundle\Entity\Field;
 use GravityCMS\NodeBundle\Form\ContentTypeFieldForm;
 use GravityCMS\NodeBundle\Form\ContentTypeForm;
 use GravityCMS\NodeBundle\Form\ContentTypeFormViewForm;
@@ -107,7 +107,7 @@ class ContentTypeController extends Controller
 
         $contentTypeFieldForm = new ContentTypeFieldForm();
         $contentTypeFields = new ContentTypeField();
-        $contentTypeFields->setOrder(count($contentType->getTypeFields()));
+        $contentTypeFields->setOrder(count($contentType->getContentTypeFields()));
         $form = $this->createForm($contentTypeFieldForm, $contentTypeFields, array(
             'attr' => array(
                 'class' => 'api-save'
@@ -120,7 +120,7 @@ class ContentTypeController extends Controller
 
         $form->remove('name');
 
-        $fields = $em->getRepository('GravityCMSNodeBundle:Field')->findAll();
+        $fields = $em->getRepository('GravityCMSCoreBundle:Field')->findAll();
 
         return $this->render(
             'GravityCMSNodeBundle:ContentType:edit-tab-fields.html.twig',

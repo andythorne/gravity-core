@@ -51,7 +51,7 @@ class ConfigurationEventSubscriber implements EventSubscriberInterface
         $contentTypes = $this->entityManager->getRepository('GravityCMSNodeBundle:ContentType')->findAll();
 
         foreach ($contentTypes as $contentType) {
-            $fields = $contentType->getTypeFields();
+            $fields = $contentType->getContentTypeFields();
             foreach ($fields as $field) {
                 $configType = 'field.' . $field->getField()->getName();
                 $configName = 'content_type.' . $contentType->getName() . '.' . $field->getName();

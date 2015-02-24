@@ -77,7 +77,7 @@ class CoreCompilerPass implements CompilerPassInterface
             $fieldManagerDefinition->addMethodCall('addFieldWidget', array(new Reference($sId)));
         }
 
-        $fieldDisplays = $container->findTaggedServiceIds('gravity.field.display');
+        $fieldDisplays = $container->findTaggedServiceIds('EditorCompilerPass.php.field.display');
         foreach ($fieldDisplays as $sId => $def) {
             $fieldManagerDefinition->addMethodCall('addFieldDisplay', array(new Reference($sId)));
         }

@@ -2,9 +2,8 @@
 
 namespace GravityCMS\Component\Field\Configuration;
 
-use Nefarian\CmsBundle\Configuration\AbstractConfiguration;
-use Nefarian\CmsBundle\Configuration\Configuration;
-use GravityCMS\Component\Configuration\Field\View\Form\FormConfigurationInterface;
+use GravityCMS\Component\Configuration\AbstractConfiguration;
+use GravityCMS\NodeBundle\Configuration\Field\View\Form\FormConfigurationInterface;
 use GravityCMS\Component\Field\FieldSettingsInterface;
 
 /**

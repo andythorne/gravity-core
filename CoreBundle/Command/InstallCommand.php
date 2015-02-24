@@ -4,8 +4,8 @@ namespace GravityCMS\CoreBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 use GravityCMS\CoreBundle\Entity\Block;
+use GravityCMS\CoreBundle\Entity\Field;
 use GravityCMS\CoreBundle\Entity\LayoutPosition;
-use Nefarian\CmsBundle\Plugin\ContentManagement\Entity\Field;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -42,6 +42,7 @@ class InstallCommand extends ContainerAwareCommand
         $em        = $container->get('doctrine')->getManager();
 
         $layoutManager = $container->get('gravity_cms.theme.layout_manager');
+        $fieldManager = $container->get('gravity_cms.field_manager');
 
         $force = $input->getOption('force');
         if ($force) {
@@ -61,6 +62,15 @@ class InstallCommand extends ContainerAwareCommand
                 $blockEntity->setDescription($block->getDescription());
                 $em->persist($blockEntity);
             }
+
+            foreach ($fieldManager->getFields() as $field) {
+                $fieldEntity = new Field();
+                $fieldEntity->setName($field->getName());
+                $fieldEntity->setLabel($field->getLabel());
+                $fieldEntity->setDescription($field->getDescription());
+                $em->persist($fieldEntity);
+            }
+
             $em->flush();
 
         } else {

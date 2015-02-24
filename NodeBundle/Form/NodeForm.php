@@ -42,7 +42,7 @@ class NodeForm extends AbstractType
                 throw new \Exception('Form entity must be of type Node');
             }
 
-            $form->add('contents', 'field_collection', array(
+            $form->add('fields', 'field_collection', array(
                 'label' => false,
                 'node'  => $node,
                 'by_reference' => false,

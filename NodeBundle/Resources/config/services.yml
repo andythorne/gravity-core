@@ -80,3 +80,22 @@ services:
 #    class: GravityCMS\NodeBundle\View\Block\ContentBlock
 #    tags:
 #      - { name: gravity.view.block }
+
+
+  #
+  # Fields
+  gravity_node.field.text:
+    class: GravityCMS\NodeBundle\Field\Text\TextField
+    tags:
+      - { name: gravity.field }
+
+
+  gravity_node.field.text.widget:
+    class: GravityCMS\NodeBundle\Field\Text\Widget\TextFieldWidget
+    tags:
+      - { name: gravity.field.widget }
+
+  gravity_node.field.text.display:
+    class: GravityCMS\NodeBundle\Field\Text\Display\TextFieldDisplay
+    tags:
+      - { name: gravity.field.display }

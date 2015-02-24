@@ -63,7 +63,7 @@ class ContentTypeEventListener implements EventSubscriber
                 $changeSet = $uow->getEntityChangeSet($entity);
                 if (isset($changeSet['name'])) {
                     list($oldValue, $newValue) = $changeSet['name'];
-                    foreach ($entity->getTypeFields() as $field) {
+                    foreach ($entity->getContentTypeFields() as $field) {
                         $oldFieldConfigName = 'content_type.' . $oldValue . '.' . $field->getName();
                         $newFieldConfigName = 'content_type.' . $newValue . '.' . $field->getName();
 
@@ -97,7 +97,7 @@ class ContentTypeEventListener implements EventSubscriber
 
         if ($entity instanceof ContentType) {
             $this->getConfigurationManager();
-            foreach ($entity->getTypeFields() as $field) {
+            foreach ($entity->getContentTypeFields() as $field) {
                 $fieldConfigName = 'content_type.' . $entity->getName() . '.' . $field->getName();
                 $this->configManager->duplicate($field->getField()->getName() . '.settings', $fieldConfigName);
             }
@@ -110,7 +110,7 @@ class ContentTypeEventListener implements EventSubscriber
 
         if ($entity instanceof ContentType) {
             $this->getConfigurationManager();
-            foreach ($entity->getTypeFields() as $field) {
+            foreach ($entity->getContentTypeFields() as $field) {
                 $fieldConfigName = 'content_type.' . $entity->getName() . '.' . $field->getName();
                 $this->configManager->delete($fieldConfigName);
             }

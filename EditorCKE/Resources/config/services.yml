@@ -1,0 +1,13 @@
+parameters:
+  gravity_cms.editor.ckeditor.class: GravityCMS\EditorCKE\Editor\CKEditor
+
+services:
+  gravity_cms.plugin.editor.ckeditor:
+    class: GravityCMS\EditorCKE\EditorCKEModule
+    tags:
+      - { name: gravity.module }
+
+  gravity_cms.editor.ckeditor:
+    class: %gravity_cms.editor.ckeditor.class%
+    tags:
+      - { name: gravity.editor, editor: ckeditor }

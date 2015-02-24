@@ -2,9 +2,8 @@
 
 namespace GravityCMS\Component\Field;
 
-
 use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\NodeBundle\Field\Widget\WidgetInterface;
+use GravityCMS\Component\Field\Widget\WidgetInterface;
 
 class FieldManager
 {

@@ -18,7 +18,7 @@ class ContentTypeFieldForm extends AbstractType
             ->add('label', 'text')
             ->add('name', 'text')
             ->add('field', 'entity', array(
-                'class' => 'GravityCMS\NodeBundle\Entity\Field',
+                'class' => 'GravityCMS\CoreBundle\Entity\Field',
                 'property' => 'name',
             ))
             ->add('order', 'hidden')

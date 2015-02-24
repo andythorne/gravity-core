@@ -31,7 +31,7 @@ class ContentTypeFieldViewChangeForm extends AbstractType
             'field'
         ));
         $resolver->setAllowedTypes(array(
-            'field' => '\GravityCMS\NodeBundle\Entity\Field'
+            'field' => '\GravityCMS\CoreBundle\Entity\Field'
         ));
     }
 

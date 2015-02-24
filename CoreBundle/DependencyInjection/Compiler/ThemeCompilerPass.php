@@ -29,7 +29,7 @@ class ThemeCompilerPass implements CompilerPassInterface
             $themeDefinition = $container->getDefinition($sid);
             $meta            = new \ReflectionClass($themeDefinition->getClass());
             $path            = pathinfo($meta->getFileName(), PATHINFO_DIRNAME);
-            
+
             foreach ($tags as $tag) {
 
                 $alias = $tag['alias'];
@@ -115,7 +115,6 @@ class ThemeCompilerPass implements CompilerPassInterface
                 }
             }
         }
-
 
         // blocks
         $taggedBlocks = $container->findTaggedServiceIds('layout.block');

@@ -3,10 +3,10 @@
 namespace GravityCMS\NodeBundle\Form\Type;
 
 use GravityCMS\Component\Configuration\ConfigurationManager;
+use GravityCMS\Component\Field\FieldInterface;
 use GravityCMS\Component\Field\FieldManager;
 use GravityCMS\NodeBundle\Entity\Node;
 use GravityCMS\NodeBundle\Entity\NodeContent;
-use GravityCMS\NodeBundle\Field\FieldInterface;
 use GravityCMS\NodeBundle\Form\DataTransformer\FieldCollectionDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -51,16 +51,17 @@ class FieldCollectionType extends AbstractType
         if ($options['node'] instanceof Node) {
             $node          = $options['node'];
             $contentType   = $node->getContentType();
-            $contents      = $node->getContents();
+            $contents      = $node->getFields();
             $fieldContents = array();
 
             /** @var NodeContent $content */
             foreach ($contents as $content) {
-                $fieldContents[$content->getFieldType()->getName()][] = $content;
+                $fieldContents[$content->getContentTypeField()->getName()][] = $content;
             }
 
-            foreach ($contentType->getTypeFields() as $typeField) {
+            foreach ($contentType->getContentTypeFields() as $typeField) {
                 $fieldEntity     = $typeField->getField();
+//                $fieldWidget     = $typeField->getViewWidget();
                 $field           = $this->fieldManager->getField($fieldEntity->getName());
                 $fieldWidget     = $this->fieldManager->getFieldWidget($typeField->getViewWidget()->getName());
 
@@ -75,7 +76,7 @@ class FieldCollectionType extends AbstractType
                         $entities = $fieldContents[$typeField->getName()];
                     } else {
                         $entity = new $dataClass();
-                        $entity->setFieldType($typeField);
+                        $entity->setContentTypeField($typeField);
                         $entities = array($entity);
                     }
 

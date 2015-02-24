@@ -14,7 +14,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for field in contentType.typeFields %}
+                {% for field in contentType.contentTypeFields %}
                     {% spaceless %}
                         <tr>
                             <td><abbr title="{{ field.name }}" >{{ field.label|capitalize }}</abbr></td>

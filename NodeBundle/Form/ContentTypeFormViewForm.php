@@ -15,7 +15,7 @@ class ContentTypeFormViewForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('typeFields', 'collection', array(
+            ->add('contentTypeFields', 'collection', array(
                 'type' => new ContentTypeFormViewFieldForm(),
                 'options' => array(
                     'data_class' => 'GravityCMS\NodeBundle\Entity\ContentTypeField',

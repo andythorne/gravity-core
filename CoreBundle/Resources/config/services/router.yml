@@ -1,12 +1,12 @@
 parameters:
-  gravity_cms.routing.plugin_loader.class:  GravityCMS\Component\Router\PluginLoader
+  gravity_cms.routing.module_loader.class:  GravityCMS\Component\Router\ModuleLoader
   gravity_cms.routing.api_loader.class:     GravityCMS\Component\Router\ApiLoader
   gravity_cms.routing.web_loader.class:     GravityCMS\Component\Router\WebLoader
   gravity_cms.routing.admin_loader.class:   GravityCMS\Component\Router\AdminLoader
 
 services:
-  gravity_cms.routing.plugin_loader:
-    class: %gravity_cms.routing.plugin_loader.class%
+  gravity_cms.routing.module_loader:
+    class: %gravity_cms.routing.module_loader.class%
     tags:
       - { name: routing.loader }
 

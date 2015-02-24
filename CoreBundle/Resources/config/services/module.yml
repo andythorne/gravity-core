@@ -1,0 +1,13 @@
+services:
+  gravity_cms.module_manager:
+    class: GravityCMS\Component\Module\ModuleManager
+
+  #
+  # Twig Loader
+  twig.loader.module_loader:
+    class: GravityCMS\Component\Module\Twig\Loader\ModuleLoader
+    arguments:
+      - @templating.locator
+      - @templating.name_parser
+    tags:
+      - { name: twig.loader }

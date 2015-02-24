@@ -20,7 +20,6 @@ class ContentTypeForm extends AbstractType
             ->add('description', 'text', array(
                 'required' => false
             ))
-            ->add('path_format', 'text')
         ;
     }
 

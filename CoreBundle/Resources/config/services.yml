@@ -1,9 +1,11 @@
 imports:
+    - { resource: services/module.yml }
     - { resource: services/theme.yml }
     - { resource: services/router.yml }
     - { resource: services/menu.yml }
     - { resource: services/forms.yml }
     - { resource: services/entity.yml }
+    - { resource: services/editor.yml }
 
 parameters: ~
 

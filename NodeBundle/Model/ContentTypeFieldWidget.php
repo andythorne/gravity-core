@@ -2,7 +2,8 @@
 
 namespace GravityCMS\NodeBundle\Model;
 
-use GravityCMS\NodeBundle\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\NodeBundle\Entity\ContentTypeField;
 
 abstract class ContentTypeFieldWidget
 {
