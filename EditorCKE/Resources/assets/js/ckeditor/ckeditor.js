@@ -1,5 +1,5 @@
 CKEDITOR_BASEPATH = '/vendor/ckeditor/';
-define(['jquery', 'jckeditor', 'cms/content_management/editor/editor'], function ( $, ckeditor, editor) {
+define(['jquery', 'jckeditor', 'cms/node/editor/editor'], function ( $, ckeditor, editor) {
 
 
     CKEDITOR.config.customConfig = '/js/cms/editor_cke/ckeditor/config.js';

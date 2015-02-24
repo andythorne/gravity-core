@@ -5,6 +5,7 @@ namespace GravityCMS\NodeBundle\Field\Text\Widget;
 use GravityCMS\Component\Field\FieldInterface;
 use GravityCMS\Component\Field\Widget\AbstractWidget;
 use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\NodeBundle\Field\Text\Asset\TextFieldWidgetLibrary;
 use GravityCMS\NodeBundle\Field\Text\Widget\Form\TextFieldWidgetForm;
 
 /**
@@ -60,7 +61,7 @@ class TextFieldWidget extends AbstractWidget
     public function getAssetLibraries()
     {
         return array(
-            //new TextBodyLibrary(),
+            new TextFieldWidgetLibrary(),
         );
     }
 
