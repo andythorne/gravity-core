@@ -214,7 +214,7 @@ class ModuleCompilerPass implements CompilerPassInterface
             }
 
             // add the assetmap to the asset manager
-            $gravityAssetManagerDefinition->addMethodCall('setAssets', array($assetMap));
+            $gravityAssetManagerDefinition->addMethodCall('addAssetMap', array($assetMap));
 
             // add the module forms to the form list
             $formResources    = $container->getParameter('twig.form.resources');

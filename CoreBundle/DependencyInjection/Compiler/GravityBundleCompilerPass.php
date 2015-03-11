@@ -7,7 +7,6 @@ use GravityCMS\CoreBundle\AbstractGravityBundle;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Yaml\Parser;
 
 /**
@@ -34,14 +33,14 @@ class GravityBundleCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $bundleMetaInfo = new \ReflectionClass($this->bundle);
-        $bundlePath = dirname($bundleMetaInfo->getFileName());
+        $bundlePath     = dirname($bundleMetaInfo->getFileName());
 
-        $menuManagerDefinition  = $container->getDefinition('gravity_cms.menu_manager');
+        $menuManagerDefinition = $container->getDefinition('gravity_cms.menu_manager');
 
-        $parser    = new Parser();
-        $processor = new Processor();
+        $parser        = new Parser();
+        $processor     = new Processor();
         $configuration = new MenuConfiguration();
-        $menus = $processor->processConfiguration(
+        $menus         = $processor->processConfiguration(
             $configuration,
             array(
                 $parser->parse(file_get_contents($bundlePath . '/Resources/config/menu.yml'))
@@ -68,6 +67,7 @@ class GravityBundleCompilerPass implements CompilerPassInterface
 
         // tell asstic where the plugin assets are
         $assetNamespace = '@' . $this->bundle->getBundleName() . '/';
+        $assetMap       = array();
         $folder         = $bundlePath . '/Resources/assets/js';
         if (is_dir($folder)) {
             $jsRoot   = '/js';
@@ -85,6 +85,8 @@ class GravityBundleCompilerPass implements CompilerPassInterface
                         );
                     $assetPath   = '/cms/' . $this->bundle->getBundleName() . '/' . $destination;
 
+                    $assetMap[$assetNamespace . $destination] = $assetPath;
+
                     $assetManagerDefinition->addMethodCall(
                         'setFormula',
                         array(
@@ -101,5 +103,10 @@ class GravityBundleCompilerPass implements CompilerPassInterface
                 }
             }
         }
+
+        $gravityAssetManagerDefinition = $container->getDefinition('gravity_cms.asset_manager');
+
+        // add the assetmap to the asset manager
+        $gravityAssetManagerDefinition->addMethodCall('addAssetMap', array($assetMap));
     }
 } 

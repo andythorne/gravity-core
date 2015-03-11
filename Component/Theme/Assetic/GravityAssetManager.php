@@ -12,9 +12,9 @@ class GravityAssetManager
 {
     protected $assetMap = array();
 
-    public function setAssets(array $assetMap = array())
+    public function addAssetMap(array $assetMap = array())
     {
-        $this->assetMap = $assetMap;
+        $this->assetMap += $assetMap;
     }
 
     public function hasAsset($name)
