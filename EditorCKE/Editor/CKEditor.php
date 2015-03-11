@@ -20,7 +20,7 @@ class CKEditor implements EditorInterface
     public function getAssets()
     {
         return array(
-            '@plugin_editor_cke/ckeditor/ckeditor.js',
+            '@module_editor_cke/ckeditor/ckeditor.js',
         );
     }
 } 
