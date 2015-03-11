@@ -21,8 +21,7 @@ class TextFieldSettingsForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('limit', 'number');
+
     }
 
     /**
@@ -31,11 +30,9 @@ class TextFieldSettingsForm extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'GravityCMS\NodeBundle\Field\Text\Configuration\TextFieldConfiguration',
-            )
-        );
+        $resolver->setDefaults([
+            'data_class' => 'GravityCMS\NodeBundle\Field\Text\Configuration\TextFieldConfiguration',
+        ]);
     }
 
     /**
@@ -44,5 +41,10 @@ class TextFieldSettingsForm extends AbstractType
     public function getName()
     {
         return 'gravity_field_text_settings';
+    }
+
+    public function getParent()
+    {
+        return 'field_configuration';
     }
 }
