@@ -80,7 +80,7 @@ class FieldContentCollectionDataTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         foreach ($value as $contentType) {
-            $contentType->setFieldType($this->contentTypeField);
+            $contentType->setContentTypeField($this->contentTypeField);
         }
 
         return $value;
