@@ -39,7 +39,7 @@
     {% set page_modules = page_modules|default([]) %}
     {% block head_javascripts %}
         {{ include('GravityCMSCoreBundle::requirejs.html.twig', {
-        requirejs_module: ['cms/core/api', 'theme/gravity_admin/main']|merge(page_modules)
+        requirejs_module: ['cms/core/api', 'theme/gravity_admin/main', 'cms/core/form/fields']|merge(page_modules)
         }) }}
     {% endblock %}
     <!-- END JAVASCRIPTS -->
