@@ -156,22 +156,6 @@ class ContentType
      */
     public function getNodes()
     {
-        return $this->typeFields;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPathFormat()
-    {
-        return $this->pathFormat;
-    }
-
-    /**
-     * @param string $pathFormat
-     */
-    public function setPathFormat($pathFormat)
-    {
-        $this->pathFormat = $pathFormat;
+        return $this->nodes;
     }
 } 
