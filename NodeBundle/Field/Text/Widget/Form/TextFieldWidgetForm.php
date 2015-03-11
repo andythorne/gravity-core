@@ -23,7 +23,7 @@ class TextFieldWidgetForm extends AbstractType
         $limit = $options['content_type_field']->getConfig()->getLimit();
         $builder
             ->add('body', 'textarea', array(
-                'label' => $limit == 1 ? null : $limit,
+                'label' => $limit == 1 ? null : false,
                 'attr' => array(
                     'class' => 'form-control wysiwyg-editor',
                     'data-limit' => $limit,
