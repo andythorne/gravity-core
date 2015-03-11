@@ -24,3 +24,8 @@ services:
       class: GravityCMS\Component\Form\Type\ToggleType
       tags:
           - { name: form.type, alias: toggle }
+
+  gravity_cms.field.form.type.field_configuration:
+      class: GravityCMS\Component\Field\Form\Type\FieldConfigurationType
+      tags:
+          - { name: form.type, alias: field_configuration }

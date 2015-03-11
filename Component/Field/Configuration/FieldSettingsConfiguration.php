@@ -3,7 +3,6 @@
 namespace GravityCMS\Component\Field\Configuration;
 
 use GravityCMS\Component\Configuration\AbstractConfiguration;
-use GravityCMS\NodeBundle\Configuration\Field\View\Form\FormConfigurationInterface;
 use GravityCMS\Component\Field\FieldSettingsInterface;
 
 /**
@@ -17,6 +16,8 @@ abstract class FieldSettingsConfiguration extends AbstractConfiguration implemen
     const LIMIT_UNLIMITED = -1;
 
     protected $limit = 1;
+
+    protected $required = true;
 
     protected $viewForm;
 
@@ -36,6 +37,22 @@ abstract class FieldSettingsConfiguration extends AbstractConfiguration implemen
     public function setLimit($limit)
     {
         $this->limit = $limit;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRequired()
+    {
+        return $this->required;
+    }
+
+    /**
+     * @param boolean $required
+     */
+    public function setRequired($required)
+    {
+        $this->required = $required;
     }
 
     /**
