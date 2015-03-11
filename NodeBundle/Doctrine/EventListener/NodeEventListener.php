@@ -38,9 +38,9 @@ class NodeEventListener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-            Events::onFlush,
-            Events::prePersist,
-            Events::postRemove,
+//            Events::onFlush,
+//            Events::prePersist,
+//            Events::postRemove,
         );
     }
 
