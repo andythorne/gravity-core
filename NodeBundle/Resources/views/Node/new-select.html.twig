@@ -10,19 +10,17 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li><a href="{{ url('gravity_cms_admin_node_create_select') }}">Create</a></li>
+    <li><a href="{{ url('gravity_admin_node_create_select') }}">Create</a></li>
 {% endblock %}
 
 {% block plugin %}
     {% for contentType in contentTypes %}
         {% if loop.index % 4 == 1 %}<div class="row">{% endif %}
             <div class="col-md-4 col-sm-6 col-xs-12">
-                <a class="panel panel-default show" href="{{ url('gravity_cms_admin_node_create', {id: contentType.id} ) }}">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ contentType.label }}</h3>
-                    </div>
+                <a class="panel panel-default show" href="{{ url('gravity_admin_node_create', {id: contentType.id} ) }}">
                     <div class="panel-body">
-                        {{ contentType.description }}
+                        <h2 class="no-margin-t">{{ contentType.label }}</h2>
+                        <p class="text-muted no-margin-vr">{{ contentType.description }}</p>
                     </div>
                 </a>
             </div>

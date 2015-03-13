@@ -21,10 +21,10 @@ class EditorCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $editorManagerDefinition = $container->findDefinition('gravity_cms.editor_manager');
+        $editorManagerDefinition = $container->findDefinition('gravity.editor_manager');
         $editorServices = $container->findTaggedServiceIds('gravity.editor');
 
-        $defaultEditor = 'gravity_cms.editor.' . $container->getParameter('gravity_cms.default_editor');
+        $defaultEditor = 'gravity.editor.' . $container->getParameter('gravity_cms.default_editor');
 
         foreach($editorServices as $editorServiceId=>$props)
         {
@@ -33,7 +33,7 @@ class EditorCompilerPass implements CompilerPassInterface
 
             if($editorServiceId == $defaultEditor)
             {
-                $container->setAlias('gravity_cms.editor', $editorServiceId);
+                $container->setAlias('gravity.editor', $editorServiceId);
             }
         }
 

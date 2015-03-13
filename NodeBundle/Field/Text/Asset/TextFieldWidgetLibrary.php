@@ -9,7 +9,7 @@ class TextFieldWidgetLibrary extends AbstractAssetLibrary
     public function getJavascripts()
     {
         return array(
-            '@node/field/text/text.js',
+            '@GravityCMSNodeBundle/field/text/text.js',
         );
     }
 

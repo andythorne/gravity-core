@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block plugin %}
-    <a class="btn btn-default" href="{{ url('gravity_cms_admin_content_type_new') }}">
+    <a class="btn btn-default" href="{{ url('gravity_admin_content_type_new') }}">
         <i class="fa-plus"></i> New Content Type
     </a>
 
@@ -31,16 +31,24 @@
             <tbody>
                 {% for contentType in contentTypes %}
                     <tr>
-                        <td>{{ contentType.label }}</td>
                         <td>
+                            {{ contentType.label }}
+                            {% if contentType.description %}
+                                <p class="text-muted text-">
+                                    <em>{{ contentType.description }}</em>
+                                </p>
+                            {% endif %}
+                        </td>
+                        <td class="valign-middle">
                             <div class="btn-group">
-                                <a href="{{ url('gravity_cms_admin_content_type_edit', {type: contentType.name}) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ url('gravity_admin_content_type_edit_fields', {type: contentType.name}) }}" class="btn btn-primary">Manage Fields</a>
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('gravity_cms_admin_content_type_edit', {type: contentType.name}) }}">View</a></li>
+                                    <li><a href="{{ url('gravity_admin_content_type_edit', {type: contentType.name}) }}">Edit</a></li>
+                                    <li><a href="{{ url('gravity_admin_content_type_edit', {type: contentType.name}) }}">View</a></li>
                                     <li class="divider"></li>
                                     <li><a href="{{ url('gravity_api_delete_type', {id: contentType.id}) }}" class="content-type-delete text-danger"><i class="fa-trash-o"></i> Delete</a></li>
                                 </ul>

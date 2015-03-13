@@ -43,7 +43,7 @@ class ViewController extends AbstractApiController
         switch($method)
         {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('gravity_cms_admin_content_type_manage');
+                return $this->generateUrl('gravity_admin_content_type_manage');
                 break;
 
             case self::METHOD_POST:
@@ -59,7 +59,7 @@ class ViewController extends AbstractApiController
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('gravity_cms_admin_content_type_edit', array( 'type' => $entity->getName() ));
+                return $this->generateUrl('gravity_admin_content_type_edit', array( 'type' => $entity->getName() ));
                 break;
         }
 

@@ -130,11 +130,6 @@
 
     <div id="content-wrapper">
 
-        <ul class="breadcrumb breadcrumb-page">
-            <li><a href="{# { url('linestorm_cms_admin_index') } #}"><i class="fa-home"></i> Home</a></li>
-            {% block breadcrumbs %}{% endblock %}
-        </ul>
-
         <div class="page-header">
             <h1>{% block page_title %}{% endblock %}</h1>
 
@@ -146,6 +141,12 @@
 
             {% endblock %}
         </div>
+
+        <ul class="breadcrumb breadcrumb-page">
+            <li><a href="{# { url('linestorm_cms_admin_index') } #}"><i class="fa-home"></i> Home</a></li>
+            {% block breadcrumbs %}{% endblock %}
+        </ul>
+
         {% block body %}
 
         {% endblock %}

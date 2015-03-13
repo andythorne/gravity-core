@@ -1,3 +1,3 @@
 services:
-  gravity_cms.editor_manager:
+  gravity.editor_manager:
     class: GravityCMS\Component\Editor\EditorManager

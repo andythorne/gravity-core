@@ -2,6 +2,7 @@
 
 namespace GravityCMS\NodeBundle\Field\Text\Widget\Form;
 
+use GravityCMS\NodeBundle\Entity\ContentTypeField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -20,15 +21,17 @@ class TextFieldWidgetForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $limit = $options['content_type_field']->getConfig()->getLimit();
+        /** @var ContentTypeField $contentTypeField */
+        $contentTypeField = $options['content_type_field'];
+        $limit = $contentTypeField->getConfig()->getLimit();
         $builder
-            ->add('body', 'textarea', array(
-                'label' => $limit == 1 ? null : false,
-                'attr' => array(
+            ->add('body', 'textarea', [
+                'label' => $limit == 1 ? $contentTypeField->getLabel() : false,
+                'attr' => [
                     'class' => 'form-control wysiwyg-editor',
                     'data-limit' => $limit,
-                ),
-            ));
+                ],
+            ]);
     }
 
     /**
@@ -38,15 +41,15 @@ class TextFieldWidgetForm extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'GravityCMS\NodeBundle\Entity\FieldText',
-            )
+            ]
         );
 
-        $resolver->setRequired(array('content_type_field'));
-        $resolver->setAllowedTypes(array(
+        $resolver->setRequired(['content_type_field']);
+        $resolver->setAllowedTypes([
             'content_type_field' => 'GravityCMS\NodeBundle\Entity\ContentTypeField',
-        ));
+        ]);
     }
 
     /**

@@ -4,12 +4,12 @@ namespace GravityCMS\Component\Router;
 
 use GravityCMS\Component\Plugin\Plugin;
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Yaml\Parser;
 
 class ApiLoader extends Loader
 {
+    use ResourceLoaderTrait;
+
     /**
      * Load all resources into the router
      *
@@ -17,27 +17,36 @@ class ApiLoader extends Loader
      * @param null  $type
      *
      * @return RouteCollection
+     * @throws \Exception
      */
     public function load($resource, $type = null)
     {
-        $routes = new RouteCollection();
 
-        if($resource === '.') {
-
-        } else {
-            $pluginRoutes = new RouteCollection();
-            $resourceRoutes = $this->import($resource, 'rest');
-            $pluginRoutes->addCollection($resourceRoutes);
-
-            //$pluginRoutes->addPrefix('/core');
-
-            // prefix all the routes with the plugin base
-            foreach ($pluginRoutes->all() as $name => $route) {
-                $routes->add('gravity_api_' . $name, $route);
+        $moduleRoutes = new RouteCollection();
+        if ($resource === '.') {
+            if ($this->loaded) {
+                throw new \Exception("Can only load gravity_admin route once");
             }
+            $this->loaded = true;
 
-            $routes->addPrefix('/api');
+            foreach ($this->resources as $moduleName => $routeResources) {
+                foreach ($routeResources as $resource) {
+                    $resourceRoutes = $this->import($resource);
+                    $moduleRoutes->addCollection($resourceRoutes);
+                }
+            }
+        } else {
+            $resourceRoutes = $this->import($resource, 'rest');
+            $moduleRoutes->addCollection($resourceRoutes);
         }
+
+        $routes = new RouteCollection();
+        // prefix all the routes with the plugin base
+        foreach ($moduleRoutes->all() as $name => $route) {
+            $routes->add('gravity_api_' . $name, $route);
+        }
+
+        $routes->addPrefix('/api');
 
         return $routes;
     }

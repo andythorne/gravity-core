@@ -74,7 +74,7 @@ class NodeController extends AbstractApiController implements ClassResourceInter
     {
         switch ($method) {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('gravity_cms_admin_content_type_manage');
+                return $this->generateUrl('gravity_admin_content_type_manage');
                 break;
 
             case self::METHOD_POST:
@@ -91,7 +91,7 @@ class NodeController extends AbstractApiController implements ClassResourceInter
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('gravity_cms_admin_node_edit',
+                return $this->generateUrl('gravity_admin_node_edit',
                     array('id' => $entity->getId()));
                 break;
         }

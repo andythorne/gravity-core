@@ -42,7 +42,7 @@ class LayoutBlockController extends AbstractApiController
     {
         switch ($method) {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('gravity_cms_admin_layout_list');
+                return $this->generateUrl('gravity_admin_layout_list');
                 break;
 
             case self::METHOD_POST:
@@ -60,7 +60,7 @@ class LayoutBlockController extends AbstractApiController
 
             case self::METHOD_GET:
                 return '';
-                return $this->generateUrl('gravity_cms_admin_content_type_edit',
+                return $this->generateUrl('gravity_admin_content_type_edit',
                     array('type' => $entity->getName()));
                 break;
         }

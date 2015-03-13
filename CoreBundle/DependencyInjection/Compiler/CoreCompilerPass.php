@@ -42,7 +42,7 @@ class CoreCompilerPass implements CompilerPassInterface
             foreach ($fileList as $files) {
                 foreach ($files as $file) {
                     $destination = str_replace($path . '/Resources/assets/js/', '', $file);
-                    $assetId     = 'nefarian_plugin_core_' . str_replace(
+                    $assetId     = 'gravity_module_core_' . str_replace(
                             array('/', '.js'),
                             array('_', ''),
                             $destination

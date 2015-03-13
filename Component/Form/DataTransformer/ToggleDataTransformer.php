@@ -50,7 +50,7 @@ class ToggleDataTransformer implements DataTransformerInterface
     public function transform($value)
     {
         return [
-            'enabled' => $value != $this->disabledValue,
+            'enabled' => $value !== $this->disabledValue,
             'value' => $value
         ];
     }

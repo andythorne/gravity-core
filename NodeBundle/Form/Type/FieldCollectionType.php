@@ -32,7 +32,7 @@ class FieldCollectionType extends AbstractType
     protected $fieldLabels;
 
     /**
-     * @param FieldManager  $fieldManager
+     * @param FieldManager         $fieldManager
      * @param ConfigurationManager $configManager
      */
     function __construct(FieldManager $fieldManager, ConfigurationManager $configManager)
@@ -52,7 +52,7 @@ class FieldCollectionType extends AbstractType
             $node          = $options['node'];
             $contentType   = $node->getContentType();
             $contents      = $node->getFields();
-            $fieldContents = array();
+            $fieldContents = [];
 
             /** @var NodeContent $content */
             foreach ($contents as $content) {
@@ -60,10 +60,10 @@ class FieldCollectionType extends AbstractType
             }
 
             foreach ($contentType->getContentTypeFields() as $typeField) {
-                $fieldEntity     = $typeField->getField();
+                $fieldEntity = $typeField->getField();
 //                $fieldWidget     = $typeField->getViewWidget();
-                $field           = $this->fieldManager->getField($fieldEntity->getName());
-                $fieldWidget     = $this->fieldManager->getFieldWidget($typeField->getViewWidget()->getName());
+                $field       = $this->fieldManager->getField($fieldEntity->getName());
+                $fieldWidget = $this->fieldManager->getFieldWidget($typeField->getViewWidget()->getName());
 
                 if ($field instanceof FieldInterface) {
                     $dataClass = $field->getEntityClass();
@@ -77,24 +77,25 @@ class FieldCollectionType extends AbstractType
                     } else {
                         $entity = new $dataClass();
                         $entity->setContentTypeField($typeField);
-                        $entities = array($entity);
+                        $entities = [$entity];
                     }
 
                     $this->fieldLabels[$i] = $typeField;
-                    $builder->add($i, 'field_content_collection', array(
-                        'type' => $formClass,
-                        'options' => array(
-                            'label' => false,
+                    $builder->add($i, 'field_content_collection', [
+                        'type'         => $formClass,
+                        'options'      => [
+                            'label'              => false,
                             'content_type_field' => $typeField,
-                        ),
-                        'type_field' => $typeField,
-                        'limit' => (int)$fieldFormConfig->getLimit() ?: 1,
-                        'label' => false,
-                        'allow_add' => true,
+                        ],
+                        'required'     => $fieldFormConfig->isRequired(),
+                        'type_field'   => $typeField,
+                        'limit'        => (int)$fieldFormConfig->getLimit() ?: 1,
+                        'label'        => false,
+                        'allow_add'    => true,
                         'allow_delete' => true,
-                        'data' => $entities,
+                        'data'         => $entities,
                         'by_reference' => false,
-                    ));
+                    ]);
                     ++$i;
                 }
             }
@@ -108,9 +109,9 @@ class FieldCollectionType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired(array(
+        $resolver->setRequired([
             'node'
-        ));
+        ]);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

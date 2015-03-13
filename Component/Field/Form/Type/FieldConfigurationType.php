@@ -22,7 +22,7 @@ class FieldConfigurationType extends AbstractType
         $builder
             ->add('limit', 'toggle', [
                 'type'           => 'number',
-                'disabled_value' => '-1',
+                'disabled_value' => -1,
             ])
             ->add('required', 'checkbox', [
                 'required' => false,

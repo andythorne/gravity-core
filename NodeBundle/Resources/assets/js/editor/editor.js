@@ -2,7 +2,7 @@ define(['jquery'], function ($) {
 
     var editors = {};
 
-    var editorManager = {
+    return {
         registerEditor: function (name, callback) {
             editors[name] = callback;
             callback($(document));
@@ -15,5 +15,4 @@ define(['jquery'], function ($) {
         }
     };
 
-    return editorManager;
 });

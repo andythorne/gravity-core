@@ -44,7 +44,7 @@ class ContentTypeController extends AbstractApiController implements ClassResour
     {
         switch ($method) {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('gravity_cms_admin_content_type_manage');
+                return $this->generateUrl('gravity_admin_content_type_manage');
                 break;
 
             case self::METHOD_POST:
@@ -61,7 +61,7 @@ class ContentTypeController extends AbstractApiController implements ClassResour
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('gravity_cms_admin_content_type_edit',
+                return $this->generateUrl('gravity_admin_content_type_edit',
                     array('type' => $entity->getName()));
                 break;
         }
@@ -132,7 +132,7 @@ class ContentTypeController extends AbstractApiController implements ClassResour
             $this->postUpdate($entity);
 
             $view = JsonApiView::create(null, 201, array(
-                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_form_view',
+                'location' => $this->generateUrl('gravity_admin_content_type_edit_form_view',
                     array(
                         'type' => $entity->getName()
                     ))

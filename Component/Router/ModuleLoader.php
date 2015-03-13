@@ -10,33 +10,7 @@ use Symfony\Component\Yaml\Parser;
 
 class ModuleLoader extends Loader
 {
-    /**
-     * All resources
-     *
-     * @var array[]
-     */
-    private $resources = array();
-
-    /**
-     * Array of app module paths
-     *
-     * @var Module[]
-     */
-    private $modules = array();
-
-    /**
-     * Add a resource to the stack
-     *
-     * @param string $resource
-     * @param Module $module
-     *
-     * @internal param $name
-     */
-    public function addPluginResource(Module $module, $resource)
-    {
-        $this->resources[$module->getName()][] = $resource;
-        $this->modules[$module->getName()] = $module;
-    }
+    use ResourceLoaderTrait;
 
     /**
      * Load all resources into the router

@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary" href="{{ url('gravity_cms_admin_layout_new') }}">
+            <a class="btn btn-primary" href="{{ url('gravity_admin_layout_new') }}">
                 <i class="fa fa-plus"></i> New Layout
             </a>
         </div>
@@ -32,7 +32,7 @@
                 <td>{{ layout.name }}</td>
                 <td>{{ layout.description }}</td>
                 <td>
-                    <a class="btn btn-default" href="{{ url('gravity_cms_admin_layout_edit', { id: layout.id}) }}">
+                    <a class="btn btn-default" href="{{ url('gravity_admin_layout_edit', { id: layout.id}) }}">
                         Configure Blocks
                     </a>
                 </td>

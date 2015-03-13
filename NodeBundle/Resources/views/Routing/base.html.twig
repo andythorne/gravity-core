@@ -10,9 +10,9 @@
         <div class="col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
                 {% set selected_tab = selected_tab|default('main') %}
-                <li {% if selected_tab == 'settings' %}class="active"{% endif %}><a href="{{ path('gravity_cms_admin_routing_settings') }}">Settings</a></li>
-                <li {% if selected_tab == 'routes' %}class="active"{% endif %}><a href="{{ path('gravity_cms_admin_routing_routes') }}">Routes</a></li>
-                <li {% if selected_tab == 'manage' %}class="active"{% endif %}><a href="{{ path('gravity_cms_admin_routing_manage') }}">Manage</a></li>
+                <li {% if selected_tab == 'settings' %}class="active"{% endif %}><a href="{{ path('gravity_admin_routing_settings') }}">Settings</a></li>
+                <li {% if selected_tab == 'routes' %}class="active"{% endif %}><a href="{{ path('gravity_admin_routing_routes') }}">Routes</a></li>
+                <li {% if selected_tab == 'manage' %}class="active"{% endif %}><a href="{{ path('gravity_admin_routing_manage') }}">Manage</a></li>
             </ul>
             <div class="tab-content tab-content-bordered">
                 {% block tab %}

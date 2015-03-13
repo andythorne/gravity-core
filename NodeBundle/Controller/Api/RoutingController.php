@@ -57,7 +57,7 @@ class RoutingController extends Controller implements ClassResourceInterface
             $configManager->set($fieldConfigName, $entity);
 
             $view = View::create(array(
-                'location' => $this->generateUrl('gravity_cms_admin_routing_settings'),
+                'location' => $this->generateUrl('gravity_admin_routing_settings'),
             ), 200);
         } else {
             $view = View::create($form);

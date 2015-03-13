@@ -75,7 +75,7 @@ class NodeController extends Controller
         ));
 
         return $this->render('GravityCMSNodeBundle:Node:new.html.twig', array(
-            'editor' => $this->get('gravity_cms.editor'), // @TODO: make this dynamic
+            'editor' => $this->get('gravity.editor'), // @TODO: make this dynamic
             'fields'      => $fieldManager->getFields(),
             'contentType' => $contentType,
             'form'        => $form->createView(),
@@ -97,7 +97,7 @@ class NodeController extends Controller
         ));
 
         return $this->render('GravityCMSNodeBundle:Node:edit.html.twig', array(
-            'editor' => $this->get('gravity_cms.editor'), // @TODO: make this dynamic
+            'editor' => $this->get('gravity.editor'), // @TODO: make this dynamic
             'fields' => $fieldManager->getFields(),
             'node'   => $node,
             'form'   => $form->createView(),

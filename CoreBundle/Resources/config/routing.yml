@@ -5,3 +5,10 @@ gravity_cms_theme:
 gravity_cms_api:
   resource: @GravityCMSCoreBundle/Resources/config/routing/api.yml
   type: gravity_api
+
+gravity_cms_forms:
+  resource: @GravityCMSCoreBundle/Resources/config/routing/forms.yml
+
+gravity_module_admin:
+  resource: .
+  type: gravity_admin

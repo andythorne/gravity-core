@@ -2,16 +2,16 @@
 
 namespace GravityCMS\NodeBundle;
 
-use GravityCMS\CoreBundle\AbstractGravityBundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use GravityCMS\Component\Bundle\GravityBundle;
 use GravityCMS\NodeBundle\DependencyInjection\Compiler as Compilers;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class GravityCMSNodeBundle extends AbstractGravityBundle
+class GravityCMSNodeBundle extends GravityBundle
 {
     /**
      * @return string
      */
-    public function getBundleName()
+    public function getGravityBundleName()
     {
         return 'node';
     }

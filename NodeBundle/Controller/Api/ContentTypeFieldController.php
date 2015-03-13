@@ -97,7 +97,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 $em->flush();
 
                 $view = JsonApiView::create(null, 302, array(
-                    'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_field_settings',
+                    'location' => $this->generateUrl('gravity_admin_content_type_edit_field_settings',
                         array(
                             'type' => $contentType->getName(),
                             'typeField' => $contentTypeField->getName(),
@@ -143,7 +143,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $em->flush($contentTypeField);
 
             $view = JsonApiView::create(null, 200, array(
-                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields',
+                'location' => $this->generateUrl('gravity_admin_content_type_edit_fields',
                     array('type' => $contentType->getName())),
             ));
         } else {
@@ -203,7 +203,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $em->flush($widgetEntity);
 
             $view = JsonApiView::create(null, 200, array(
-                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields',
+                'location' => $this->generateUrl('gravity_admin_content_type_edit_fields',
                     array('type' => $contentType->getName())),
             ));
         } else {
@@ -244,7 +244,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $em->flush();
 
             $view = JsonApiView::create(null, 200, array(
-                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields',
+                'location' => $this->generateUrl('gravity_admin_content_type_edit_fields',
                     array('type' => $contentType->getName())),
             ));
         } else {
@@ -296,7 +296,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
             $configManager->set($fieldConfigName, $entity);
 
             $view = JsonApiView::create(null, 201, array(
-                'location' => $this->generateUrl('gravity_cms_admin_content_type_edit_fields', array('type' => $contentType->getName())),
+                'location' => $this->generateUrl('gravity_admin_content_type_edit_fields', array('type' => $contentType->getName())),
             ));
         }
         else
@@ -328,7 +328,7 @@ class ContentTypeFieldController extends Controller implements ClassResourceInte
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('gravity_cms_admin_content_type_edit',
+                return $this->generateUrl('gravity_admin_content_type_edit',
                     array('type' => $entity->getName()));
                 break;
         }

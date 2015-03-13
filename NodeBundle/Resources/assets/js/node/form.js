@@ -1,4 +1,6 @@
-define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api', 'cms/node/node/form'], function ($, ui, bs, bootbox, api, nodeForm) {
+'use strict';
+
+define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api'], function ($, ui, bs, bootbox, api) {
 
     var widgets = {};
 
@@ -69,20 +71,21 @@ define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api', 'cms/node/
             };
             var refreshWidgetState = function(){
                 var c = getWidgetCount();
-                if(c >= widgetLimit){
-                    $addButton.attr('disabled', true);
-                    $fieldGroup.find('.form-delete-widget').attr('disabled', false);
+                if(widgetLimit == -1) {
+                    $addButton.attr('disabled', false);
+                } else {
+                    if(c >= widgetLimit) {
+                        $addButton.attr('disabled', true);
+                    } else {
+                        $addButton.attr('disabled', false);
+                    }
                 }
 
-                if(c <= 1 && widgetLimit !== 1){
-                    $addButton.attr('disabled', false);
-                    $fieldGroup.find('.form-delete-widget').attr('disabled', true);
-                }
 
                 return c;
             };
             $addButton.on('click', function () {
-                if(refreshWidgetState() >= widgetLimit){
+                if(widgetLimit !== -1 && refreshWidgetState() >= widgetLimit){
                     return false;
                 }
                 var data = $addButton.data('prototype').replace(/__name__/g, getWidgetCount());
@@ -98,13 +101,13 @@ define(['jquery', 'jqueryui', 'bootstrap', 'bootbox', 'cms/core/api', 'cms/node/
                 var $btn = $(this);
                 var $widget = $btn.closest('li.field-group-item ');
 
-                if(refreshWidgetState() <= 1){
+                if(refreshWidgetState() <= 0){
                     return false
                 }
                 $widget.remove();
                 refreshWidgetState()
             });
-            if (widgetLimit == 0 || widgetLimit > 1) {
+            if (widgetLimit !== 1) {
                 $fieldGroupList.sortable({
                     axis: "y",
                     containment: "parent",

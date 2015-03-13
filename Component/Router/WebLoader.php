@@ -67,7 +67,7 @@ class WebLoader extends Loader
                 list($controller, $method) = explode(':', $defaultController);
                 $controller = $plugin->getNamespace().'\\Controller\\'.$controller.'Controller';
                 $route->setDefault('_controller', $controller.'::'.$method.'Action');
-                $routes->add('nefarian_web_plugin_' . $pluginName . '_' . $name, $route);
+                $routes->add('gravity_module_' . $pluginName . '_' . $name, $route);
             }
         }
 
@@ -82,7 +82,7 @@ class WebLoader extends Loader
      */
     public function supports($resource, $type = null)
     {
-        return 'nefarian_web' === $type;
+        return 'gravity_web' === $type;
     }
 
 
