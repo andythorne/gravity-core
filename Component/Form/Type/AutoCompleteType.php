@@ -67,6 +67,7 @@ class AutoCompleteType extends AbstractType
         $handler = $options['handler'];
 
         $view->vars['attr']['data-multiple'] = $options['multiple'] ? 1 : 0;
+        $view->vars['attr']['data-allow-new'] = $options['allow_new'] ? 1 : 0;
         $view->vars['attr']['data-url']      = $this->router->generate('gravity_cms_form_autocomplete', [
             'type'    => $handler->getName(),
             'options' => $options['handler_options'],
