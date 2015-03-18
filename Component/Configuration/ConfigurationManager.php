@@ -3,8 +3,11 @@
 namespace GravityCMS\Component\Configuration;
 
 use Doctrine\ORM\EntityManager;
+use GravityCMS\Component\Configuration\Exception\ConfigurationNotFoundException;
 use GravityCMS\CoreBundle\Entity\Config;
 use GravityCMS\CoreBundle\Entity\Repository\ConfigRepository;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class ConfigurationManager
@@ -24,10 +27,16 @@ class ConfigurationManager
      */
     protected $configRepo;
 
-    function __construct(EntityManager $entityManager)
+    /**
+     * @var FormFactoryInterface
+     */
+    protected $formFactory;
+
+    function __construct(EntityManager $entityManager, FormFactoryInterface $formFactory)
     {
         $this->entityManager = $entityManager;
         $this->configRepo    = $this->entityManager->getRepository('GravityCMSCoreBundle:Config');
+        $this->formFactory   = $formFactory;
     }
 
     /**
@@ -40,9 +49,8 @@ class ConfigurationManager
     {
         $config = $this->configRepo->findOneByName($name);
 
-        if(!$config instanceof Config)
-        {
-            throw new \Exception("Configuration \"{$name}\" not found");
+        if (!$config instanceof Config) {
+            throw new ConfigurationNotFoundException($name);
         }
 
         return $config->getValue();
@@ -57,7 +65,7 @@ class ConfigurationManager
     {
         $configEntities = $this->configRepo->findByPattern($pattern);
 
-        $configs = array();
+        $configs = [];
         foreach ($configEntities as $configEntity) {
             $configs[] = $configEntity->getValue();
         }
@@ -142,5 +150,18 @@ class ConfigurationManager
 
             return $this->getConfigurationName($parentConfig) . ':' . $type;
         }
+    }
+
+    /**
+     * Create a form for a given configuration
+     *
+     * @param ConfigurationInterface $configuration
+     * @param array                  $options
+     *
+     * @return FormInterface
+     */
+    public function getForm(ConfigurationInterface $configuration, $options = [])
+    {
+        return $this->formFactory->create($configuration->getForm(), $configuration, $options);
     }
 }
