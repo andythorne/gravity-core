@@ -2,7 +2,7 @@
 
 namespace GravityCMS\Component\Form\DataTransformer;
 
-use GravityCMS\Component\Entity\Route;
+use GravityCMS\CoreBundle\Entity\Route;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Routing\Route as HttpRoute;
@@ -15,6 +15,16 @@ use Symfony\Component\Routing\Route as HttpRoute;
  */
 class BasicRouteTransformer  implements DataTransformerInterface
 {
+    /**
+     * @var string
+     */
+    protected $routeEntityClass;
+
+    function __construct($routeEntityClass)
+    {
+        $this->routeEntityClass = $routeEntityClass;
+    }
+
     /**
      * Transforms a value from the original representation to a transformed representation.
      *
@@ -73,7 +83,8 @@ class BasicRouteTransformer  implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        if(!$value instanceof Route)
+        $routeEntityClass = $this->routeEntityClass;
+        if(!$value instanceof $routeEntityClass)
         {
             return null;
         }

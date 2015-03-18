@@ -34,28 +34,29 @@ class AutoCompleteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'limit'           => null,
                 'name'            => null,
                 'allow_new'       => false,
-                'handler_options' => array(),
+                'handler_options' => [],
                 'multiple'        => true,
-            ))
-            ->setRequired(array(
+            ])
+            ->setRequired([
                 'handler',
-            ))
-            ->setAllowedTypes(array(
+            ])
+            ->setAllowedTypes([
                 'handler'         => '\GravityCMS\Component\Form\AutoComplete\AutoCompleteHandlerInterface',
                 'limit'           => 'integer',
                 'allow_new'       => 'bool',
                 'handler_options' => 'array',
                 'multiple'        => 'bool',
-            ));
+            ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new AutoCompleteTransformer($options['handler'], $options['handler_options'], $options['allow_new']);
+        $transformer =
+            new AutoCompleteTransformer($options['handler'], $options['handler_options'], $options['allow_new']);
 
         $builder->addModelTransformer($transformer);
     }
@@ -66,10 +67,11 @@ class AutoCompleteType extends AbstractType
         $handler = $options['handler'];
 
         $view->vars['attr']['data-multiple'] = $options['multiple'] ? 1 : 0;
-        $view->vars['attr']['data-url']     = $this->router->generate('nefarian_form_autocomplete', array(
+        $view->vars['attr']['data-allow-new'] = $options['allow_new'] ? 1 : 0;
+        $view->vars['attr']['data-url']      = $this->router->generate('gravity_cms_form_autocomplete', [
             'type'    => $handler->getName(),
             'options' => $options['handler_options'],
-        ));
+        ]);
 
         if ($options['limit'] !== null || $options['limit'] > 0) {
             $view->vars['attr']['data-limit'] = $options['limit'];

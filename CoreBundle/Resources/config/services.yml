@@ -3,6 +3,8 @@ imports:
     - { resource: services/router.yml }
     - { resource: services/menu.yml }
     - { resource: services/forms.yml }
+    - { resource: services/entity.yml }
+    - { resource: services/editor.yml }
 
 parameters: ~
 
@@ -11,8 +13,12 @@ services:
     class: GravityCMS\Component\Configuration\ConfigurationManager
     arguments:
       - @doctrine.orm.default_entity_manager
+      - @form.factory
 
   gravity_cms.content_type_manager:
     class: GravityCMS\Component\ContentType\ContentTypeManager
     arguments:
       - @gravity_cms.config_manager
+
+  gravity_cms.field_manager:
+    class: GravityCMS\Component\Field\FieldManager

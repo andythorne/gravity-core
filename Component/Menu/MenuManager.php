@@ -31,9 +31,6 @@ class MenuManager
 
         foreach($links as $link)
         {
-            if($plugin) {
-                $link['route'] = 'nefarian_plugin_' . $plugin . '_' . $link['route'];
-            }
             $category->addLink($link);
         }
 

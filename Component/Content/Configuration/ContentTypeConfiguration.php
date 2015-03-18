@@ -1,16 +1,15 @@
 <?php
-/**
- * Created by Andy Thorne
- *
- * @author Andy Thorne <contrabandvr@gmail.com>
- */
 
 namespace GravityCMS\Component\ContentType\Configuration;
 
-
 use GravityCMS\Component\Configuration\AbstractConfiguration;
-use GravityCMS\Component\Configuration\ConfigurationInterface;
 
+/**
+ * Class ContentTypeConfiguration
+ *
+ * @package GravityCMS\Component\ContentType\Configuration
+ * @author  Andy Thorne <contrabandvr@gmail.com>
+ */
 class ContentTypeConfiguration extends AbstractConfiguration
 {
     /**

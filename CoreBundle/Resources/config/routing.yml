@@ -2,10 +2,13 @@ gravity_cms_theme:
   resource: @GravityCMSCoreBundle/Resources/config/routing/theme.yml
   type: gravity_admin
 
-gravity_cms_node:
-  resource: @GravityCMSCoreBundle/Resources/config/routing/node.yml
-  type: gravity_admin
-
 gravity_cms_api:
   resource: @GravityCMSCoreBundle/Resources/config/routing/api.yml
   type: gravity_api
+
+gravity_cms_forms:
+  resource: @GravityCMSCoreBundle/Resources/config/routing/forms.yml
+
+gravity_module_admin:
+  resource: .
+  type: gravity_admin

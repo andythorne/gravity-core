@@ -2,7 +2,7 @@
 
 namespace GravityCMS\CoreBundle\Controller\Api;
 
-use GravityCMS\Component\View\DataTable\ViewDataTableType;
+use GravityCMS\Component\Theme\View\DataTable\ViewDataTableType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +22,7 @@ class ViewController extends AbstractApiController
      */
     function getForm()
     {
-        return $this->get('nefarian.view.form.view_form');
+        return $this->get('gravity_cms.form.view');
     }
 
     /**
@@ -32,7 +32,7 @@ class ViewController extends AbstractApiController
      */
     function getEntityClass()
     {
-        return '\GravityCMS\Component\Entity\View';
+        return '\GravityCMS\CoreBundle\Entity\View';
     }
 
     /**
@@ -43,23 +43,23 @@ class ViewController extends AbstractApiController
         switch($method)
         {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_manage');
+                return $this->generateUrl('gravity_admin_content_type_manage');
                 break;
 
             case self::METHOD_POST:
-                return $this->generateUrl('nefarian_api_content_management_post_type');
+                return $this->generateUrl('gravity_api_post_type');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('nefarian_api_content_management_put_type', array( 'id' => $entity->getId() ));
+                return $this->generateUrl('gravity_api_put_type', array( 'id' => $entity->getId() ));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('nefarian_api_content_management_delete_type', array( 'id' => $entity->getId() ));
+                return $this->generateUrl('gravity_api_delete_type', array( 'id' => $entity->getId() ));
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('nefarian_plugin_content_management_content_type_edit', array( 'type' => $entity->getName() ));
+                return $this->generateUrl('gravity_admin_content_type_edit', array( 'type' => $entity->getName() ));
                 break;
         }
 
@@ -68,6 +68,7 @@ class ViewController extends AbstractApiController
 
     function hasPermission($method)
     {
+        return true;
         $userManager = $this->get('nefarian_core.user_manager');
         switch($method)
         {

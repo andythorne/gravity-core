@@ -29,8 +29,6 @@ class Configuration implements ConfigurationInterface
             ->end();
 
         $this->addCMSSection($rootNode);
-//        $this->addPluginSection($rootNode);
-//        $this->addThemeSection($rootNode);
 
         return $treeBuilder;
     }
@@ -42,26 +40,6 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
                 ->children()
                 ->scalarNode('admin_path')->defaultValue('/admin/cms')->isRequired()
-                ->end()
-            ->end()
-        ->end();
-    }
-
-    private function addPluginSection(NodeDefinition $rootNode)
-    {
-        $rootNode->children()
-            ->arrayNode('plugins')->isRequired()
-                ->prototype('scalar')
-                ->end()
-            ->end()
-        ->end();
-    }
-
-    private function addThemeSection(NodeDefinition $rootNode)
-    {
-        $rootNode->children()
-            ->arrayNode('themes')->isRequired()
-                ->prototype('scalar')
                 ->end()
             ->end()
         ->end();

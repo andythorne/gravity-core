@@ -2,20 +2,15 @@ theme:
   title: Themes
   icon: paint-brush
   items:
-    view_themes:
-      route: gravity_cms_admin_theme_list
-      title: View Themes
+    themes:
+      route: gravity_admin_theme_list
+      title: Themes
       description: ~
-    view_layouts:
-      route: gravity_cms_admin_layout_list
-      title: View Layouts
+    layouts:
+      route: gravity_admin_layout_list
+      title: Layouts
       description: ~
-
-node:
-  title: Content
-  icon: th-large
-  items:
-    view_nodes:
-      route: gravity_cms_admin_node_list
-      title: View Content
+    views:
+      route: gravity_admin_theme_view_list
+      title: Views
       description: ~

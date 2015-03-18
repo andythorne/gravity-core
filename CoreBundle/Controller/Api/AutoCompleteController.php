@@ -19,7 +19,7 @@ class AutoCompleteController extends Controller
     public function autoCompleteAction(Request $request, $type)
     {
         /** @var AutoCompleteManager $autoCompleteManager */
-        $autoCompleteManager = $this->get('nefarian_core.auto_complete_manager');
+        $autoCompleteManager = $this->get('gravity.cms.auto_complete_manager');
 
         $terms      = $request->query->get('q', null);
         $urlOptions = $request->query->get('options', array());

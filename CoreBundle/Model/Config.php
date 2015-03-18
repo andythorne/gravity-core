@@ -10,30 +10,21 @@ use GravityCMS\Component\Configuration\ConfigurationInterface;
  *
  * @package GravityCMS\CoreBundle\Model
  * @author  Andy Thorne <contrabandvr@gmail.com>
- *
- * @ORM\MappedSuperclass
  */
 class Config
 {
     /**
      * @var string
-     *
-     * @ORM\Id
-     * @ORM\Column(type="string")
      */
     protected $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string")
      */
     protected $pattern;
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="object")
      */
     protected $value;
 

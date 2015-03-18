@@ -36,13 +36,6 @@ class BasicRouteType extends AbstractType
             ->add('name', 'text')
             ->add('path', 'text');
 
-        $builder->addModelTransformer(new BasicRouteTransformer());
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'GravityCMS\Component\Entity\Route'
-        ));
+        $builder->addModelTransformer(new BasicRouteTransformer($options['data_class']));
     }
 }

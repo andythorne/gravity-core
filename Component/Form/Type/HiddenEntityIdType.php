@@ -18,7 +18,7 @@ class HiddenEntityIdType extends AbstractType
     {
         $resolver
             ->setRequired(array(
-                'data_class',
+                'class',
                 'em'
             ))
             ->setAllowedTypes(array(
@@ -35,7 +35,7 @@ class HiddenEntityIdType extends AbstractType
 
         // this assumes that the entity manager was passed in as an option
         $entityManager = $options['em'];
-        $dataClass = $options['data_class'];
+        $dataClass = $options['class'];
         $transformer = new HiddenEntityIdTransformer($entityManager, $dataClass);
 
         $builder->addModelTransformer($transformer);

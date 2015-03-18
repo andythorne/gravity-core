@@ -11,11 +11,4 @@ use GravityCMS\CoreBundle\Model\Config as BaseConfig;
  */
 class Config extends BaseConfig
 {
-    /**
-     * @var string
-     *
-     * @ORM\Id
-     * @ORM\Column(type="string")
-     */
-    protected $name;
-} 
+}

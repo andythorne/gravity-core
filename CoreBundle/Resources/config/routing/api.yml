@@ -1,7 +1,15 @@
 theme_layout_block:
   resource: \GravityCMS\CoreBundle\Controller\Api\LayoutBlockController
   type: rest
+  prefix: /core
 
 theme_layout:
   resource: \GravityCMS\CoreBundle\Controller\Api\LayoutController
   type: rest
+  prefix: /core
+
+
+theme_view:
+  resource: \GravityCMS\CoreBundle\Controller\Api\ViewController
+  type: rest
+  prefix: /core

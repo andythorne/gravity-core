@@ -2,20 +2,12 @@
 
 namespace GravityCMS\Component\Router;
 
-use GravityCMS\Component\Plugin\Plugin;
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Yaml\Parser;
 
 class AdminLoader extends Loader
 {
-    /**
-     * All resources
-     *
-     * @var array[]
-     */
-    private $resources = array();
+    use ResourceLoaderTrait;
 
     /**
      * Array of app plugin paths
@@ -47,25 +39,39 @@ class AdminLoader extends Loader
      * @param null  $type
      *
      * @return RouteCollection
+     * @throws \Exception
      */
     public function load($resource, $type = null)
     {
-        $routes = new RouteCollection();
+        $moduleRoutes   = new RouteCollection();
 
-        if($resource !== '.'){
-            $pluginRoutes = new RouteCollection();
+        if ($resource == '.') {
+            if($this->loaded){
+                throw new \Exception("Can only load gravity_admin route once");
+            }
+            $this->loaded = true;
+
+            foreach($this->resources as $moduleName => $routeResources) {
+                $module = $this->modules[$moduleName];
+                foreach ($routeResources as $resource) {
+                    $resourceRoutes = $this->import($resource);
+                    $resourceRoutes->addPrefix($module->getName());
+                    $moduleRoutes->addCollection($resourceRoutes);
+                }
+            }
+        } else {
             $resourceRoutes = $this->import($resource);
-            $pluginRoutes->addCollection($resourceRoutes);
+            $moduleRoutes->addCollection($resourceRoutes);
+        }
 
-            // prefix all the routes with the plugin base
-            foreach ($pluginRoutes->all() as $name => $route) {
-                $routes->add('gravity_cms_admin_' . $name, $route);
-            }
+        $routes = new RouteCollection();
+        // prefix all the routes with the plugin base
+        foreach ($moduleRoutes->all() as $name => $route) {
+            $routes->add('gravity_admin_' . $name, $route);
+        }
 
-            if($this->adminPath){
-                $routes->addPrefix($this->adminPath);
-            }
-
+        if ($this->adminPath) {
+            $routes->addPrefix($this->adminPath);
         }
 
         return $routes;

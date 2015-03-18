@@ -7,44 +7,35 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Users
+ * Class Role
  *
- * @ORM\Table(name="user_roles")
- * @ORM\Entity
+ * @package GravityCMS\CoreBundle\Entity
+ * @author  Andy Thorne <contrabandvr@gmail.com>
  */
 class Role implements RoleInterface
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=30)
      */
     private $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=20, unique=true)
      */
     private $role;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="user_user_roles")
+     * @var User[]
      */
     private $users;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group", mappedBy="roles")
+     * @var Group[]
      */
     private $groups;
 

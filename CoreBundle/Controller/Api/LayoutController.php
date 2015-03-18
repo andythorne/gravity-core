@@ -2,11 +2,13 @@
 
 namespace GravityCMS\CoreBundle\Controller\Api;
 
-use GravityCMS\Component\Configuration\ConfigurationInterface;
-use GravityCMS\Component\View\Layout\Configuration\LayoutConfiguration;
-use GravityCMS\CoreBundle\Controller\Api\Event\ApiConfigurationEvent;
+use GravityCMS\CoreBundle\Controller\Api\Event\ApiEvent;
 use GravityCMS\CoreBundle\Controller\Api\Event\ApiEvents;
+use GravityCMS\CoreBundle\Entity\Block;
+use GravityCMS\CoreBundle\Entity\Layout;
+use GravityCMS\CoreBundle\Entity\LayoutPositionBlock;
 use GravityCMS\CoreBundle\FosRest\View\View\JsonApiView;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -15,21 +17,31 @@ use Symfony\Component\HttpFoundation\Request;
  * @package GravityCMS\Component\Controller\Api
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class LayoutController extends AbstractApiConfigurationController
+class LayoutController extends AbstractApiController
 {
     /**
-     * Get the default configuration
+     * Get the entity name
      *
-     * @return ConfigurationInterface
+     * @return string
      */
-    public function getConfiguration()
+    protected function getEntityClass()
     {
-        return new LayoutConfiguration();
+        return '\GravityCMS\CoreBundle\Entity\Layout';
     }
 
     /**
-     * @param int  $method
-     * @param ConfigurationInterface $entity
+     * Get the form type
+     *
+     * @return AbstractType
+     */
+    function getForm()
+    {
+        return $this->get('gravity_cms.theme.form.layout');
+    }
+
+    /**
+     * @param int    $method
+     * @param object $entity
      *
      * @return string
      */
@@ -37,24 +49,26 @@ class LayoutController extends AbstractApiConfigurationController
     {
         switch ($method) {
             case self::METHOD_VIEW_ALL:
-                return $this->generateUrl('gravity_cms_admin_layout_list');
+                return $this->generateUrl('gravity_admin_layout_list');
                 break;
 
             case self::METHOD_POST:
-                return $this->generateUrl('gravity_api_core_post_layout');
+                return $this->generateUrl('gravity_api_post_layout');
                 break;
 
             case self::METHOD_PUT:
-                return $this->generateUrl('gravity_api_core_put_layout', array('id' => $entity->getConfigurationName()));
+                return $this->generateUrl('gravity_api_put_layout',
+                    array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('gravity_api_core_delete_layout', array('id' => $entity->getConfigurationName()));
+                return $this->generateUrl('gravity_api_delete_layout',
+                    array('id' => $entity->getId()));
                 break;
 
             case self::METHOD_GET:
-                return $this->generateUrl('gravity_cms_admin_layout_edit',
-                    array('id' => $entity->getConfigurationName()));
+                return $this->generateUrl('gravity_admin_layout_edit',
+                    array('id' => $entity->getId()));
                 break;
         }
 
@@ -88,38 +102,38 @@ class LayoutController extends AbstractApiConfigurationController
         return false;
     }
 
-    public function postBlockAction(Request $request, $layout, $block)
+    public function postBlockAction(Request $request, Layout $layout, Block $block)
     {
-        $blockManager = $this->get('gravity_cms.theme.block_manager');
-        $configurationManager = $this->get('gravity_cms.config_manager');
         $this->authenticate(self::METHOD_POST);
 
-        $block = $blockManager->getBlock($block);
-        $newEntity = $block->getDefaultConfiguration();
+        $em              = $this->getDoctrine()->getManager();
+        $blockManager    = $this->get('gravity_cms.theme.block_manager');
+        $blockDefinition = $blockManager->getBlock($block->getType());
+        $payload         = json_decode($request->getContent(), true);
 
-        $payload = json_decode($request->getContent(), true);
-
-        $formType  = $newEntity->getForm();
-        $form      = $this->createForm($formType, $newEntity);
+        $formType = $blockDefinition->getForm();
+        $form     = $this->createForm($formType);
         $form->submit($payload[$formType->getName()]);
 
-        if($form->isValid())
-        {
-            $entity = $form->getData();
+        if ($form->isValid()) {
+            /** @var LayoutPositionBlock $entity */
+            $entity          = $form->getData();
             $eventDispatcher = $this->get('event_dispatcher');
 
-            $eventDispatcher->dispatch(ApiEvents::PRE_CREATE, new ApiConfigurationEvent($entity));
+            $eventDispatcher->dispatch(ApiEvents::PRE_CREATE, new ApiEvent($entity));
 
-            $configurationManager->create($entity);
+            $entity->setBlock($block);
+            $entity->setLayout($layout);
 
-            $eventDispatcher->dispatch(ApiEvents::POST_CREATE, new ApiConfigurationEvent($entity));
+            $em->persist($entity);
+            $em->flush();
+
+            $eventDispatcher->dispatch(ApiEvents::POST_CREATE, new ApiEvent($entity));
 
             $view = JsonApiView::create(null, 201, array(
-                'location' => $this->getUrl(self::METHOD_GET, $entity)
+                'location' => $this->getUrl(self::METHOD_GET, $layout)
             ));
-        }
-        else
-        {
+        } else {
             $view = JsonApiView::create($form, 400);
         }
 

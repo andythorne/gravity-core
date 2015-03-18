@@ -2,7 +2,7 @@
 
 namespace GravityCMS\CoreBundle\DependencyInjection\Compiler;
 
-use GravityCMS\CoreBundle\DependencyInjection\Configuration\MenuConfiguration;
+use GravityCMS\Component\Menu\DependencyInjection\Configuration\MenuConfiguration;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
