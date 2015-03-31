@@ -33,13 +33,13 @@ class ThemeCompilerPass implements CompilerPassInterface
             foreach ($tags as $tag) {
 
                 $alias = $tag['alias'];
-                $themeManagerDefinition->addMethodCall('addTheme', array(new Reference($sid)));
+                $themeManagerDefinition->addMethodCall('addTheme', [new Reference($sid)]);
 
                 $loader            = $container->findDefinition('twig.loader.theme_loader');
                 $templateFolder    = $path . '/Resources/views';
                 $templateNamespace = 'theme_' . $alias;
                 if (file_exists($templateFolder)) {
-                    $loader->addMethodCall('addPath', array($templateFolder, $templateNamespace));
+                    $loader->addMethodCall('addPath', [$templateFolder, $templateNamespace]);
                 }
 
                 // register theme with assetic
@@ -49,19 +49,19 @@ class ThemeCompilerPass implements CompilerPassInterface
                     $resourceDefinitionId = 'assetic.' . $engine . '_directory_resource.theme_' . $alias;
                     $container->setDefinition(
                         $resourceDefinitionId,
-                        new DirectoryResourceDefinition('theme_' . $alias, $engine, array(
+                        new DirectoryResourceDefinition('theme_' . $alias, $engine, [
                             $container->getParameter('kernel.root_dir') . '/Resources/theme_' . $alias .
                             '/views',
                             $path . '/Resources/views',
-                        ))
+                        ])
                     );
                     $assetManagerDefinition->addMethodCall('addResource',
-                        array(new Reference($resourceDefinitionId), $engine));
+                        [new Reference($resourceDefinitionId), $engine]);
                 }
 
                 // add the theme manager into the asset factory
                 $assetFactoryDefinition = $container->findDefinition('assetic.asset_factory');
-                $assetFactoryDefinition->addMethodCall('setThemeManager', array($themeManagerReference));
+                $assetFactoryDefinition->addMethodCall('setThemeManager', [$themeManagerReference]);
 
 
                 // tell asstic where the theme assets are
@@ -69,47 +69,47 @@ class ThemeCompilerPass implements CompilerPassInterface
                 if (count($jsAssets)) {
                     foreach ($jsAssets as $jsAsset) {
                         $destination = str_replace($path . '/Resources/assets/js/', '', $jsAsset);
-                        $assetManagerDefinition->addMethodCall('setFormula', array(
+                        $assetManagerDefinition->addMethodCall('setFormula', [
                             'gravity_theme_' . $alias . '_' .
-                            str_replace(array('/', '.js'), array('_', ''), $destination), array(
+                            str_replace(['/', '.js'], ['_', ''], $destination), [
                                 $jsAsset,
-                                array('?uglifyjs2'),
-                                array(
+                                ['?uglifyjs2', 'jsx'],
+                                [
                                     'output' => 'js/theme/' . $alias . '/' . $destination
-                                ),
-                            )
-                        ));
+                                ],
+                            ]
+                        ]);
                     }
                 }
 
-                $maps = array(
+                $maps = [
                     '.jpg'  => 'jpegoptim',
                     '.jpeg' => 'jpegoptim',
                     '.png'  => 'optipng',
                     '.gif'  => null,
-                );
+                ];
                 foreach ($maps as $ext => $app) {
                     // image assets
                     $imgAssets = @glob($path . '/Resources/assets/img/*' . $ext);
                     if (count($imgAssets)) {
                         if ($app) {
-                            $app = array('?' . $app);
+                            $app = ['?' . $app];
                         } else {
-                            $app = array();
+                            $app = [];
                         }
 
                         foreach ($imgAssets as $imgAsset) {
                             $destination = str_replace($path . '/Resources/assets/img/', '', $imgAsset);
-                            $assetManagerDefinition->addMethodCall('setFormula', array(
+                            $assetManagerDefinition->addMethodCall('setFormula', [
                                 'gravity_theme_' . $alias . '_' .
-                                str_replace(array('/', $ext), array('_', ''), $destination), array(
+                                str_replace(['/', $ext], ['_', ''], $destination), [
                                     $imgAsset,
                                     $app,
-                                    array(
+                                    [
                                         'output' => 'img/theme/' . $alias . '/' . $destination
-                                    ),
-                                )
-                            ));
+                                    ],
+                                ]
+                            ]);
                         }
                     }
                 }
@@ -117,25 +117,23 @@ class ThemeCompilerPass implements CompilerPassInterface
         }
 
         // blocks
-        $taggedBlocks = $container->findTaggedServiceIds('layout.block');
+        $taggedBlocks           = $container->findTaggedServiceIds('layout.block');
         $blockManagerDefinition = $container->getDefinition('gravity_cms.theme.block_manager');
 
-        $blockServices = array();
-        foreach($taggedBlocks as $sid => $tags)
-        {
+        $blockServices = [];
+        foreach ($taggedBlocks as $sid => $tags) {
             $blockServices[] = new Reference($sid);
         }
-        $blockManagerDefinition->addMethodCall('setBlocks', array($blockServices));
+        $blockManagerDefinition->addMethodCall('setBlocks', [$blockServices]);
 
         // layouts positions
-        $taggedLayoutPositions = $container->findTaggedServiceIds('layout.position');
+        $taggedLayoutPositions   = $container->findTaggedServiceIds('layout.position');
         $layoutManagerDefinition = $container->getDefinition('gravity_cms.theme.layout_manager');
 
-        $layoutPositionServices = array();
-        foreach($taggedLayoutPositions as $sid => $tags)
-        {
+        $layoutPositionServices = [];
+        foreach ($taggedLayoutPositions as $sid => $tags) {
             $layoutPositionServices[] = new Reference($sid);
         }
-        $layoutManagerDefinition->addMethodCall('setPositions', array($layoutPositionServices));
+        $layoutManagerDefinition->addMethodCall('setPositions', [$layoutPositionServices]);
     }
 } 

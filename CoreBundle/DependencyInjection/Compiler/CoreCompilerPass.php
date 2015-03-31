@@ -23,7 +23,7 @@ class CoreCompilerPass implements CompilerPassInterface
         $fieldManagerDefinition = $container->getDefinition('gravity_cms.field_manager');
 
         $adminRouterDefinition->addMethodCall('setAdminPath',
-            array($container->getParameter('gravity_cms.admin_path')));
+            [$container->getParameter('gravity_cms.admin_path')]);
 
         $assetManagerDefinition = $container->getDefinition('assetic.asset_manager');
 
@@ -43,24 +43,24 @@ class CoreCompilerPass implements CompilerPassInterface
                 foreach ($files as $file) {
                     $destination = str_replace($path . '/Resources/assets/js/', '', $file);
                     $assetId     = 'gravity_module_core_' . str_replace(
-                            array('/', '.js'),
-                            array('_', ''),
+                            ['/', '.js'],
+                            ['_', ''],
                             $destination
                         );
                     $assetPath   = '/cms/core/' . $destination;
 
                     $assetManagerDefinition->addMethodCall(
                         'setFormula',
-                        array(
+                        [
                             $assetId,
-                            array(
+                            [
                                 $file,
-                                array('?uglifyjs2'),
-                                array(
+                                ['?uglifyjs2', 'jsx'],
+                                [
                                     'output' => $jsRoot . $assetPath
-                                ),
-                            )
-                        )
+                                ],
+                            ]
+                        ]
                     );
                 }
             }
@@ -69,17 +69,17 @@ class CoreCompilerPass implements CompilerPassInterface
         // load in all the fields
         $fields = $container->findTaggedServiceIds('gravity.field');
         foreach ($fields as $sId => $def) {
-            $fieldManagerDefinition->addMethodCall('addField', array(new Reference($sId)));
+            $fieldManagerDefinition->addMethodCall('addField', [new Reference($sId)]);
         }
 
         $fieldWidgets = $container->findTaggedServiceIds('gravity.field.widget');
         foreach ($fieldWidgets as $sId => $def) {
-            $fieldManagerDefinition->addMethodCall('addFieldWidget', array(new Reference($sId)));
+            $fieldManagerDefinition->addMethodCall('addFieldWidget', [new Reference($sId)]);
         }
 
         $fieldDisplays = $container->findTaggedServiceIds('EditorCompilerPass.php.field.display');
         foreach ($fieldDisplays as $sId => $def) {
-            $fieldManagerDefinition->addMethodCall('addFieldDisplay', array(new Reference($sId)));
+            $fieldManagerDefinition->addMethodCall('addFieldDisplay', [new Reference($sId)]);
         }
     }
 } 
