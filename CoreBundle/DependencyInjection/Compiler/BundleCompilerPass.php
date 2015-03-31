@@ -68,7 +68,7 @@ class BundleCompilerPass implements CompilerPassInterface
                                 $assetId,
                                 [
                                     $file,
-                                    ['?uglifyjs2'],
+                                    ['?uglifyjs2', 'jsx'],
                                     [
                                         'output' => $jsRoot . $assetPath
                                     ],

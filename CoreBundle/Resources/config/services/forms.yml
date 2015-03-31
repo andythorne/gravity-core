@@ -4,8 +4,10 @@ services:
   # Form Types
   gravity_cms.form.type.hidden_entity:
       class: GravityCMS\Component\Form\Type\HiddenEntityIdType
+      arguments:
+        - @doctrine.orm.default_entity_manager
       tags:
-          - { name: form.type, alias: hidden_entity }
+        - { name: form.type, alias: hidden_entity }
 
   #
   # AutoComplete
@@ -34,3 +36,8 @@ services:
       class: GravityCMS\Component\Field\Form\Type\FieldConfigurationType
       tags:
           - { name: form.type, alias: field_configuration }
+
+  gravity.form.type.text_list:
+    class: GravityCMS\Component\Form\Type\TextListType
+    tags:
+      - { name: form.type, alias: text_list }

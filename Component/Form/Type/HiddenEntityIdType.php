@@ -10,6 +10,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class HiddenEntityIdType extends AbstractType
 {
+    /**
+     * @var EntityManager
+     */
+    protected $entityManager;
+
+    function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     /**
      * {@inheritdoc}
@@ -17,13 +26,15 @@ class HiddenEntityIdType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
-            ->setRequired(array(
+            ->setRequired([
                 'class',
-                'em'
-            ))
-            ->setAllowedTypes(array(
+            ])
+            ->setDefaults([
+                'em' => $this->entityManager,
+            ])
+            ->setAllowedTypes([
                 'em' => 'Doctrine\Common\Persistence\ObjectManager',
-            ))
+            ])
         ;
     }
 

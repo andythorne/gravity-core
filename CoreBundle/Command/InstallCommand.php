@@ -64,7 +64,10 @@ class InstallCommand extends ContainerAwareCommand
             }
 
             foreach ($fieldManager->getFields() as $field) {
-                $fieldEntity = new Field();
+                $fieldEntity = $em->getRepository('GravityCMSCoreBundle:Field')->findOneByName($field->getName());
+                if(!$fieldEntity instanceof Field) {
+                    $fieldEntity = new Field();
+                }
                 $fieldEntity->setName($field->getName());
                 $fieldEntity->setLabel($field->getLabel());
                 $fieldEntity->setDescription($field->getDescription());
