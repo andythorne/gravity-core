@@ -1,21 +1,21 @@
 <?php
-/**
- * Created by Andy Thorne
- *
- * @author Andy Thorne <contrabandvr@gmail.com>
- */
 
 namespace GravityCMS\Component\Entity;
 
-
 use GravityCMS\Component\Entity\Definition\EntityDefinitionInterface;
 
+/**
+ * Class EntityManager
+ *
+ * @package GravityCMS\Component\Entity
+ * @author  Andy Thorne <contrabandvr@gmail.com>
+ */
 class EntityManager
 {
     /**
      * @var EntityDefinitionInterface[]
      */
-    protected $entityDefinitions = array();
+    protected $entityDefinitions = [];
 
     /**
      * @return EntityDefinitionInterface[]

@@ -42,7 +42,6 @@ class InstallCommand extends ContainerAwareCommand
         $em        = $container->get('doctrine')->getManager();
 
         $layoutManager = $container->get('gravity_cms.theme.layout_manager');
-        $fieldManager = $container->get('gravity_cms.field_manager');
 
         $force = $input->getOption('force');
         if ($force) {
@@ -61,17 +60,6 @@ class InstallCommand extends ContainerAwareCommand
                 $blockEntity->setName($block->getName());
                 $blockEntity->setDescription($block->getDescription());
                 $em->persist($blockEntity);
-            }
-
-            foreach ($fieldManager->getFields() as $field) {
-                $fieldEntity = $em->getRepository('GravityCMSCoreBundle:Field')->findOneByName($field->getName());
-                if(!$fieldEntity instanceof Field) {
-                    $fieldEntity = new Field();
-                }
-                $fieldEntity->setName($field->getName());
-                $fieldEntity->setLabel($field->getLabel());
-                $fieldEntity->setDescription($field->getDescription());
-                $em->persist($fieldEntity);
             }
 
             $em->flush();

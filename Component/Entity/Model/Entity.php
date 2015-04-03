@@ -1,17 +1,17 @@
 <?php
 
-namespace GravityCMS\Component\Entity\Entity;
+namespace GravityCMS\Component\Entity\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AbstractEntity
+ * Class Entity
  *
  * @package GravityCMS\Component\Entity\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-abstract class AbstractEntity
+abstract class Entity
 {
     /**
      * @var int
@@ -19,7 +19,7 @@ abstract class AbstractEntity
     protected $id;
 
     /**
-     * @var AbstractEntityField[]
+     * @var FieldData[]
      */
     protected $fields;
 
@@ -37,7 +37,7 @@ abstract class AbstractEntity
     }
 
     /**
-     * @return AbstractEntityField[]
+     * @return FieldData[]
      */
     public function getFields()
     {
@@ -45,18 +45,18 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param AbstractEntityField $field
+     * @param FieldData $field
      */
-    public function addField(AbstractEntityField $field)
+    public function addField(FieldData $field)
     {
         $this->fields[] = $field;
         $field->setEntity($this);
     }
 
     /**
-     * @param AbstractEntityField $field
+     * @param FieldData $field
      */
-    public function removeField(AbstractEntityField $field)
+    public function removeField(FieldData $field)
     {
         $this->fields->removeElement($field);
     }

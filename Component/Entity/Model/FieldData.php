@@ -1,16 +1,16 @@
 <?php
 
-namespace GravityCMS\Component\Entity\Entity;
+namespace GravityCMS\Component\Entity\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AbstractEntityField
+ * Class FieldData
  *
- * @package GravityCMS\Component\Entity\Entity
+ * @package GravityCMS\Component\Entity\Model
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-abstract class AbstractEntityField
+abstract class FieldData
 {
     /**
      * @var int
@@ -23,7 +23,7 @@ abstract class AbstractEntityField
     protected $delta;
 
     /**
-     * @var AbstractEntity
+     * @var Entity
      */
     protected $entity;
 
@@ -57,7 +57,7 @@ abstract class AbstractEntityField
     }
 
     /**
-     * @return AbstractEntity
+     * @return Entity
      */
     public function getEntity()
     {
@@ -65,9 +65,9 @@ abstract class AbstractEntityField
     }
 
     /**
-     * @param AbstractEntity $entity
+     * @param Entity $entity
      */
-    public function setEntity(AbstractEntity $entity)
+    public function setEntity(Entity $entity)
     {
         $this->entity = $entity;
     }

@@ -3,14 +3,14 @@
 namespace GravityCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GravityCMS\Component\Entity\Model\Field as FieldModel;
+use GravityCMS\Component\Entity\Model\FieldWidget as FieldWidgetModel;
 
 /**
- * Class Field
+ * Class FieldWidget
  *
  * @package GravityCMS\CoreBundle\Entity
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class Field extends FieldModel
+class FieldWidget extends FieldWidgetModel
 {
 }

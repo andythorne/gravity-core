@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use GravityCMS\Component\Form\DataTransformer\HiddenEntityIdTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class HiddenEntityIdType extends AbstractType
@@ -50,6 +52,11 @@ class HiddenEntityIdType extends AbstractType
         $transformer = new HiddenEntityIdTransformer($entityManager, $dataClass);
 
         $builder->addModelTransformer($transformer);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['entity'] = $form->getData();
     }
 
     /**
