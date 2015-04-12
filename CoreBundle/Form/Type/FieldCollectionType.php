@@ -79,7 +79,7 @@ class FieldCollectionType extends AbstractType
                     }
 
                     $this->fieldLabels[$i] = $fieldEntity;
-                    $builder->add($i, 'field_content_collection', [
+                    $builder->add($i, 'field_data_collection', [
                         'type'         => $formClass,
                         'options'      => [
                             'label' => false,

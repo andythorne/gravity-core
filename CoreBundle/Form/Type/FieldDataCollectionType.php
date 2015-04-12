@@ -3,13 +3,14 @@
 namespace GravityCMS\CoreBundle\Form\Type;
 
 use GravityCMS\CoreBundle\Form\DataTransformer\FieldContentCollectionDataTransformer;
+use GravityCMS\CoreBundle\Form\DataTransformer\FieldDataCollectionDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FieldContentCollectionType extends AbstractType
+class FieldDataCollectionType extends AbstractType
 {
 
     /**
@@ -18,7 +19,7 @@ class FieldContentCollectionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addModelTransformer(new FieldContentCollectionDataTransformer($options['field']));
+        $builder->addModelTransformer(new FieldDataCollectionDataTransformer($options['field']));
     }
 
 
@@ -52,7 +53,7 @@ class FieldContentCollectionType extends AbstractType
      */
     public function getName()
     {
-        return 'field_content_collection';
+        return 'field_data_collection';
     }
 
     /**

@@ -28,3 +28,15 @@
 {% block radio_label %}
     {{ block('form_label') }}
 {% endblock radio_label %}
+
+{% block config_name_widget %}
+    <div class="config-name-widget" data-target="{{ form.vars.target }}">
+        <div class="config-name-value">
+            <span class="text-muted">{% if form.vars.value %}{{ form.vars.value }}{% else %}&lt;generated field&gt;{% endif %}</span>
+            (<a href="#" class="config-name-toggle-input">edit</a>)
+        </div>
+        <div class="config-name-input">
+            {{ form_widget(form) }}
+        </div>
+    </div>
+{% endblock %}

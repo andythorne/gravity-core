@@ -13,7 +13,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  * @package GravityCMS\CoreBundle\Form\DataTransformer
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class FieldContentCollectionDataTransformer implements DataTransformerInterface
+class FieldDataCollectionDataTransformer implements DataTransformerInterface
 {
     /**
      * @var Field
