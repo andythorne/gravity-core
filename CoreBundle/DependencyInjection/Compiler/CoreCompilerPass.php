@@ -55,7 +55,7 @@ class CoreCompilerPass implements CompilerPassInterface
                             $assetId,
                             [
                                 $file,
-                                ['?uglifyjs2', 'jsx'],
+                                ['?uglifyjs2'],
                                 [
                                     'output' => $jsRoot . $assetPath
                                 ],
@@ -63,6 +63,53 @@ class CoreCompilerPass implements CompilerPassInterface
                         ]
                     );
                 }
+            }
+        }
+
+        $folder = $path . '/Resources/assets/css';
+        if (is_dir($folder)) {
+            $cssRoot  = '/css';
+            $dir      = new \RecursiveDirectoryIterator($folder);
+            $ite      = new \RecursiveIteratorIterator($dir);
+            $fileList = new \RegexIterator($ite, '/.+\.s?css/', \RegexIterator::GET_MATCH);
+
+            foreach ($fileList as $files) {
+                foreach ($files as $file) {
+                    $destination = str_replace($path . '/Resources/assets/css/', '', $file);
+                    $assetId     = 'gravity_module_core_css_' . str_replace(
+                            ['/', '-', '.scss', '.css'],
+                            ['_', '_', '', ''],
+                            $destination
+                        );
+                    $assetPath   = '/cms/core/' . $destination;
+                    $assetPath   = str_replace('.scss', '.css', $assetPath);
+
+                    $assetManagerDefinition->addMethodCall(
+                        'setFormula',
+                        [
+                            $assetId,
+                            [
+                                $file,
+                                ['compass'],
+                                [
+                                    'output' => $cssRoot . $assetPath
+                                ],
+                            ]
+                        ]
+                    );
+                }
+
+                $assetManagerDefinition->addMethodCall(
+                    'setFormula',
+                    [
+                        'gravity_core_css',
+                        [
+                            $files,
+                            ['compass'],
+                            []
+                        ]
+                    ]
+                );
             }
         }
 
@@ -77,7 +124,7 @@ class CoreCompilerPass implements CompilerPassInterface
             $fieldManagerDefinition->addMethodCall('addFieldWidget', [new Reference($sId)]);
         }
 
-        $fieldDisplays = $container->findTaggedServiceIds('EditorCompilerPass.php.field.display');
+        $fieldDisplays = $container->findTaggedServiceIds('gravity.field.display');
         foreach ($fieldDisplays as $sId => $def) {
             $fieldManagerDefinition->addMethodCall('addFieldDisplay', [new Reference($sId)]);
         }

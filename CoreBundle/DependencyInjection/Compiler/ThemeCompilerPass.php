@@ -73,7 +73,7 @@ class ThemeCompilerPass implements CompilerPassInterface
                             'gravity_theme_' . $alias . '_' .
                             str_replace(['/', '.js'], ['_', ''], $destination), [
                                 $jsAsset,
-                                ['?uglifyjs2', 'jsx'],
+                                ['?uglifyjs2'],
                                 [
                                     'output' => 'js/theme/' . $alias . '/' . $destination
                                 ],

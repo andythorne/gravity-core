@@ -28,6 +28,7 @@ class BundleCompilerPass implements CompilerPassInterface
         $assetManagerDefinition        = $container->getDefinition('assetic.asset_manager');
         $gravityAssetManagerDefinition = $container->getDefinition('gravity_cms.asset_manager');
 
+        $cssFiles = [];
         $assetMap = [];
 
         foreach ($bundles as $bundleClass) {
@@ -54,8 +55,8 @@ class BundleCompilerPass implements CompilerPassInterface
                     foreach ($files as $file) {
                         $destination = str_replace($bundle->getPath() . '/Resources/assets/js/', '', $file);
                         $assetId     = 'gravity_module_' . $bundle->getGravityBundleName() . '_' . str_replace(
-                                ['/', '.js'],
-                                ['_', ''],
+                                ['/', '-', '.js'],
+                                ['_', '_', ''],
                                 $destination
                             );
                         $assetPath   = '/cms/' . $bundle->getGravityBundleName() . '/' . $destination;
@@ -68,9 +69,48 @@ class BundleCompilerPass implements CompilerPassInterface
                                 $assetId,
                                 [
                                     $file,
-                                    ['?uglifyjs2', 'jsx'],
+                                    ['?uglifyjs2'],
                                     [
                                         'output' => $jsRoot . $assetPath
+                                    ],
+                                ]
+                            ]
+                        );
+                    }
+                }
+            }
+
+
+            $folder         = $bundle->getPath() . '/Resources/assets/css';
+            if (is_dir($folder)) {
+                $cssRoot   = '/css';
+                $dir      = new \RecursiveDirectoryIterator($folder);
+                $ite      = new \RecursiveIteratorIterator($dir);
+                $fileList = new \RegexIterator($ite, '/.+\.s?css/', \RegexIterator::GET_MATCH);
+
+                foreach ($fileList as $files) {
+                    foreach ($files as $file) {
+                        $destination = str_replace($bundle->getPath() . '/Resources/assets/css/', '', $file);
+                        $assetId     = 'gravity_module_core_css_' . str_replace(
+                                ['/', '-', '.scss', '.css'],
+                                ['_', '_', '', ''],
+                                $destination
+                            );
+                        $assetPath   = '/cms/' . $bundle->getGravityBundleName() . '/' . $destination;
+                        $assetPath = str_replace('.scss', '.css', $assetPath);
+
+                        $assetMap[$assetNamespace . $destination] = $assetPath;
+                        $cssFiles[] = $file;
+
+                        $assetManagerDefinition->addMethodCall(
+                            'setFormula',
+                            [
+                                $assetId,
+                                [
+                                    $file,
+                                    ['compass'],
+                                    [
+                                        'output' => $cssRoot . $assetPath
                                     ],
                                 ]
                             ]
@@ -159,5 +199,19 @@ class BundleCompilerPass implements CompilerPassInterface
              * @see http://symfony.com/doc/current/components/dependency_injection/compilation.html#dumping-the-configuration-for-performance
              */
         }
+
+
+
+        $assetManagerDefinition->addMethodCall(
+            'setFormula',
+            [
+                'gravity_bundle_css',
+                [
+                    $cssFiles,
+                    ['compass'],
+                    []
+                ]
+            ]
+        );
     }
 } 

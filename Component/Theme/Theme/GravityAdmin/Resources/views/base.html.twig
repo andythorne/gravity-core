@@ -23,8 +23,11 @@
 
     <!-- START STYLESHEETS -->
     {% stylesheets
-    filter="compass" output="css/cms/core/main.css"
-    "@theme_gravity_admin/Resources/assets/sass/main.scss" %}
+    filter="compass, cssrewrite" output="css/theme/gravity_admin/main.css"
+        "@theme_gravity_admin/Resources/assets/sass/main.scss"
+        "@gravity_core_css"
+        "@gravity_bundle_css"
+    %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     {% block head_stylesheets %}

@@ -2,17 +2,27 @@
 
 namespace GravityCMS\Component\Asset;
 
-class AbstractAssetLibrary implements AssetLibraryInterface
+/**
+ * Class AbstractAssetLibrary
+ *
+ * @package GravityCMS\Component\Asset
+ * @author  Andy Thorne <contrabandvr@gmail.com>
+ */
+abstract class AbstractAssetLibrary implements AssetLibraryInterface
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function getStylesheets()
     {
-        return array();
+        return [];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getJavascripts()
     {
-        return array();
+        return [];
     }
-
 }
