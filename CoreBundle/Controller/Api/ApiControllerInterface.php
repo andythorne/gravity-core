@@ -5,27 +5,26 @@ namespace GravityCMS\CoreBundle\Controller\Api;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 
+/**
+ * Interface ApiControllerInterface
+ *
+ * @package GravityCMS\CoreBundle\Controller\Api
+ * @author  Andy Thorne <contrabandvr@gmail.com>
+ *
+ * @deprecated use ApiEntityServiceControllerTrait instead
+ */
 interface ApiControllerInterface
 {
+    /** @var string */
+    const METHOD_GET = 'GET';
     /** @var int */
-    const METHOD_GET = 0;
+    const METHOD_PATCH = 'PATCH';
     /** @var int */
-    const METHOD_NEW = 1;
+    const METHOD_POST = 'POST';
     /** @var int */
-    const METHOD_EDIT = 2;
+    const METHOD_PUT = 'PUT';
     /** @var int */
-    const METHOD_POST = 3;
-    /** @var int */
-    const METHOD_PUT = 4;
-    /** @var int */
-    const METHOD_DELETE = 5;
-    /** @var int */
-    const METHOD_VIEW_ALL = 6;
-
-    /** @var int */
-    const TYPE_PRE = 0;
-    /** @var int */
-    const TYPE_POST = 1;
+    const METHOD_DELETE = 'DELETE';
 
     /**
      * Get the form type

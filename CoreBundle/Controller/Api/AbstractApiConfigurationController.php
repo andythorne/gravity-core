@@ -23,6 +23,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  *
  * @package GravityCMS\CoreBundle\Controller\Api
  * @author  Andy Thorne <contrabandvr@gmail.com>
+ *
+ * @deprecated Use ApiEntityServiceControllerTrait instead
  */
 abstract class AbstractApiConfigurationController extends Controller implements ClassResourceInterface, ApiControllerInterface
 {

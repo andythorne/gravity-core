@@ -20,6 +20,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * Class AbstractApiController
  *
  * @package GravityCMS\Component\Controller
+ *
+ * @deprecated Use ApiEntityServiceControllerTrait instead
  */
 abstract class AbstractApiController extends Controller implements ClassResourceInterface, ApiControllerInterface
 {
@@ -120,79 +122,6 @@ abstract class AbstractApiController extends Controller implements ClassResource
     }
 
     /**
-     * [GET] Get a form for a new entity
-     *
-     * @return Response
-     */
-    public function newAction()
-    {
-        $this->authenticate(self::METHOD_NEW);
-
-        $class  = $this->getEntityClass();
-        $entity = new $class();
-        $form   = $this->createForm($this->getForm(), $entity, array(
-            'method' => 'POST',
-            'action' => $this->getUrl(self::METHOD_POST),
-        ));
-
-        $html = $this->render($this->getFormTemplate(self::METHOD_NEW), array(
-            'form' => $form->createView()
-        ));
-
-        $rView = JsonApiView::create(array(
-            'form' => $html,
-        ));
-
-        return $this->get('fos_rest.view_handler')->handle($rView);
-    }
-
-    /**
-     * [GET] Get a form for an existing entity
-     *
-     * @param $id
-     *
-     * @return Response
-     * @throws NotFoundHttpException
-     */
-    public function editAction($id)
-    {
-        $this->authenticate(self::METHOD_EDIT);
-
-        /** @var EntityManager $em */
-        $class = $this->getEntityClass();
-        $em    = $this->getDoctrine()->getManager();
-
-        try
-        {
-            $qb = $em->getRepository($class)
-                ->createQueryBuilder('e');
-            $this->setupQueryBuilder($qb);
-
-            $entity = $qb->andWhere('e.id = ?1')->setParameter(1, $id)
-                ->getQuery()->getSingleResult();
-        }
-        catch(NoResultException $e)
-        {
-            throw $this->createNotFoundException('Entity Not Found', $e);
-        }
-
-        $form = $this->createForm($this->getForm(), $entity, array(
-            'action' => $this->getUrl(self::METHOD_PUT, $entity),
-            'method' => 'PUT',
-        ));
-
-        $html = $this->render($this->getFormTemplate(self::METHOD_EDIT), array(
-            'form' => $form->createView()
-        ));
-
-        $rView = JsonApiView::create(array(
-            'form' => $html,
-        ));
-
-        return $this->get('fos_rest.view_handler')->handle($rView);
-    }
-
-    /**
      * [POST] Save a form
      *
      * @param Request $request
@@ -210,9 +139,8 @@ abstract class AbstractApiController extends Controller implements ClassResource
 
         $class     = $this->getEntityClass();
         $newEntity = new $class();
-        $formType  = $this->getForm();
-        $form      = $this->createForm($formType, $newEntity);
-        $form->submit($payload[$formType->getName()]);
+        $form      = $this->createForm($this->getForm(), $newEntity);
+        $form->submit($payload[$form->getName()]);
 
         if($form->isValid())
         {
@@ -331,22 +259,6 @@ abstract class AbstractApiController extends Controller implements ClassResource
     }
 
     protected function postGet()
-    {
-    }
-
-    protected function preNew()
-    {
-    }
-
-    protected function postNew()
-    {
-    }
-
-    protected function preEdit()
-    {
-    }
-
-    protected function postEdit()
     {
     }
 
