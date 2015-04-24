@@ -55,7 +55,7 @@ class ViewController extends AbstractApiController
                 break;
 
             case self::METHOD_DELETE:
-                return $this->generateUrl('gravity_api_delete_type', array( 'id' => $entity->getId() ));
+                return $this->generateUrl('gravity_api_delete_type', array( 'contentType' => $entity->getId() ));
                 break;
 
             case self::METHOD_GET:
