@@ -145,9 +145,9 @@ abstract class FieldWidget
     }
 
     /**
-     * @param WidgetSettingsInterface $config
+     * @param WidgetSettingsInterface|null $config
      */
-    public function setConfig(WidgetSettingsInterface $config)
+    public function setConfig($config)
     {
         $this->config = $config;
     }

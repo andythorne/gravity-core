@@ -2,8 +2,10 @@
 
 namespace GravityCMS\Component\Entity\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
+use GravityCMS\CoreBundle\Entity\FieldData;
 
 /**
  * Class Field
@@ -52,6 +54,16 @@ abstract class Field
      * @var FieldDisplay
      */
     protected $display;
+
+    /**
+     * @var FieldData[]
+     */
+    protected $data;
+
+    function __construct()
+    {
+        $this->data = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -171,6 +183,32 @@ abstract class Field
     public function setDisplay(FieldDisplay $display)
     {
         $this->display = $display;
+    }
+
+    /**
+     * @return FieldData[]
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param FieldData[] $data
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
+    }
+
+    public function addData(FieldData $data)
+    {
+        $this->data[] = $data;
+    }
+
+    public function removeData(FieldData $data)
+    {
+        $this->data->removeElement($data);
     }
 
 

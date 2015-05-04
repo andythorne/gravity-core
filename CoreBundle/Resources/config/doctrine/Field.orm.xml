@@ -13,11 +13,23 @@
         <field name="delta" type="integer" column="delta" nullable="false"/>
         <field name="config" type="object" column="config" nullable="false"/>
 
+        <one-to-many target-entity="GravityCMS\CoreBundle\Entity\FieldData" mapped-by="field" field="data" orphan-removal="true">
+            <cascade>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
         <one-to-one target-entity="GravityCMS\CoreBundle\Entity\FieldDisplay" field="display" inversed-by="field"
                     orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
         </one-to-one>
         <one-to-one target-entity="GravityCMS\CoreBundle\Entity\FieldWidget" field="widget" inversed-by="field"
                     orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
         </one-to-one>
     </entity>
 </doctrine-mapping>

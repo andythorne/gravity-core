@@ -10,10 +10,10 @@
 
         <field name="delta" type="integer" column="delta" nullable="false"/>
 
-        <many-to-one target-entity="Field" field="field">
+        <many-to-one target-entity="Field" field="field" inversed-by="data">
         </many-to-one>
 
-        <many-to-one target-entity="Entity" field="entity" inversed-by="fields">
+        <many-to-one target-entity="Entity" field="entity" inversed-by="fields" orphan-removal="true">
             <cascade>
                 <cascade-all/>
             </cascade>

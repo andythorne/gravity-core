@@ -7,6 +7,8 @@ use Gravity\NodeBundle\Entity\NodeContent;
 use GravityCMS\Component\Configuration\ConfigurationManager;
 use GravityCMS\Component\Field\FieldInterface;
 use GravityCMS\Component\Field\FieldManager;
+use GravityCMS\CoreBundle\Entity\Entity;
+use GravityCMS\CoreBundle\Entity\FieldData;
 use GravityCMS\CoreBundle\Form\DataTransformer\FieldCollectionDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -54,7 +56,7 @@ class FieldCollectionType extends AbstractType
             $contents      = $node->getFields();
             $fieldContents = [];
 
-            /** @var NodeContent $content */
+            /** @var FieldData $content */
             foreach ($contents as $content) {
                 $fieldContents[$content->getField()->getName()][] = $content;
             }
@@ -70,7 +72,7 @@ class FieldCollectionType extends AbstractType
 
                     $fieldFormConfig = $fieldEntity->getConfig();
 
-                    /** @var NodeContent $entity */
+                    /** @var FieldData $entity */
                     if (array_key_exists($fieldEntity->getName(), $fieldContents)) {
                         $entities = $fieldContents[$fieldEntity->getName()];
                     } else {

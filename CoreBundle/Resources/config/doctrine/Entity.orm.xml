@@ -8,7 +8,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <one-to-many target-entity="FieldData" mapped-by="entity" field="fields">
+        <one-to-many target-entity="FieldData" mapped-by="entity" field="fields" orphan-removal="true">
             <cascade>
                 <cascade-all/>
             </cascade>
