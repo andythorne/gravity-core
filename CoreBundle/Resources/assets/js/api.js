@@ -122,7 +122,11 @@
                         if(field.name.match(/\[\]$/)){
                             fname = field.name.replace(/\[\]$/, '');
                             data[fname] = data[fname] || [];
-                            data[fname].push($(field).val());
+                            if(field.type == 'select-multiple'){
+                                data[fname] = $(field).val();
+                            } else {
+                                data[fname].push($(field).val());
+                            }
                         } else {
                             data[fname] = $(field).val();
                         }
