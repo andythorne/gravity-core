@@ -77,6 +77,16 @@ class FieldWidgetEntityService implements EntityServiceInterface
         return true;
     }
 
+
+    public function updateType(FieldWidget $field, $newWidgetType){
+        $widget = $this->fieldManager->getFieldWidget($newWidgetType);
+
+        $field->setConfig($widget->getSettings());
+        $field->setName($widget->getName());
+        $field->setLabel($widget->getLabel());
+        $field->setDescription($widget->getDescription());
+    }
+
     /**
      * Remove an instance of the entity
      *

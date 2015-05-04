@@ -89,6 +89,48 @@ class FieldWidgetController extends Controller implements ClassResourceInterface
     }
 
     /**
+     * [POST] Change a widget for a field
+     *
+     * @param Request $request
+     * @param Field   $field
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postAction(Request $request, Field $field)
+    {
+        $service = $this->get('gravity.entity_service.field_widget');
+
+        $payload = json_decode($request->getContent(), true);
+
+        $form = $this->createForm(
+            'gravity_node_content_type_field_view_change',
+            [
+                'type' => $field->getWidget()->getName()
+            ],
+            [
+                'field'  => $field,
+                'method' => 'POST',
+            ]
+        );
+
+        $form->submit($payload['gravity_node_content_type_field_view_change']);
+
+        if($form->isValid()){
+
+            $type = $form->getData()['type'];
+
+            $widget = $field->getWidget();
+            $service->updateType($widget, $type);
+            $service->persist($widget);
+
+            $this->getDoctrine()->getManager()->flush();
+            return $this->jsonResponse(null, 201);
+        } else {
+            return $this->jsonResponse($form, 400);
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function hasPermission($method)
