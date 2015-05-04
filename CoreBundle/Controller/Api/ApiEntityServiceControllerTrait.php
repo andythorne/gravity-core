@@ -92,7 +92,6 @@ trait ApiEntityServiceControllerTrait
     protected function jsonResponse($data = null, $code = null, $headers = [])
     {
         $view = View::create($data, $code, $headers);
-        $view->setFormat('json');
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
