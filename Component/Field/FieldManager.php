@@ -4,23 +4,24 @@ namespace GravityCMS\Component\Field;
 
 use GravityCMS\Component\Field\Display\DisplayInterface;
 use GravityCMS\Component\Field\Widget\WidgetInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FieldManager
 {
     /**
      * @var FieldInterface[]
      */
-    protected $fields = array();
+    protected $fields = [];
 
     /**
      * @var DisplayInterface[]
      */
-    protected $fieldDisplays = array();
+    protected $fieldDisplays = [];
 
     /**
      * @var WidgetInterface[]
      */
-    protected $fieldWidgets = array();
+    protected $fieldWidgets = [];
 
     /**
      * Add a field to the manager
@@ -53,6 +54,13 @@ class FieldManager
         }
 
         return null;
+    }
+
+    public function createField($name, array $options){
+        $field = $this->getField($name);
+        $optionResolver = new OptionsResolver();
+        $field->setOptions($optionResolver, $options);
+        $resolvedOptions = $optionResolver->resolve($options);
     }
 
     /**

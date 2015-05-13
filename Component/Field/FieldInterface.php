@@ -5,6 +5,7 @@ namespace GravityCMS\Component\Field;
 use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
 use GravityCMS\Component\Field\Display\DisplayInterface;
 use GravityCMS\Component\Field\Widget\WidgetInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Interface FieldInterface
@@ -47,6 +48,13 @@ interface FieldInterface
      * @return FieldSettingsConfiguration
      */
     public function getSettings();
+
+    /**
+     * @param OptionsResolver $optionsResolver
+     *
+     * @return void
+     */
+    public function setOptions(OptionsResolver $optionsResolver);
 
     /**
      * @return WidgetInterface

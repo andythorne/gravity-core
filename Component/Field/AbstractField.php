@@ -6,6 +6,7 @@ use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
 use GravityCMS\Component\Field\Display\DisplayInterface;
 use GravityCMS\Component\Field\Widget\WidgetInterface;
 use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractField implements FieldInterface
 {
@@ -54,4 +55,15 @@ abstract class AbstractField implements FieldInterface
      * @return WidgetInterface
      */
     abstract protected function getDefaultWidget();
+
+    /**
+     * @param OptionsResolver $optionsResolver
+     *
+     * @return void
+     */
+    public function setOptions(OptionsResolver $optionsResolver)
+    {
+    }
+
+
 }
