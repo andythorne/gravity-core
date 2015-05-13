@@ -19,10 +19,6 @@ abstract class FieldSettingsConfiguration extends AbstractConfiguration implemen
 
     protected $required = true;
 
-    protected $viewForm;
-
-    protected $viewDisplay;
-
     /**
      * @return int
      */
@@ -54,37 +50,4 @@ abstract class FieldSettingsConfiguration extends AbstractConfiguration implemen
     {
         $this->required = $required;
     }
-
-    /**
-     * @return FormConfigurationInterface
-     */
-    public function getViewForm()
-    {
-        return $this->viewForm;
-    }
-
-    /**
-     * @param mixed $viewForm
-     */
-    public function setViewForm($viewForm)
-    {
-        $this->viewForm = $viewForm;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getViewDisplay()
-    {
-        return $this->viewDisplay;
-    }
-
-    /**
-     * @param mixed $viewDisplay
-     */
-    public function setViewDisplay($viewDisplay)
-    {
-        $this->viewDisplay = $viewDisplay;
-    }
-    
 } 

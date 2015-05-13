@@ -12,4 +12,13 @@ use GravityCMS\Component\Configuration\ConfigurationInterface;
  */
 interface WidgetSettingsInterface extends ConfigurationInterface
 {
+    /**
+     * @return mixed
+     */
+    public function getDefault();
+
+    /**
+     * @param mixed $default
+     */
+    public function setDefault($default);
 }

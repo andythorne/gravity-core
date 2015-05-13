@@ -2,7 +2,7 @@
 
 namespace GravityCMS\Component\Field\Widget;
 
-use Nefarian\CmsBundle\Asset\AssetLibraryInterface;
+use GravityCMS\Component\Asset\AssetLibraryInterface;
 use GravityCMS\Component\Field\FieldInterface;
 use Symfony\Component\Form\AbstractType;
 
@@ -37,13 +37,6 @@ interface WidgetInterface
     public function getDescription();
 
     /**
-     * Get the entity class name
-     *
-     * @return string
-     */
-    public function getEntityClass();
-
-    /**
      * Get the form type for this widget
      *
      * @return AbstractType
@@ -72,4 +65,14 @@ interface WidgetInterface
      * @return string
      */
     public function supportsField(FieldInterface $field);
+
+    /**
+     * Set the default value of an entity
+     *
+     * @param object                  $entity
+     * @param WidgetSettingsInterface $configuration
+     *
+     * @return void
+     */
+    public function setDefaults($entity, WidgetSettingsInterface $configuration);
 }

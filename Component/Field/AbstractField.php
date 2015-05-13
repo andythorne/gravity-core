@@ -2,8 +2,10 @@
 
 namespace GravityCMS\Component\Field;
 
+use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
 use GravityCMS\Component\Field\Display\DisplayInterface;
 use GravityCMS\Component\Field\Widget\WidgetInterface;
+use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
 
 abstract class AbstractField implements FieldInterface
 {

@@ -77,6 +77,7 @@ class FieldCollectionType extends AbstractType
                         $entities = $fieldContents[$fieldEntity->getName()];
                     } else {
                         $entity   = new $dataClass();
+                        $fieldWidget->setDefaults($entity, $fieldEntity->getWidget()->getConfig());
                         $entities = [$entity];
                     }
 

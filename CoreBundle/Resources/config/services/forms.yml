@@ -70,6 +70,11 @@ services:
       tags:
           - { name: form.type, alias: field_configuration }
 
+  gravity_cms.field.form.type.field_widget_configuration:
+      class: GravityCMS\Component\Field\Form\Type\FieldWidgetConfigurationType
+      tags:
+          - { name: form.type, alias: field_widget_configuration }
+
   gravity.form.type.text_list:
     class: GravityCMS\Component\Form\Type\TextListType
     tags:

@@ -39,6 +39,7 @@ class FieldWidgetController extends Controller implements ClassResourceInterface
             $config,
             [
                 'method' => 'PUT',
+                'field_config' => $field->getConfig(),
             ]
         );
         $payload = json_decode($request->getContent(), true);
@@ -73,6 +74,7 @@ class FieldWidgetController extends Controller implements ClassResourceInterface
             $config,
             [
                 'method' => 'PUT',
+                'field_config' => $field->getConfig(),
             ]
         );
         $payload = json_decode($request->getContent(), true);

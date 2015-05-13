@@ -5,6 +5,7 @@ imports:
     - { resource: services/forms.yml }
     - { resource: services/entity.yml }
     - { resource: services/editor.yml }
+    - { resource: services/field_number.yml }
 
 parameters: ~
 

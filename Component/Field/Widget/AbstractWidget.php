@@ -42,6 +42,18 @@ abstract class AbstractWidget implements WidgetInterface
      */
     public function getAssetLibraries()
     {
-        return array();
+        return [];
+    }
+
+    /**
+     * Set the default value of an entity
+     *
+     * @param object                  $entity
+     * @param WidgetSettingsInterface $configuration
+     *
+     * @return void
+     */
+    public function setDefaults($entity, WidgetSettingsInterface $configuration)
+    {
     }
 }
