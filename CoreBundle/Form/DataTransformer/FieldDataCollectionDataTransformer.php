@@ -2,6 +2,7 @@
 
 namespace GravityCMS\CoreBundle\Form\DataTransformer;
 
+use GravityCMS\Component\Field\FieldReference;
 use GravityCMS\CoreBundle\Entity\Field;
 use GravityCMS\CoreBundle\Entity\FieldData;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -20,7 +21,7 @@ class FieldDataCollectionDataTransformer implements DataTransformerInterface
      */
     protected $field;
 
-    function __construct(Field $field)
+    function __construct(FieldReference $field)
     {
         $this->field = $field;
     }
@@ -83,8 +84,8 @@ class FieldDataCollectionDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        foreach ($value as $contentType) {
-            $contentType->setField($this->field);
+        foreach ($value as $fieldData) {
+            $fieldData->setField($this->field->getDefinition()->getName());
         }
 
         return $value;

@@ -2,18 +2,17 @@
 
 namespace GravityCMS\Component\Field;
 
-use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
 use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\Component\Field\Widget\WidgetInterface;
+use GravityCMS\Component\Field\Widget\WidgetDefinitionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Interface FieldInterface
+ * Interface FieldDefinitionInterface
  *
  * @package GravityCMS\Component\Field
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-interface FieldInterface
+interface FieldDefinitionInterface
 {
     /**
      * Get the identifier name of the field. This must be a unique name and contain only alphanumeric, underscores (_)
@@ -45,11 +44,6 @@ interface FieldInterface
     public function getEntityClass();
 
     /**
-     * @return FieldSettingsConfiguration
-     */
-    public function getSettings();
-
-    /**
      * @param OptionsResolver $optionsResolver
      *
      * @return void
@@ -57,12 +51,12 @@ interface FieldInterface
     public function setOptions(OptionsResolver $optionsResolver);
 
     /**
-     * @return WidgetInterface
+     * @return WidgetDefinitionInterface
      */
-    public function getWidget();
+    public function getDefaultWidget();
 
     /**
      * @return DisplayInterface
      */
-    public function getDisplay();
+    public function getDefaultDisplay();
 }

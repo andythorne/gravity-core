@@ -5,10 +5,7 @@ namespace GravityCMS\CoreBundle\Entity\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Gravity\NodeBundle\Configuration\FieldConfiguration;
-use GravityCMS\Component\Field\Display\DisplayInterface;
 use GravityCMS\Component\Field\FieldManager;
-use GravityCMS\Component\Field\Widget\WidgetInterface;
 use GravityCMS\CoreBundle\Entity\Field;
 use GravityCMS\CoreBundle\Entity\FieldDisplay;
 use GravityCMS\CoreBundle\Entity\FieldWidget;

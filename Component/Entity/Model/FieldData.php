@@ -28,7 +28,7 @@ abstract class FieldData
     protected $entity;
 
     /**
-     * @var Field
+     * @var string
      */
     protected $field;
 
@@ -73,7 +73,7 @@ abstract class FieldData
     }
 
     /**
-     * @return Field
+     * @return string
      */
     public function getField()
     {
@@ -81,9 +81,9 @@ abstract class FieldData
     }
 
     /**
-     * @param Field $field
+     * @param string $field
      */
-    public function setField(Field $field)
+    public function setField($field)
     {
         $this->field = $field;
     }

@@ -3,16 +3,17 @@
 namespace GravityCMS\Component\Field\Widget;
 
 use GravityCMS\Component\Asset\AssetLibraryInterface;
-use GravityCMS\Component\Field\FieldInterface;
+use GravityCMS\Component\Field\FieldDefinitionInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Interface WidgetInterface
+ * Interface WidgetDefinitionInterface
  *
  * @package GravityCMS\Component\Field\Widget
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-interface WidgetInterface
+interface WidgetDefinitionInterface
 {
     /**
      * Get the identifier name of the field widget. This must be a unique name and contain only alphanumeric,
@@ -44,13 +45,6 @@ interface WidgetInterface
     public function getForm();
 
     /**
-     * Get the settings
-     *
-     * @return WidgetSettingsInterface
-     */
-    public function getSettings();
-
-    /**
      * Get a list of asset libraries to use
      *
      * @return AssetLibraryInterface[]
@@ -60,19 +54,16 @@ interface WidgetInterface
     /**
      * Checks if this widget supports the given field
      *
-     * @param FieldInterface $field
+     * @param FieldDefinitionInterface $field
      *
      * @return string
      */
-    public function supportsField(FieldInterface $field);
+    public function supportsField(FieldDefinitionInterface $field);
 
     /**
-     * Set the default value of an entity
-     *
-     * @param object                  $entity
-     * @param WidgetSettingsInterface $configuration
+     * @param OptionsResolver $optionsResolver
      *
      * @return void
      */
-    public function setDefaults($entity, WidgetSettingsInterface $configuration);
+    public function setOptions(OptionsResolver $optionsResolver);
 }

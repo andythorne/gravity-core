@@ -3,15 +3,15 @@
 namespace GravityCMS\Component\Field;
 
 use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\Component\Field\Widget\WidgetInterface;
+use GravityCMS\Component\Field\Widget\WidgetDefinitionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FieldManager
 {
     /**
-     * @var FieldInterface[]
+     * @var FieldDefinitionInterface[]
      */
-    protected $fields = [];
+    protected $fieldsDefinitions = [];
 
     /**
      * @var DisplayInterface[]
@@ -19,62 +19,81 @@ class FieldManager
     protected $fieldDisplays = [];
 
     /**
-     * @var WidgetInterface[]
+     * @var WidgetDefinitionInterface[]
      */
     protected $fieldWidgets = [];
 
     /**
      * Add a field to the manager
      *
-     * @param FieldInterface $field
+     * @param FieldDefinitionInterface $field
      */
-    public function addField(FieldInterface $field)
+    public function addFieldDefinition(FieldDefinitionInterface $field)
     {
-        $this->fields[$field->getName()] = $field;
+        $this->fieldsDefinitions[$field->getName()] = $field;
     }
 
     /**
-     * @return FieldInterface[]
+     * @return FieldDefinitionInterface[]
      */
-    public function getFields()
+    public function getFieldDefinitions()
     {
-        return $this->fields;
+        return $this->fieldsDefinitions;
     }
 
     /**
      * @param $name
      *
-     * @return FieldInterface
+     * @return FieldDefinitionInterface
      */
-    public function getField($name)
+    public function getFieldDefinition($name)
     {
-        if(array_key_exists($name, $this->fields))
-        {
-            return $this->fields[$name];
+        if (isset($this->fieldsDefinitions[$name])) {
+            return $this->fieldsDefinitions[$name];
         }
 
         return null;
     }
 
-    public function createField($name, array $options){
-        $field = $this->getField($name);
-        $optionResolver = new OptionsResolver();
-        $field->setOptions($optionResolver, $options);
+    /**
+     * @param string $type
+     * @param string $name
+     * @param array  $options
+     *
+     * @return FieldReference
+     */
+    public function createField($type, $name,  array $options)
+    {
+        $fieldDefinition = $this->getFieldDefinition($type);
+        $optionResolver  = new OptionsResolver();
+        $optionResolver->setDefaults(
+            [
+                'limit'    => 1,
+                'required' => true,
+            ]
+        );
+        $fieldDefinition->setOptions($optionResolver, $options);
         $resolvedOptions = $optionResolver->resolve($options);
+
+        return new FieldReference(
+            $name,
+            $fieldDefinition,
+            $resolvedOptions
+        );
     }
 
     /**
      * Add a field widget to the manager
      *
-     * @param WidgetInterface $widget
+     * @param WidgetDefinitionInterface $widget
      */
-    public function addFieldWidget(WidgetInterface $widget)
+    public function addFieldWidget(WidgetDefinitionInterface $widget)
     {
         $this->fieldWidgets[$widget->getName()] = $widget;
     }
 
     /**
-     * @return WidgetInterface[]
+     * @return WidgetDefinitionInterface[]
      */
     public function getFieldWidgets()
     {
@@ -84,16 +103,17 @@ class FieldManager
     /**
      * @param $name
      *
-     * @return WidgetInterface
+     * @return WidgetDefinitionInterface
      */
     public function getFieldWidget($name)
     {
-        if(array_key_exists($name, $this->fieldWidgets))
-        {
-            return $this->fieldWidgets[$name];
+        if (!isset($this->fieldWidgets[$name])) {
+            throw new \Exception(
+                "Widget '{$name}' not found. Allowed widgets are: " . implode(', ', array_keys($this->fieldWidgets))
+            );
         }
 
-        return null;
+        return $this->fieldWidgets[$name];
     }
 
     /**
@@ -121,8 +141,7 @@ class FieldManager
      */
     public function getFieldDisplay($name)
     {
-        if(array_key_exists($name, $this->fieldDisplays))
-        {
+        if (array_key_exists($name, $this->fieldDisplays)) {
             return $this->fieldDisplays[$name];
         }
 

@@ -34,7 +34,7 @@ class FieldDataCollectionType extends AbstractType
         ]);
 
         $resolver->setAllowedTypes([
-            'field' => 'GravityCMS\CoreBundle\Entity\Field',
+            'field' => 'GravityCMS\Component\Field\FieldReference',
             'limit' => 'integer',
         ]);
     }

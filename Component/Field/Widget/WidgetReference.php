@@ -3,8 +3,9 @@
 
 namespace GravityCMS\Component\Field\Widget;
 
-use GravityCMS\Component\Field\FieldInterface;
+use GravityCMS\Component\Field\Field;
 use GravityCMS\Component\Field\FieldSettingsInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class WidgetReference
@@ -15,66 +16,50 @@ use GravityCMS\Component\Field\FieldSettingsInterface;
 class WidgetReference
 {
     /**
-     * @var FieldInterface
+     * @var WidgetDefinitionInterface
      */
-    protected $field;
+    protected $definition;
 
     /**
-     * @var FieldSettingsInterface
+     * @var array
      */
-    protected $fieldConfiguration;
+    protected $settings;
 
-    /**
-     * @var WidgetInterface
-     */
-    protected $widget;
-
-    /**
-     * @var WidgetSettingsInterface
-     */
-    protected $widgetConfiguration;
-
-    function __construct(
-        FieldInterface $field,
-        FieldSettingsInterface $fieldConfiguration,
-        WidgetInterface $widget,
-        WidgetSettingsInterface $widgetConfiguration
-    ) {
-        $this->field               = $field;
-        $this->fieldConfiguration  = $fieldConfiguration;
-        $this->widget              = $widget;
-        $this->widgetConfiguration = $widgetConfiguration;
+    function __construct(WidgetDefinitionInterface $definition, array $widgetSettings)
+    {
+        $this->definition = $definition;
+        $this->resolveOption($widgetSettings);
     }
 
     /**
-     * @return FieldInterface
+     * @param array $options
      */
-    public function getField()
+    protected function resolveOption($options)
     {
-        return $this->field;
+        $optionResolver = new OptionsResolver();
+        $this->definition->setOptions($optionResolver, $options);
+        $optionResolver->setDefaults(
+            [
+                'default' => null,
+            ]
+        );
+        $resolvedOptions = $optionResolver->resolve($options);
+        $this->settings  = $resolvedOptions;
     }
 
     /**
-     * @return FieldSettingsInterface
+     * @return WidgetDefinitionInterface
      */
-    public function getFieldConfiguration()
+    public function getDefinition()
     {
-        return $this->fieldConfiguration;
+        return $this->definition;
     }
 
     /**
-     * @return WidgetInterface
+     * @return array
      */
-    public function getWidget()
+    public function getSettings()
     {
-        return $this->widget;
-    }
-
-    /**
-     * @return WidgetSettingsInterface
-     */
-    public function getWidgetConfiguration()
-    {
-        return $this->widgetConfiguration;
+        return $this->settings;
     }
 }

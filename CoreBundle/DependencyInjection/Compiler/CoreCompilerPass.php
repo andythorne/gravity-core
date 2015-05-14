@@ -116,7 +116,7 @@ class CoreCompilerPass implements CompilerPassInterface
         // load in all the fields
         $fields = $container->findTaggedServiceIds('gravity.field');
         foreach ($fields as $sId => $def) {
-            $fieldManagerDefinition->addMethodCall('addField', [new Reference($sId)]);
+            $fieldManagerDefinition->addMethodCall('addFieldDefinition', [new Reference($sId)]);
         }
 
         $fieldWidgets = $container->findTaggedServiceIds('gravity.field.widget');

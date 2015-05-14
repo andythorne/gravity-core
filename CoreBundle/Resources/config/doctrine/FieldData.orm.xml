@@ -9,9 +9,7 @@
         </id>
 
         <field name="delta" type="integer" column="delta" nullable="false"/>
-
-        <many-to-one target-entity="Field" field="field" inversed-by="data">
-        </many-to-one>
+        <field name="field" type="string" length="50" column="field" nullable="false"/>
 
         <many-to-one target-entity="Entity" field="entity" inversed-by="fields" orphan-removal="true">
             <cascade>

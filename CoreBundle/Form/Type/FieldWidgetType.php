@@ -20,7 +20,7 @@ class FieldWidgetType extends AbstractType
     {
         $resolver->setRequired(['field']);
         $resolver->setAllowedTypes([
-            'field' => 'GravityCMS\CoreBundle\Entity\Field',
+            'field' => 'GravityCMS\Component\Field\FieldReference',
         ]);
     }
 

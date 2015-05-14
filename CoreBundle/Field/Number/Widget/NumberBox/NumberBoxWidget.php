@@ -3,9 +3,8 @@
 
 namespace GravityCMS\CoreBundle\Field\Number\Widget\NumberBox;
 
-use GravityCMS\Component\Field\FieldInterface;
-use GravityCMS\Component\Field\Widget\AbstractWidget;
-use GravityCMS\Component\Field\Widget\WidgetSettingsInterface;
+use GravityCMS\Component\Field\FieldDefinitionInterface;
+use GravityCMS\Component\Field\Widget\AbstractWidgetDefinition;
 use GravityCMS\CoreBundle\Entity\FieldNumber;
 use GravityCMS\CoreBundle\Field\Number\Widget\NumberBox\Configuration\NumberBoxWidgetConfiguration;
 use Symfony\Component\Form\AbstractType;
@@ -16,7 +15,7 @@ use Symfony\Component\Form\AbstractType;
  * @package GravityCMS\CoreBundle\Field\Number\Widget\NumberBox
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class NumberBoxWidget extends AbstractWidget
+class NumberBoxWidget extends AbstractWidgetDefinition
 {
     /**
      * Get the identifier name of the field widget. This must be a unique name and contain only alphanumeric,
@@ -60,33 +59,14 @@ class NumberBoxWidget extends AbstractWidget
     }
 
     /**
-     * Get the settings
-     *
-     * @return WidgetSettingsInterface
-     */
-    public function getSettings()
-    {
-        return new NumberBoxWidgetConfiguration();
-    }
-
-    /**
      * Checks if this widget supports the given field
      *
-     * @param FieldInterface $field
+     * @param FieldDefinitionInterface $field
      *
      * @return string
      */
-    public function supportsField(FieldInterface $field)
+    public function supportsField(FieldDefinitionInterface $field)
     {
         return $field->getName() == 'number';
-    }
-
-    /**
-     * @param FieldNumber             $entity
-     * @param WidgetSettingsInterface $configuration
-     */
-    public function setDefaults($entity, WidgetSettingsInterface $configuration)
-    {
-        $entity->setNumber($configuration->getDefault());
     }
 }

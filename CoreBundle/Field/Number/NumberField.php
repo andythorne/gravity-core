@@ -3,10 +3,10 @@
 
 namespace GravityCMS\CoreBundle\Field\Number;
 
-use GravityCMS\Component\Field\AbstractField;
+use GravityCMS\Component\Field\AbstractFieldDefinition;
 use GravityCMS\Component\Field\Configuration\FieldSettingsConfiguration;
 use GravityCMS\Component\Field\Display\DisplayInterface;
-use GravityCMS\Component\Field\Widget\WidgetInterface;
+use GravityCMS\Component\Field\Widget\WidgetDefinitionInterface;
 use GravityCMS\CoreBundle\Entity\FieldNumber;
 use GravityCMS\CoreBundle\Field\Number\Configuration\NumberFieldConfiguration;
 use GravityCMS\CoreBundle\Field\Number\Display\Number\NumberDisplay;
@@ -18,7 +18,7 @@ use GravityCMS\CoreBundle\Field\Number\Widget\NumberBox\NumberBoxWidget;
  * @package GravityCMS\CoreBundle\Field\Number
  * @author  Andy Thorne <contrabandvr@gmail.com>
  */
-class NumberField extends AbstractField
+class NumberField extends AbstractFieldDefinition
 {
     /**
      * Get the identifier name of the field. This must be a unique name and contain only alphanumeric, underscores (_)
@@ -72,15 +72,15 @@ class NumberField extends AbstractField
     /**
      * @return DisplayInterface
      */
-    protected function getDefaultDisplay()
+    public function getDefaultDisplay()
     {
         return new NumberDisplay();
     }
 
     /**
-     * @return WidgetInterface
+     * @return WidgetDefinitionInterface
      */
-    protected function getDefaultWidget()
+    public function getDefaultWidget()
     {
         return new NumberBoxWidget();
     }

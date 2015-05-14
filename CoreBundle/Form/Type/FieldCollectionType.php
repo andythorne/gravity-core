@@ -5,9 +5,9 @@ namespace GravityCMS\CoreBundle\Form\Type;
 use Gravity\NodeBundle\Entity\Node;
 use Gravity\NodeBundle\Entity\NodeContent;
 use GravityCMS\Component\Configuration\ConfigurationManager;
-use GravityCMS\Component\Field\FieldInterface;
+use GravityCMS\Component\Field\FieldDefinitionInterface;
 use GravityCMS\Component\Field\FieldManager;
-use GravityCMS\CoreBundle\Entity\Entity;
+use GravityCMS\Component\Field\FieldReference;
 use GravityCMS\CoreBundle\Entity\FieldData;
 use GravityCMS\CoreBundle\Form\DataTransformer\FieldCollectionDataTransformer;
 use Symfony\Component\Form\AbstractType;
@@ -51,52 +51,57 @@ class FieldCollectionType extends AbstractType
     {
         $i = 0;
         if ($options['node'] instanceof Node) {
-            $node          = $options['node'];
-            $contentType   = $node->getContentType();
-            $contents      = $node->getFields();
+            $node     = $options['node'];
+            $contents = $node->getFields();
+            /** @var FieldReference[] $fieldReferences */
+            $fieldReferences        = $options['fields'];
             $fieldContents = [];
 
             /** @var FieldData $content */
             foreach ($contents as $content) {
-                $fieldContents[$content->getField()->getName()][] = $content;
+                $fieldContents[$this->fieldManager->getFieldDefinition($content->getField())->getName()][] = $content;
             }
 
-            foreach ($contentType->getFields() as $fieldEntity) {
+            foreach ($fieldReferences as $fieldReference) {
 
-                $field       = $this->fieldManager->getField($fieldEntity->getFieldType());
-                $fieldWidget = $this->fieldManager->getFieldWidget($fieldEntity->getWidget()->getName());
+                $field       = $fieldReference->getDefinition();
+                $fieldWidgetReference = $fieldReference->getWidget();
 
-                if ($field instanceof FieldInterface) {
+                if ($field instanceof FieldDefinitionInterface) {
                     $dataClass = $field->getEntityClass();
-                    $formClass = $fieldWidget->getForm();
+                    $formClass = $fieldWidgetReference->getDefinition()->getForm();
 
-                    $fieldFormConfig = $fieldEntity->getConfig();
+                    $fieldFormSettings = $fieldReference->getSettings();
 
                     /** @var FieldData $entity */
-                    if (array_key_exists($fieldEntity->getName(), $fieldContents)) {
-                        $entities = $fieldContents[$fieldEntity->getName()];
+                    if (array_key_exists($field->getName(), $fieldContents)) {
+                        $entities = $fieldContents[$field->getName()];
                     } else {
-                        $entity   = new $dataClass();
-                        $fieldWidget->setDefaults($entity, $fieldEntity->getWidget()->getConfig());
+                        $entity = new $dataClass();
+                        // TODO: set the default value in the widget
                         $entities = [$entity];
                     }
 
-                    $this->fieldLabels[$i] = $fieldEntity;
-                    $builder->add($i, 'field_data_collection', [
-                        'type'         => $formClass,
-                        'options'      => [
-                            'label' => false,
-                            'field' => $fieldEntity,
-                        ],
-                        'required'     => $fieldFormConfig->isRequired(),
-                        'field'        => $fieldEntity,
-                        'limit'        => (int)$fieldFormConfig->getLimit() ?: 1,
-                        'label'        => false,
-                        'allow_add'    => true,
-                        'allow_delete' => true,
-                        'data'         => $entities,
-                        'by_reference' => false,
-                    ]);
+                    $this->fieldLabels[$i] = $fieldReference;
+                    $builder->add(
+                        $i,
+                        'field_data_collection',
+                        [
+                            'type'         => $formClass,
+                            'options'      => [
+                                'label' => false,
+                                'field' => $fieldReference,
+                            ],
+                            'required'     => $fieldFormSettings['required'],
+                            'field'        => $fieldReference,
+                            'limit'        => (int)$fieldFormSettings['limit'] ?: 1,
+                            'label'        => false,
+                            'allow_add'    => true,
+                            'allow_delete' => true,
+                            'data'         => $entities,
+                            'by_reference' => false,
+                        ]
+                    );
                     ++$i;
                 }
             }
@@ -110,9 +115,17 @@ class FieldCollectionType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setRequired([
-            'node'
-        ]);
+        $resolver->setRequired(
+            [
+                'node',
+                'fields'
+            ]
+        );
+        $resolver->setAllowedTypes(
+            [
+                'fields' => 'array'
+            ]
+        );
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
